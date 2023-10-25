@@ -1,0 +1,607 @@
+
+.CadastroEstilo{
+    * {
+        box-sizing: border-box;
+        margin: 0px;
+    }
+    overflow-x: hidden;
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        min-height: 105px;
+        background-color: black;
+
+        .faixa1 {
+            width: 1260px;
+            max-height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+
+            .logoImg {
+                width: 180px;
+                height: auto;
+
+                a {
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+
+            .barraDePesquisa {
+                width: 500px;
+                height: 36px;
+                margin-right: 30px;
+                margin-left: 30px;
+                background-color: white;
+
+                input {
+                    width: 92%;
+                    height: 100%;
+                    padding: 15px;
+                    border: none;
+
+                    &::placeholder {
+                        font-family: "retroFont";
+                    }
+
+                    &:focus {
+                        input {
+                            outline: none;
+                        }
+
+                        select {
+                            outline: none;
+                        }
+                    }
+                }
+
+                button {
+                    position: absolute;
+                    z-index: 1;
+                    background-color: transparent;
+                    border: none;
+
+                    img {
+                        background-color: transparent;
+                        border: none;
+                        display: flex;
+                        align-items: center;
+                        justify-self: center;
+                        top: 8px;
+                        left: 12px;
+                        position: absolute;
+                    }
+                }
+            }
+
+            .toolsUsuario {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+
+                svg {
+                    display: flex;
+                    margin-left: 10px;
+                }
+
+                .contato {
+                    button {
+                        display: flex;
+                        align-items: center;
+                        text-decoration: none;
+                        background-color: transparent;
+                        border: none;
+
+                        img {
+                            background-color: transparent;
+                            border: none;
+                            margin-left: 10px;
+                            width: 30px;
+                            height: auto;
+                        }
+
+                        h1 {
+                            margin-left: 10px;
+                            color: white;
+                            text-decoration: none;
+                            font-family: retroFont;
+                            font-size: 12px;
+                        }
+                    }
+                }
+
+                .contaUsuario {
+                    width: 178px;
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        text-decoration: none;
+                        margin-left: 10px;
+                        margin-right: 5px;
+                        color: white;
+                        text-decoration: none;
+                        font-family: retroFont;
+                        font-size: 12px;
+
+                        img {
+                            margin-right: 10px;
+                            margin-left: 10px;
+                            width: 30px;
+                            height: auto;
+                        }
+                    }
+                }
+
+                .carrinho {
+                    button {
+                        display: flex;
+                        align-items: center;
+                        text-decoration: none;
+                        background-color: transparent;
+                        border: none;
+
+                        img {
+                            margin-left: 10px;
+                            width: 30px;
+                            height: auto;
+                        }
+
+                        h1 {
+                            margin-left: 10px;
+                            color: white;
+                            text-decoration: none;
+                            font-family: retroFont;
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 65px;
+        background-color: black;
+
+        .navegacaoCategoria {
+            .maisCategorias {
+                display: none;
+            }
+
+            .principal {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                width: 1000px;
+
+                svg {
+                    height: 30px;
+                    
+                }
+
+                button {
+                    background-color: transparent;
+                    border: none;
+                    text-decoration: none;
+                    color: white;
+                    font-size: 14px;
+                    font-family: retroFont;
+                }
+
+                .seta {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+    
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        margin: 30px;
+        height: 1100px;
+    
+        .conteudoMain {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            border-radius: 50px;
+            width: 100%;
+            max-width: 800px;
+            height: 100%;
+            max-height: 1100px;
+            background-color: black;
+            padding: 50px;
+    
+            .imagem {
+    
+                width: 571px;
+                height: 571px;
+    
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+    
+            .areaCadastro {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+    
+                h1 {
+                    display: flex;
+                    justify-content: center;
+                    font-family: retroFont;
+                    color: white;
+                    font-size: 42px;
+                    margin-bottom: 20px;
+                }
+    
+                h2 {
+                    display: flex;
+                    justify-content: center;
+                    font-family: retroFont;
+                    font-size: 16px;
+                    color: white;
+                    margin-bottom: 20px;
+                }
+    
+                img {
+    
+                    margin-bottom: 20px;
+                }
+    
+                .loginTexto {}
+    
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+    
+                    input[type="text"] {
+                        align-self: flex-start;
+                        width: 457px;
+                        height: 45px;
+                        border-radius: 20px;
+                        font-size: 16px;
+                    }
+    
+                    input[type="submit"] {
+                        width: 284px;
+                        height: 45px;
+                        border-radius: 20px;
+                        font-family: retroFont;
+                        margin-top: 40px;
+                    }
+                    
+                    label {
+                        align-self: flex-start;
+                        height: 18px;
+                        margin-left: 30px;
+                        margin-top: 30px;
+                        margin-bottom: 30px;
+                        color: white;
+                        font-family: retroFont;
+                        margin-top: 20px;
+                        margin-bottom: 20px;
+                    }
+    
+                    a {
+                        align-self: flex-end;
+                        margin-top: 5px;
+                        margin-right: 15px;
+                        margin-bottom: 15px;
+                        color: white;
+                        font-family: retroFont;
+                        font-size: 8px;
+                    }
+                }
+    
+                .criarConta {
+                    margin-top: 15px;
+    
+                    p {
+                        color: white;
+                        font-family: retroFont;
+                        font-size: 8px;
+    
+                        a {
+                            color: #5C92FB;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: black;
+        width: 100%;
+        height: 479px;
+
+        .conteudoFooter {
+            width: 100%;
+            max-width: 1037px;
+            display: grid;
+            justify-content: center;
+            align-items: flex-start;
+            grid-template-columns: 228px 228px 228px;
+            grid-template-rows: 121px 121px;
+            grid-gap: 30px;
+            height: 300px;
+            color: white;
+            font-family: 'K2D Bold';
+
+            .conteudo1 {
+                flex-wrap: wrap;
+
+                grid-row: 1 / 2;
+
+                h3 {
+
+                    margin-bottom: 10px;
+                }
+            }
+
+            .conteudo2 {
+                grid-row: 1 / 2;
+
+                h3 {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .conteudo3 {
+                display: grid;
+                grid-row: 1 / 3;
+                flex-wrap: wrap;
+                height: 212px;
+
+                h3 {
+                    margin-bottom: 10px;
+                }
+
+                button {
+                    font-size: 13px;
+                    font-family: 'K2D Light';
+                    background-color: transparent;
+                    border: none;
+                    color: white;
+                    text-align: left;
+                }
+            }
+
+            .conteudo4 {
+                grid-row: 2 / 3;
+
+                h3 {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .conteudo5 {
+                grid-row: 2 / 3;
+
+                h3 {
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .rodape {
+            width: 100%;
+            max-width: 1037px;
+            height: 100%;
+            max-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            color: white;
+            font-family: 'K2D', sans-serif;
+            border-top: solid 2px white;
+
+            .logo {
+                margin-right: 350px;
+            }
+
+            .informacoesEmpre {
+                p {
+                    text-align: center;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+    
+    @media screen and (max-width: 1024px) {
+        main {
+            .conteudoMain {
+                .imagem {
+                    display: none;
+                }
+            }
+        }
+    
+        header {
+            .faixa1 {
+                
+                .logoImg {
+                    img {
+                        margin-right: 20px;
+                    }
+                }
+    
+                .barraDePesquisa {
+                    max-width: 500px;
+                    max-height: 36px;
+                    background-color: white;
+                    input {
+                        width: 90%;
+                        height: 100%;
+                        padding: 15px;
+                        border: none;
+    
+                        &::placeholder {
+                            font-family: "retroFont";
+                        }
+    
+                        &:focus {
+                            input {
+                                outline: none;
+                            }
+    
+                            select {
+                                outline: none;
+                            }
+                        }
+                    }
+    
+                    a {
+                        position: absolute;
+                        z-index: 1;
+    
+                        img {
+                            display: flex;
+                            align-items: center;
+                            justify-self: center;
+                            top: 8px;
+                            left: 15px;
+                            position: absolute;
+                        }
+                    }
+                }
+    
+                .toolsUsuario {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+    
+                    svg {
+                        display: none;
+                    }
+    
+                    .contato {
+                        a {
+                            display: flex;
+                            align-items: center;
+                            text-decoration: none;
+    
+                            img {
+                                margin-left: 10px;
+                                width: 30px;
+                                height: auto;
+                            }
+    
+                            h1 {
+                                display: none;
+                            }
+                        }
+                    }
+    
+                    .contaUsuario {
+                        width: auto;
+                        a {
+                            display: flex;
+                            align-items: center;
+                            text-decoration: none;
+    
+                            img {
+                                margin-left: 10px;
+                                width: 30px;
+                                height: auto;
+                            }
+    
+                            h1 {
+                                display: none;
+                            }
+                        }
+                    }
+    
+                    .carrinho {
+                        a {
+                            display: flex;
+                            align-items: center;
+                            text-decoration: none;
+    
+                            img {
+                                margin-left: 10px;
+                                width: 30px;
+                                height: auto;
+                            }
+    
+                            h1 {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+    
+            .navegacaoCategoria {
+                .maisCategorias{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-left: 20px;
+                    button{  
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: transparent;
+                        border: none;
+                        color: white;
+                        font-family: 'retroFont';
+                        img{
+                            height: 18px;
+                            margin-right: 5px;
+                        }
+                    }   
+                }
+                #categoria {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: transparent;
+                    border: none;
+                    height: 18px;
+                    button{
+                        img{
+                            
+                        }
+                    }
+                    
+                }
+                .principal{
+                    display: none;
+                }
+            }
+        }
+    }
+}

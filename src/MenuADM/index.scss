@@ -1,0 +1,263 @@
+.MenuAdmEstilo{
+    * {
+        margin: 0px;
+        box-sizing: border-box;
+    }
+    
+    header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #000;
+        width: 100%;
+        height: 105px;
+        flex-direction: row;
+        z-index: 2;
+    
+        .cabecalhoConteudo {
+            margin-left: 50px;
+            margin-right: 50px;
+            width: 100%;
+    
+            height: 105px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+    
+            .logo {
+                width: 180px;
+                height: auto;
+    
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+    
+            .toolsUsuario {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                flex-direction: row;
+    
+                .aviso {
+                    img {
+                        height: 30px;
+                        margin-right: 3px;
+                    }
+    
+                    a {
+                        text-decoration: none;
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        flex-direction: row;
+                        color: white;
+                        font-family: 'retroFont';
+                        font-size: 12px;
+                    }
+    
+                    margin-right: 10px;
+                }
+    
+                svg {
+                    height: 30px;
+                }
+    
+                .minhaConta {
+                    a {
+                        img {
+                            margin-left: 3px;
+                            margin-right: 3px;
+                            height: 30px;
+                        }
+    
+                        text-decoration: none;
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        flex-direction: row;
+                        color: white;
+                        font-family: 'retroFont';
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+    
+    nav {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        width: 100%;
+        height: 60px;
+        background-color: #E5E5E5;
+        z-index: 15;
+        
+    
+        .navConteudo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+    
+            svg{
+                margin-left: 5px;
+                margin-right: 5px;
+                color: 898989;
+            }
+    
+            .paginaInicial {
+                display: flex;
+            align-items: center;
+            justify-content: center;
+                color: #898989;
+                width: 170px;
+                svg {
+                    height: 30px;
+                    margin-right: 5px;
+                    fill: #000;
+                }
+    
+                a {
+                    text-decoration: none;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    flex-direction: row;
+                    color: #000;
+                    font-family: 'K2D Medium';
+                    font-size: 20px;
+                }
+            }
+    
+            .produto {
+                color: #898989;
+                margin-right: 5px;
+                svg {
+                    height: 30px;
+                    margin-right: 5px;
+                    fill: #898989;
+                }
+    
+                a {
+                    text-decoration: none;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    flex-direction: row;
+                    color: #898989;
+                    font-family: 'K2D Medium';
+                    font-size: 20px;
+                }
+            }
+    
+            .gerenUsuario{
+                color: #898989;
+    
+                svg {
+                    height: 27px;
+                    margin-right: 5px;
+                    fill: #898989;
+                }
+    
+                a {
+                    text-decoration: none;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    flex-direction: row;
+                    color: #898989;
+                    font-family: 'K2D Medium';
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+    
+    main{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        
+        width: 100%;
+        height: 100%;
+        padding: 50px;
+        
+        .mainConteudo {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: row;
+            gap: 40px;
+            width: 100%;
+            height: 644px;
+            height: 100%;
+            background-color: #E5E5E5;
+            border-radius: 50px;
+            padding: 50px;
+    
+            .dados {
+                width: 370px;
+    
+                img {
+                    border-radius: 20px;
+                    margin-bottom: 20px;
+                    height: 370px;
+                }
+    
+                .infosUser {
+                    background-color: white;
+                    border-radius: 20px;
+                    padding: 20px;
+                    h3{
+                        margin-bottom: 5px;
+                        font-family: 'K2D Extra bold';
+                    }
+                    p {
+                        margin-bottom: 5px;
+                        margin-left: 10px;
+                        font-family: 'K2D Bold';
+                    }
+                }
+            }
+            .opcos{
+                align-self: flex-start;
+                background-color: white;
+                padding: 20px;
+                border-radius: 20px;
+                width: 100%;
+                height: 100%;
+                h1{
+                    font-family: 'K2D Extra bold';
+                }
+                h2{
+                    margin-top: 20px;
+                    margin-left: 10px;
+                    font-family: 'K2D Bold';
+                }
+                button{
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    margin-top: 20px;
+                    margin-left: 20px;
+                    border: none;
+                    background-color: transparent;
+                    font-family: 'K2D Bold';
+                    svg{
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

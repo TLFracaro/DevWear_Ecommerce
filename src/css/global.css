@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'retroFont';
+    src: url(../assets/font/retroFont.ttf);
+}
+@font-face {
+    font-family: 'K2D Extra Bold';
+    src: url(../assets/font/K2D-ExtraBold.ttf);
+}
+@font-face {
+    font-family: 'K2D Bold';
+    src: url(../assets/font/K2D-Bold.ttf);
+}
+@font-face {
+    font-family: 'K2D Light';
+    src: url(../assets/font/K2D-Light.ttf);
+}
+@font-face {
+    font-family: 'K2D Medium';
+    src: url(../assets/font/K2D-Medium.ttf);
+}
+@font-face {
+    font-family: 'K2D SemiBold';
+    src: url(../assets/font/K2D-SemiBold.ttf);
+}   

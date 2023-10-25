@@ -1,0 +1,440 @@
+.CadastroProdutoEstilo {
+    * {
+        margin: 0px;
+        box-sizing: border-box;
+    }
+
+    header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #000;
+        width: 100%;
+        height: 105px;
+        flex-direction: row;
+        z-index: 2;
+
+        .cabecalhoConteudo {
+            margin-left: 50px;
+            margin-right: 50px;
+            width: 100%;
+
+            height: 105px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+
+            .logo {
+                width: 180px;
+                height: auto;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .toolsUsuario {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                flex-direction: row;
+
+                .aviso {
+                    img {
+                        height: 30px;
+                        margin-right: 3px;
+                    }
+
+                    a {
+                        text-decoration: none;
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        flex-direction: row;
+                        color: white;
+                        font-family: 'retroFont';
+                        font-size: 12px;
+                    }
+
+                    margin-right: 10px;
+                }
+
+                svg {
+                    height: 30px;
+                }
+
+                .minhaConta {
+                    a {
+                        img {
+                            margin-left: 3px;
+                            margin-right: 3px;
+                            height: 30px;
+                        }
+
+                        text-decoration: none;
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        flex-direction: row;
+                        color: white;
+                        font-family: 'retroFont';
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+
+    nav {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        width: 100%;
+        height: 60px;
+        background-color: #E5E5E5;
+        z-index: 15;
+
+
+        .navConteudo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+
+            svg {
+                margin-left: 5px;
+                margin-right: 5px;
+                color: 898989;
+            }
+
+            .paginaInicial {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #898989;
+                width: 170px;
+
+                svg {
+                    height: 30px;
+                    margin-right: 5px;
+                    fill: #898989;
+                }
+
+                a {
+                    text-decoration: none;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    flex-direction: row;
+                    color: #898989;
+                    font-family: 'K2D Medium';
+                    font-size: 20px;
+                }
+            }
+
+            .produto {
+                color: #000;
+                margin-right: 5px;
+
+                svg {
+                    height: 30px;
+                    margin-right: 5px;
+                    fill: #000;
+                }
+
+                a {
+                    text-decoration: none;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    flex-direction: row;
+                    color: #000;
+                    font-family: 'K2D Medium';
+                    font-size: 20px;
+                }
+            }
+
+            .gerenUsuario {
+                color: #898989;
+
+                svg {
+                    height: 27px;
+                    margin-right: 5px;
+                    fill: #898989;
+                }
+
+                a {
+                    text-decoration: none;
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    flex-direction: row;
+                    color: #898989;
+                    font-family: 'K2D Medium';
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 50px;
+        z-index: 1;
+
+        .mainConteudo {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            max-width: 900px;
+            height: 100%;
+            background-color: #E5E5E5;
+            border-radius: 50px;
+            padding: 50px;
+
+            .voltar {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                a {
+                    color: #000;
+                    text-decoration: none;
+                    font-size: 12px;
+                    font-family: 'K2D Extra Bold';
+
+                    h1 {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    svg {
+                        height: 32px;
+                    }
+                }
+            }
+
+            #titulo {
+                font-family: 'K2D Bold';
+                margin-left: 50px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            .formulario {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+
+                form {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    margin-bottom: 20px;
+
+                    label {
+                        align-self: flex-start;
+                        font-family: 'k2D Bold';
+                        margin: 10px;
+                    }
+
+                    input[type=text],
+                    input[type=number] {
+                        padding: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                        width: 100%;
+
+                        outline: none;
+                        border-radius: 20px;
+                        height: 50px;
+                        border: none;
+                    }
+
+                    input[type=submit] {
+                        background-color: #000;
+                        font-family: 'K2D Bold';
+                        font-size: 18px;
+                        color: white;
+                        height: 50px;
+                        border-radius: 20px;
+                        width: 200px;
+                    }
+
+                    .imagemProd {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: row;
+
+                        .image-item {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            margin: 10px;
+
+                            img {
+                                
+                                border-radius: 20px;
+                                max-width: 60px;
+                                max-height: 60px;
+
+                            }
+
+                            button {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+
+                                svg {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    display: none;
+                                }
+
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 20px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                position: absolute;
+                                max-width: 60px;
+                                max-height: 60px;
+
+                                color: #ffffff;
+                                border: none;
+
+                                cursor: pointer;
+                            }
+
+                            &:hover button {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 100%;
+                                height: 100%;
+
+                                svg {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    transition-duration: 1s;
+                                }
+
+                                background-color: red;
+                                transition-duration: 1s;
+                                opacity: 0.5;
+                            }
+                        }
+
+                        #imageContainer {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-wrap: wrap;
+                        }
+
+                        input[type="file"] {
+                            display: none;
+                        }
+
+                        .imageInput {
+                            span {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 60px;
+                                height: 60px;
+                                border-radius: 20px;
+                                background-color: #fff;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                cursor: pointer;
+
+                                svg {
+                                    fill: #000;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            button {
+                background-color: red;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+
+            .variacao {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+                background-color: #fff;
+                padding: 10px;
+                border-radius: 20px;
+                margin-bottom: 30px;
+
+                label {
+                    margin-right: 10px;
+                    color: #898989;
+                }
+
+                input[type="text"] {
+                    border-radius: 10px;
+                    width: 100px;
+                    background-color: #D9D9D9;
+                    height: 20px;
+                }
+
+                svg {
+                    margin-right: 10px;
+                    margin-left: 10px;
+                    height: 30px;
+                }
+            }
+
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: transparent;
+                border: none;
+                color: black;
+                font-size: 16px;
+                font-family: 'K2D Bold';
+                margin-bottom: 20px;
+
+                svg {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}
