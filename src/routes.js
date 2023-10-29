@@ -1,0 +1,32 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import App from "./pages/Home/App.js";
+import Cadastro from "./pages/Cadastro/index.js";
+import CadastroDeProdutos from "./pages/CadastroDeProdutos/index.js";
+import GerenciamentoUsuario from "./pages/GerenciamentoUsuario/index.js";
+import MenuADM from "./pages/MenuADM/index.js";
+import Produtos from "./pages/Produtos/index.js";
+import VizualizarProdutos from "./pages/VizualizarProdutos/index.js";
+import Login from './pages/Login/index.js';
+
+export default function Rotas() {
+    return(
+        <BrowserRouter>
+            <Routes>
+
+                <Route path='/' element={<App />} />
+                <Route path="/cadastro" element={<Cadastro />} />
+                <Route path="/cadastrodeprodutos" element={<CadastroDeProdutos />} />
+                <Route path="/gerenciamentousuario" element={<GerenciamentoUsuario />} />
+                <Route path="/menuadm" element={<MenuADM />} />
+                <Route path="/produtos" element={<Produtos />} />
+                <Route path="/vizualizarprodutos" element={<VizualizarProdutos />} />
+                <Route path="/login" element={<Login />} />
+
+                {/* <Route path='/*' element={<NaoEncontrado />} /> */}
+
+            </Routes>
+        </BrowserRouter>
+    );
+}
+

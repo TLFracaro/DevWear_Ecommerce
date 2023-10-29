@@ -1,156 +1,11 @@
 import './index.scss';
-import { Link } from "react-router-dom";
-import balaoMensagem from '../assets/image/balaoMensagem.svg';
-import carrinhoPixel from '../assets/image/carrinhoPixel.svg';
-import categoria from '../assets/image/categoria.svg';
-import devWearLogo from '../assets/image/devWearLogo.svg';
-import linhaLogin from '../assets/image/linhaLogin.svg';
-import logoDevWearSemFundo from '../assets/image/logoDevWearSemFundo.svg';
-import lupaPixel from '../assets/image/lupaPixel.svg';
-import pessoaPixel from '../assets/image/pessoaPixel.svg';
-import seta from '../assets/image/seta.svg';
+import '../../css/global.css';
 
-import '../css/global.css';
+import logoDevWearSemFundo from '../../assets/image/logoDevWearSemFundo.svg';
 
-export default function Cadastro() {
+export default function Rodape() {
     return (
-        <section className='CadastroEstilo'>
-            <header>
-                <div class="faixa1">
-                    <div class="logoImg">
-                        <Link to="/"><img src={devWearLogo}
-                            alt="Logo da marca DevWear"></img></Link>
-                    </div>
-                    <div class="barraDePesquisa">
-                        <input type="text" name="pesquisa" placeholder="Pesquisar"></input>
-                        <button><img src={lupaPixel} alt="Lupa clique para pesquisar"></img></button>
-                    </div>
-                    <div class="toolsUsuario">
-                        <div class="contato">
-                            <button>
-                                <img src={balaoMensagem}
-                                    alt="Balão de contato em arte pixelada"></img>
-                                <h1>Contato</h1>
-                            </button>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                        </svg>
-                        <div class="contaUsuario">
-                            <Link to="/login">
-                                <img src={pessoaPixel}
-                                    alt="Pessoa representando o usuário em arte pixelada"></img>Minha Conta
-                            </Link>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                        </svg>
-                        <div class="carrinho">
-                            <button>
-                                <img src={carrinhoPixel}
-                                    alt="Carrinho de compra em arte pixelada"></img>
-                                <h1>Carrinho</h1>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </header>
-
-            <nav>
-                <div class="navegacaoCategoria">
-                    <div class="maisCategorias">
-                        <button><img src={categoria}
-                            alt="Icone de mostrar mais categorias"></img>categorias</button>
-                    </div>
-                    <div class="principal">
-                        <button>Camisetas
-                            <img class="seta" src={seta}
-                                alt="Seta para mostrar subcategorias"></img></button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                        </svg>
-
-                        <button>Acessorios
-                            <img class="seta" src={seta}
-                                alt="Seta para mostrar subcategorias"></img></button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                        </svg>
-                        <button>Moletom
-                            <img class="seta" src={seta}
-                                alt="Seta para mostrar subcategorias"></img></button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                        </svg>
-                        <button>Calcas
-                            <img class="seta" src={seta}
-                                alt="Seta para mostrar subcategorias"></img></button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                        </svg>
-                        <button>Bermudas
-                            <img class="seta" src={seta}
-                                alt="Seta para mostrar subcategorias"></img></button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                        </svg>
-                        <button>Mais Categorias
-                            <img class="seta" src={seta}
-                                alt="Seta para mostrar subcategorias"></img></button>
-                    </div>
-
-                </div>
-            </nav>
-            <main>
-                <section class="conteudoMain">
-                    <div class="areaCadastro">
-                        <div class="loginTexto">
-                            <h1>Cadastro</h1>
-                            <h2>faca parte do nosso time!</h2>
-                            <img src={linhaLogin}
-                                alt="Linha  separando caixas de texto do titulo"></img>
-                        </div>
-                        <form action="">
-                            <label for="">nome completo:</label>
-                            <input type="text"></input>
-                            <label for="">cpf:</label>
-                            <input type="text"></input>
-                            <label for="">e-mail:</label>
-                            <input type="text"></input>
-                            <label for="">Confirmar e-mail:</label>
-                            <input type="text"></input>
-                            <label for="">senha:</label>
-                            <input type="text"></input>
-                            <label for="">Confirmar senha:</label>
-                            <input type="text"></input>
-                            <label for="">Confirmar senha:</label>
-                            <input type="text"></input>
-                            <input type="submit" value="Cadastrar-se"></input>
-                        </form>
-                    </div>
-                </section>
-            </main>
+        <section className='Comp-Rodape-Estilo'>
             <footer>
                 <section class="conteudoFooter">
                     <div class="conteudo1">
@@ -212,7 +67,7 @@ export default function Cadastro() {
                             alt="Logo do e-commerce da loja de roupa"></img>
                     </div>
                     <div class="informacoesEmpre">
-                        <p>Endereco: Rua Linda, 299, Jd. Bonito, São Paulo, SP , CEP: 25679-485</p><p>CNPJ: 87.192.227/0001-64</p>
+                        <p>Endereco: Rua Linda, 299, Jd. Bonito, São Paulo, SP , CEP: 25679-485</p><br></br><p>CNPJ: 87.192.227/0001-64</p>
                     </div>
                 </div>
             </footer>

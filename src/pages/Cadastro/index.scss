@@ -46,7 +46,7 @@
                     height: 100%;
                     padding: 15px;
                     border: none;
-
+                    outline: none;
                     &::placeholder {
                         font-family: "retroFont";
                     }
@@ -213,7 +213,7 @@
         justify-content: center;
         flex-direction: row;
         margin: 30px;
-        height: 1100px;
+        height: 100%;
     
         .conteudoMain {
             display: flex;
@@ -275,19 +275,42 @@
                     align-items: center;
     
                     input[type="text"] {
+                        outline: none;
                         align-self: flex-start;
                         width: 457px;
                         height: 45px;
                         border-radius: 20px;
                         font-size: 16px;
+                        padding: 20px;
+                        font-family: 'K2D Medium';
+                        border: none;
+                    }
+
+                    input[type="password"] {
+                        outline: none;
+                        align-self: flex-start;
+                        width: 457px;
+                        height: 45px;
+                        border-radius: 20px;
+                        font-size: 16px;
+                        padding: 20px;
+                        font-family: 'K2D Medium';
+                        border: none;
                     }
     
-                    input[type="submit"] {
+                    button {
                         width: 284px;
                         height: 45px;
                         border-radius: 20px;
                         font-family: retroFont;
                         margin-top: 40px;
+                        border: none;
+                        cursor: pointer;
+                        &:hover{
+                            transition: 0.2s;
+                            color: #fff;
+                            background-color: #4ac204;
+                        }
                     }
                     
                     label {
