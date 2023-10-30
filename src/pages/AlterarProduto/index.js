@@ -26,25 +26,25 @@ export default function AlterarProduto() {
         setImages(newImages);
     }
 
-    function adicionarVariacao() {
-        const adicionarVariacao = document.querySelector("#adicionar-variacao");
-        const variacoesContainer = document.querySelector(".variacoes");
+    // function adicionarVariacao() {
+    //     const adicionarVariacao = document.querySelector("#adicionar-variacao");
+    //     const variacoesContainer = document.querySelector(".variacoes");
 
-        adicionarVariacao.addEventListener("click", () => {
-            const novaVariacao = document.createElement("div");
+    //     adicionarVariacao.addEventListener("click", () => {
+    //         const novaVariacao = document.createElement("div");
 
-            novaVariacao.innerHTML = `
-                                    <label for="tamanho">Tamanho:</label>
-                                    <input id="tamanho" type="text" name="tamanho">
-                                    <label for="cor">Cor:</label>
-                                    <input id="cor" type="text" name="cor">
-                                    <label for="quantidade">Quantidade:</label>
-                                    <input id="quantidade" type="text" name="quantidade">
-                                `;
+    //         novaVariacao.innerHTML = `
+    //                                 <label for="tamanho">Tamanho:</label>
+    //                                 <input id="tamanho" type="text" name="tamanho">
+    //                                 <label for="cor">Cor:</label>
+    //                                 <input id="cor" type="text" name="cor">
+    //                                 <label for="quantidade">Quantidade:</label>
+    //                                 <input id="quantidade" type="text" name="quantidade">
+    //                             `;
 
-            variacoesContainer.appendChild(novaVariacao);
-        });
-    }
+    //         variacoesContainer.appendChild(novaVariacao);
+    //     });
+    // }
 
     return (
         <section className="AlterarProdutoEstilo">
@@ -134,13 +134,13 @@ export default function AlterarProduto() {
                                 <input id="cor" type="text" name="cor"></input>
                                 <label for="quantidade">Quantidade:</label>
                                 <input id="quantidade" type="text" name="quantidade"></input>
-                                <a><svg width="40" height="40" viewBox="0 0 40 40" fill="none"
+                                <Link><svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M15 6.66683V5.00016C15 4.55814 15.1756 4.13421 15.4882 3.82165C15.8007 3.50909 16.2246 3.3335 16.6667 3.3335H23.3333C23.7754 3.3335 24.1993 3.50909 24.5118 3.82165C24.8244 4.13421 25 4.55814 25 5.00016V6.66683H31.6667C32.5507 6.66683 33.3986 7.01802 34.0237 7.64314C34.6488 8.26826 35 9.11611 35 10.0002V11.6668C35 12.5509 34.6488 13.3987 34.0237 14.0239C33.3986 14.649 32.5507 15.0002 31.6667 15.0002H31.445L30.3117 32.0002C30.2271 33.2656 29.6648 34.4517 28.7386 35.3181C27.8125 36.1846 26.5916 36.6667 25.3233 36.6668H14.71C13.4428 36.6668 12.2229 36.1856 11.2968 35.3206C10.3708 34.4555 9.80784 33.2711 9.72167 32.0068L8.56167 15.0002H8.33333C7.44928 15.0002 6.60143 14.649 5.97631 14.0239C5.35119 13.3987 5 12.5509 5 11.6668V10.0002C5 9.11611 5.35119 8.26826 5.97631 7.64314C6.60143 7.01802 7.44928 6.66683 8.33333 6.66683H15ZM31.6667 10.0002H8.33333V11.6668H31.6667V10.0002ZM11.9017 15.0002L13.0467 31.7802C13.0754 32.2017 13.2631 32.5966 13.5719 32.8849C13.8807 33.1733 14.2875 33.3336 14.71 33.3335H25.3233C25.7464 33.3336 26.1536 33.1728 26.4625 32.8837C26.7714 32.5946 26.9587 32.1989 26.9867 31.7768L28.1033 15.0002H11.9033H11.9017ZM16.6667 16.6668C17.1087 16.6668 17.5326 16.8424 17.8452 17.155C18.1577 17.4675 18.3333 17.8915 18.3333 18.3335V30.0002C18.3333 30.4422 18.1577 30.8661 17.8452 31.1787C17.5326 31.4912 17.1087 31.6668 16.6667 31.6668C16.2246 31.6668 15.8007 31.4912 15.4882 31.1787C15.1756 30.8661 15 30.4422 15 30.0002V18.3335C15 17.8915 15.1756 17.4675 15.4882 17.155C15.8007 16.8424 16.2246 16.6668 16.6667 16.6668ZM23.3333 16.6668C23.7754 16.6668 24.1993 16.8424 24.5118 17.155C24.8244 17.4675 25 17.8915 25 18.3335V30.0002C25 30.4422 24.8244 30.8661 24.5118 31.1787C24.1993 31.4912 23.7754 31.6668 23.3333 31.6668C22.8913 31.6668 22.4674 31.4912 22.1548 31.1787C21.8423 30.8661 21.6667 30.4422 21.6667 30.0002V18.3335C21.6667 17.8915 21.8423 17.4675 22.1548 17.155C22.4674 16.8424 22.8913 16.6668 23.3333 16.6668Z"
                                         fill="#898989" />
                                 </svg>
-                                </a>
+                                </Link>
                             </div>
 
                             <button id="adicionar-variacao"><svg width="30" height="30" viewBox="0 0 30 30" fill="none"

@@ -3,9 +3,9 @@ import './index.scss';
 import linhaLogin from '../../assets/image/linhaLogin.svg';
 import Cabecalho1 from '../../components/Cabecalho1';
 import Rodape from '../../components/Rodape';
-
+import { useNavigate } from 'react-router-dom'
 import '../../css/global.css';
-import { useState } from 'react';
+import { useState, } from 'react';
 import axios from 'axios';
 
 
@@ -14,19 +14,49 @@ export default function Cadastro() {
     const [nome, setNome] = useState();
     const [cpf, setCpf] = useState('');
     const [cpfValdio, setcpfValdio] = useState(false);
-    const [email, setEmail] = useState();
+    const [email, setEmail] = useState('');
     const [emailValido, setEmailValido] = useState('');
-    const [confEmail, setConfEmail] = useState();
-    const [senha, setSenha] = useState();
-    const [confSenha, setConfSenha] = useState();
-    const [senhasIguais, setSenhasIguais] = useState();
+    const [confEmail, setConfEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confSenha, setConfSenha] = useState('');
+    const [senhasIguais, setSenhasIguais] = useState('');
+    const [texto, setTexto] = useState('');
+    const navigate = useNavigate();
+    const [modalAberto, setModalAberto] = useState(false);
+
+    const fecharModal = () => {
+        setModalAberto(false);
+    };
+
+    const mostrarModal = () => {
+        setModalAberto(true);
+    };
 
     const cadastrarUsuario = async () => {
         const cpfNumeros = cpf.replace(/\D/g, '');
-        const emailValido = validarEmail(email);
         const senhasSaoIguais = validarSenhas(senha, confSenha);
+        const emailsSaoIguaisEValidos = email === confEmail && emailValido;
 
-        if (cpfNumeros.length === 11 && emailValido && senhasSaoIguais) {
+        console.log("CPF:", cpfNumeros.length);
+        console.log("Email válido:", emailValido);
+        console.log("Senhas são iguais?", senhasSaoIguais);
+        console.log("E-mails são iguais e válidos?", emailsSaoIguaisEValidos);
+
+        if(cpfNumeros.length === 11){
+            setTexto('Cpf inválido!');
+            mostrarModal();
+        }
+        if(!emailValido){
+            setTexto('Email inválido!');
+            mostrarModal();
+        }
+        if(!senhasSaoIguais){
+            setTexto('Senha não coincidem!');
+            mostrarModal();
+        }
+
+        if (cpfNumeros.length === 11 && emailValido && senhasSaoIguais && emailsSaoIguaisEValidos) {
+            console.log('Tentando cadastrar usuário');
             try {
                 let privilegio = 'normal';
                 let body = {
@@ -37,14 +67,23 @@ export default function Cadastro() {
                     privilegio: privilegio
                 };
 
-                await axios.post('http://localhost:5000/usuario/cadastro/', body);
+                console.log('Enviando requisição com body:', body);
+
+                const response = await axios.post('http://localhost:5000/usuario/cadastro/', body);
+                console.log('Resposta da requisição:', response);
+                navigate("/login")
+
             } catch (error) {
-                console.error('Erro ao cadastrar o usuário:', error);
+                console.error('Erro ao cadastrar usuário:', error);
+                setTexto('Ocorreu um erro ao cadastrar o usuário!');
+                mostrarModal();
             }
         } else {
-            alert('Preencha os campos corretamente.');
+            setTexto('Preencha todos os campos corretamente!');
+            mostrarModal();
         }
     };
+
 
     const formatarCpf = (value) => {
         return value.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4').substr(0, 14);
@@ -83,33 +122,31 @@ export default function Cadastro() {
         setcpfValdio(!validarCpf(valor));
     };
 
-    const identificarEmail = (e) => {
-        const inputEmail = e.target.value;
-        setEmail(inputEmail);
-        setEmailValido(inputEmail === confEmail && validarEmail(inputEmail));
-    }
-
     const validarSenhas = (senha, confirmacaoSenha) => {
-        if (senha === confirmacaoSenha && senha !== '' && confirmacaoSenha !== '') {
-            setSenhasIguais(true);
-        } else {
-            setSenhasIguais(false);
-        }
+        return senha === confirmacaoSenha && senha !== '' && confirmacaoSenha !== '';
     };
 
-    const handleSubmit = (e) => {
+    const enviarCadastro = (e) => {
         e.preventDefault();
         cadastrarUsuario();
     };
-    
 
     return (
         <section className='CadastroEstilo'>
+
+
 
             <Cabecalho1 />
 
             <main>
                 <section class="conteudoMain">
+                    <dialog open={modalAberto} className="modalDialog">
+                        <p>{texto}</p>
+                        <button id="botao" onClick={fecharModal}>
+                            Ok
+                        </button>
+                        <div className="backDrop"></div>
+                    </dialog>
                     <div class="areaCadastro">
                         <div class="loginTexto">
                             <h1>Cadastro</h1>
@@ -136,7 +173,7 @@ export default function Cadastro() {
                             <label>Confirmar Senha:</label>
                             <input type="password" value={confSenha} onChange={(e) => setConfSenha(e.target.value)} onBlur={() => { validarSenhas(senha, confSenha); }} style={!confSenha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
 
-                            <button type="button" onClick={handleSubmit}>Cadastrar-se</button>
+                            <button type="button" onClick={enviarCadastro}>Cadastrar-se</button>
                         </form>
                     </div>
                 </section>

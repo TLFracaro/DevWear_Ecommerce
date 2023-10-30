@@ -14,7 +14,7 @@ export default function Cabecalho2(){
                     </div>
                     <div class="toolsUsuario">
                         <div class="aviso">
-                            <a><img src="/assets/image/sino.svg" alt="Sino de avisos"></img>avisos</a>
+                            <Link><img src="/assets/image/sino.svg" alt="Sino de avisos"></img>avisos</Link>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg"  width="3" height="36" viewBox="0 0 3 36" fill="none">
                             <rect x="1" width="1" height="36" fill="white" />
@@ -23,8 +23,8 @@ export default function Cabecalho2(){
                             <rect y="1" width="3" height="34" fill="white" />
                         </svg>
                         <div class="minhaConta">
-                            <a><img src='/assets/image/pessoaPixel.svg'
-                                alt="Pessoa sinalizando minha conta"></img>minha conta</a>
+                            <Link><img src='/assets/image/pessoaPixel.svg'
+                                alt="Pessoa sinalizando minha conta"></img>minha conta</Link>
                         </div>
                     </div>
                 </div>
