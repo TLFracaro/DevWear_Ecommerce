@@ -42,15 +42,15 @@ export default function Cadastro() {
         console.log("Senhas são iguais?", senhasSaoIguais);
         console.log("E-mails são iguais e válidos?", emailsSaoIguaisEValidos);
 
-        if(cpfNumeros.length === 11){
+        if (cpfNumeros.length === 11) {
             setTexto('Cpf inválido!');
             mostrarModal();
         }
-        if(!emailValido){
+        if (!emailValido) {
             setTexto('Email inválido!');
             mostrarModal();
         }
-        if(!senhasSaoIguais){
+        if (!senhasSaoIguais) {
             setTexto('Senha não coincidem!');
             mostrarModal();
         }
@@ -79,8 +79,21 @@ export default function Cadastro() {
                 mostrarModal();
             }
         } else {
-            setTexto('Preencha todos os campos corretamente!');
-            mostrarModal();
+            if (cpfValdio) {
+                setTexto('Cpf inválido!');
+                mostrarModal();
+            }
+            else if (!emailValido) {
+                setTexto('Email inválido!');
+                mostrarModal();
+            }
+            else if (!senhasSaoIguais) {
+                setTexto('Senha não coincidem!');
+                mostrarModal();
+            } else {
+                setTexto('Preencha todos os campos corretamente!');
+                mostrarModal();
+            }
         }
     };
 
@@ -126,6 +139,14 @@ export default function Cadastro() {
         return senha === confirmacaoSenha && senha !== '' && confirmacaoSenha !== '';
     };
 
+    const validarSenhasInput = (senha, confirmacaoSenha) => {
+        if (senha === confirmacaoSenha && senha !== '' && confirmacaoSenha !== '') {
+            setSenhasIguais(true);
+        } else {
+            setSenhasIguais(false);
+        }
+    };
+
     const enviarCadastro = (e) => {
         e.preventDefault();
         cadastrarUsuario();
@@ -168,10 +189,10 @@ export default function Cadastro() {
                             <input type="text" value={confEmail} onChange={(e) => setConfEmail(e.target.value)} onBlur={() => { setEmailValido(email === confEmail && validarEmail(confEmail)); }} style={!confEmail ? { border: 'none' } : email === confEmail && emailValido ? { border: '2px solid green' } : { border: '2px solid red' }} />
 
                             <label>Senha:</label>
-                            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} onBlur={() => { validarSenhas(senha, confSenha); }} style={!senha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!senha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
 
                             <label>Confirmar Senha:</label>
-                            <input type="password" value={confSenha} onChange={(e) => setConfSenha(e.target.value)} onBlur={() => { validarSenhas(senha, confSenha); }} style={!confSenha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                            <input type="password" value={confSenha} onChange={(e) => setConfSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!confSenha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
 
                             <button type="button" onClick={enviarCadastro}>Cadastrar-se</button>
                         </form>
