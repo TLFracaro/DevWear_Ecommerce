@@ -3,6 +3,7 @@ import "./index.scss";
 import { Link } from "react-router-dom";
 
 import '../../css/global.css';
+import Rodape from "../../components/Rodape";
 
 export default function VizualizarProdutos() {
     return (
@@ -49,7 +50,7 @@ export default function VizualizarProdutos() {
                 </div>
             </main>
 
-
+            <Rodape />
             
         </section>
     );

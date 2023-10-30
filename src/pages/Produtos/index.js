@@ -4,6 +4,7 @@ import lupa from '../../assets/image/lupa.svg';
 import Cabecalho2 from "../../components/Cabecalho2";
 
 import '../../css/global.css';
+import Rodape from "../../components/Rodape";
 
 export default function Produtos() {
     return (
@@ -281,6 +282,9 @@ export default function Produtos() {
                     </div>
                 </div>
             </main>
+
+        <Rodape />
+
         </section>
     );
 }

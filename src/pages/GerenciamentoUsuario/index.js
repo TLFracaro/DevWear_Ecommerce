@@ -2,6 +2,7 @@ import "./index.scss"
 import Cabecalho2 from "../../components/Cabecalho2";
 
 import '../../css/global.css';  
+import Rodape from "../../components/Rodape";
 
 export default function GerenciamentoUsuario() {
     return (
@@ -50,6 +51,9 @@ export default function GerenciamentoUsuario() {
 
                 </div>
             </main>
+
+            <Rodape />
+            
         </section>
     );
 }
