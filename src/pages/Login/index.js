@@ -16,8 +16,8 @@ export default function Login() {
             <main>
                 <section class="conteudoMain">
                     <div class="imagem">
-                        <img src={imagemLogin}
-                            alt="Uma imagem representando o cliente em um catalogo de loja de roupa"></img>
+                        <img src="/assets/image/imagemLogin.svg"
+                            alt="Uma imagem representando o cliente em um catalogo de loja de roupa"/>
                     </div>
                     <div class="areaLogin">
                         <div class="loginTexto">

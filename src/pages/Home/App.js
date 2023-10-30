@@ -17,7 +17,6 @@ export default function Home() {
                 <img src={cartaz1} alt=""></img>
             </main>
 
-            
             <Rodape />
 
             <div class="chatBoot">

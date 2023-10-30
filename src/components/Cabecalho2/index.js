@@ -1,8 +1,5 @@
 import './index.scss';
 import { Link } from 'react-router-dom';
-import devWearLogo from '../../assets/image/devWearLogo.svg';
-import pessoaPixel from '../../assets/image/pessoaPixel.svg';
-import sino from '../../assets/image/sino.svg';
 
 import '../../css/global.css';
 
@@ -12,21 +9,21 @@ export default function Cabecalho2(){
             <header>
                 <div class="cabecalhoConteudo">
                     <div class="logo">
-                        <Link to="/"><img src={devWearLogo}
+                        <Link to="/"><img src="/assets/image/devWearLogo.svg"
                             alt="Logo da marca DevWear"></img></Link>
                     </div>
                     <div class="toolsUsuario">
                         <div class="aviso">
-                            <a><img src={sino} alt="Sino de avisos"></img>avisos</a>
+                            <a><img src="/assets/image/sino.svg" alt="Sino de avisos"></img>avisos</a>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
+                        <svg xmlns="http://www.w3.org/2000/svg"  width="3" height="36" viewBox="0 0 3 36" fill="none">
                             <rect x="1" width="1" height="36" fill="white" />
                             <rect x="1" width="1" height="36" fill="white" />
                             <rect y="1" width="3" height="34" fill="white" />
                             <rect y="1" width="3" height="34" fill="white" />
                         </svg>
                         <div class="minhaConta">
-                            <a><img src={pessoaPixel}
+                            <a><img src='/assets/image/pessoaPixel.svg'
                                 alt="Pessoa sinalizando minha conta"></img>minha conta</a>
                         </div>
                     </div>
@@ -41,7 +38,7 @@ export default function Cabecalho2(){
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M7.91667 28.3333H12.2917V19.5833H21.0417V28.3333H25.4167V15.2083L16.6667 8.64583L7.91667 15.2083V28.3333ZM5 31.25V13.75L16.6667 5L28.3333 13.75V31.25H18.125V22.5H15.2083V31.25H5Z"
-                                fill="#898989" />
+                                fill="#898989"/>
                         </svg>
                             Pagina incial</Link>
                     </div>
@@ -75,7 +72,7 @@ export default function Cabecalho2(){
                     </svg>
                     <div class="gerenUsuario">
                         <Link to="/gerenciamentousuario"><svg width="30" height="35" viewBox="0 0 30 35"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            fill="898989" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M20.2 21.3364C18.5344 21.3364 17.7335 22.3015 15 22.3015C12.2665 22.3015 11.4714 21.3364 9.8 21.3364C5.49375 21.3364 2 24.9675 2 29.443V30.9871C2 32.5855 3.24777 33.8824 4.78571 33.8824H25.2143C26.7522 33.8824 28 32.5855 28 30.9871V29.443C28 24.9675 24.5062 21.3364 20.2 21.3364ZM25.2143 30.9871H4.78571V29.443C4.78571 26.5719 7.0375 24.2316 9.8 24.2316C10.6473 24.2316 12.0228 25.1967 15 25.1967C18.0004 25.1967 19.3469 24.2316 20.2 24.2316C22.9625 24.2316 25.2143 26.5719 25.2143 29.443V30.9871ZM15 20.3713C19.6138 20.3713 23.3571 16.4809 23.3571 11.6857C23.3571 6.89045 19.6138 3 15 3C10.3862 3 6.64286 6.89045 6.64286 11.6857C6.64286 16.4809 10.3862 20.3713 15 20.3713ZM15 5.89522C18.0701 5.89522 20.5714 8.49489 20.5714 11.6857C20.5714 14.8764 18.0701 17.4761 15 17.4761C11.9299 17.4761 9.42857 14.8764 9.42857 11.6857C9.42857 8.49489 11.9299 5.89522 15 5.89522Z"
                                 fill="898989" />

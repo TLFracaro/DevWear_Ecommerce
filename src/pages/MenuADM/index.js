@@ -7,7 +7,7 @@ import '../../css/global.css';
 export default function MenuADM() {
     return (
         <section className="MenuAdmEstilo">
-            
+
             <Cabecalho2 />
 
             <main>

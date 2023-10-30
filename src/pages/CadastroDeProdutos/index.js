@@ -16,7 +16,6 @@ export default function CadastroDeProdutos() {
             const file = selectedFiles[i];
             newImages.push(URL.createObjectURL(file));
         }
-
         setImages([...images, ...newImages]);
     }
 
