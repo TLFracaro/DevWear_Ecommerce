@@ -6,7 +6,7 @@ import Cabecalho2 from "../../components/Cabecalho2";
 import '../../css/global.css';
 import Rodape from "../../components/Rodape";
 
-export default function CadastroDeProdutos() {
+export default function AlterarProduto() {
     const [images, setImages] = useState([]);
 
     function addImage(event) {
@@ -47,7 +47,7 @@ export default function CadastroDeProdutos() {
     }
 
     return (
-        <section className="CadastroProdutoEstilo">
+        <section className="AlterarProdutoEstilo">
 
             <Cabecalho2 />
 
@@ -65,7 +65,7 @@ export default function CadastroDeProdutos() {
                                 Voltar</h1>
                         </Link>
                     </div>
-                    <h1 id="titulo">• Cadastrar produto:</h1>
+                    <h1 id="titulo">• Alterar produto:</h1>
 
                     <div class="formulario">
                         <form method="post" action="">
@@ -151,7 +151,7 @@ export default function CadastroDeProdutos() {
                             </svg>
                                 Adicionar Variação</button>
 
-                            <input type="submit" value="CADASTRAR"></input>
+                            <input type="submit" value="ALTERAR"></input>
                         </form>
                     </div>
                 </div>

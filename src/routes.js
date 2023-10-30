@@ -8,6 +8,7 @@ import MenuADM from "./pages/MenuADM/index.js";
 import Produtos from "./pages/Produtos/index.js";
 import VizualizarProdutos from "./pages/VizualizarProdutos/index.js";
 import Login from './pages/Login/index.js';
+import Alterar from './pages/AlterarProduto/index.js';
 
 export default function Rotas() {
     return(
@@ -22,6 +23,7 @@ export default function Rotas() {
                 <Route path="/produtos" element={<Produtos />} />
                 <Route path="/vizualizarprodutos" element={<VizualizarProdutos />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/alterarproduto" element={<Alterar />} />
 
                 {/* <Route path='/*' element={<NaoEncontrado />} /> */}
 
