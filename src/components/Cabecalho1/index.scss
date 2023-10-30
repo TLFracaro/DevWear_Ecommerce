@@ -1,4 +1,4 @@
-.Comp-Cabecalho2-Estilo {
+.Comp-Cabecalho1-Estilo {
     * {
         box-sizing: border-box;
         margin: 0px;
@@ -47,7 +47,8 @@
                     height: 100%;
                     padding: 15px;
                     border: none;
-
+                    outline: none;
+                    font-family: 'K2D Medium';
                     &::placeholder {
                         font-family: "retroFont";
                     }
