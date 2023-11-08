@@ -1,0 +1,53 @@
+.estiloLinhaProduto {
+    width: 100%;
+    .linha {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        background-color: transparent;
+        color: black;
+        font-size: 16px;
+        font-family: 'K2D Medium';
+        text-align: center;
+        padding: 10px;
+
+        .primeiro {
+            background-color: #fff;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            img {
+                margin-right: 10px;
+            }
+        }
+
+        .final {
+            background-color: #fff;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        td {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            flex-direction: row;
+            width: 100%;
+            padding: 30px;
+            height: 50px;
+
+            button,
+            a {
+                border: none;
+                background-color: transparent;
+                cursor: pointer;
+
+                svg {
+                    height: 30px;
+                }
+
+                text-decoration: none;
+            }
+        }
+    }
+}

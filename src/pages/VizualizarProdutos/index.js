@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import '../../css/global.css';
 import Rodape from "../../components/Rodape";
 
-export default function VizualizarProdutos() {
+export default function VizualizarProdutos(sku) {
+
     return (
         <section className="VizualizarProdutoEstilo">
             <Cabecalho2 />
@@ -51,7 +52,7 @@ export default function VizualizarProdutos() {
             </main>
 
             <Rodape />
-            
+
         </section>
     );
 }
