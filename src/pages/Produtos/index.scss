@@ -59,11 +59,13 @@
                     }
     
                     img {
+                        position: static;
                         display: flex;
                         align-self: center;
                         justify-self: center;
                         margin-left: 15px;
                         margin-right: 20px;
+                        cursor: pointer;
                     }
     
                 }
@@ -93,51 +95,27 @@
     
             .tabelaProduto {
                 display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
+                align-items: center;
+                justify-content: center;
                 font-family: 'K2D Medium';
                 overflow-y: auto;
                 overflow-x: auto;
                 width: 100%;
                 flex-direction: column;
-
-                div{
-                    margin-top: 30px;
-                    width: 80%;
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    justify-content: space-around;
-                    .cabecalho1 {
-                        font-size: 20px;
-                        height: 40px;
-                    }
-                    .cabecalho2 {
-                        font-size: 20px;
-                        height: 40px;
-                    }
-                    .cabecalho3{
-                        font-size: 20px;
-                        height: 40px;
-                        margin-left: 70px;
-                    }
-                    .cabecalho4{
-                        font-size: 20px;
-                        height: 40px;
-                        margin-left: 70px;
-                    }
-                    .cabecalho5{
-                        font-size: 20px;
-                        height: 40px;
-                    }
-                }
                 
+                P{
+                    text-align: center;
+                    margin: 50px;
+                    font-family: 'K2D Bold';
+                }
+
                 table {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
                     width: 100%;
-                    border-radius: 5px;
-                    border-collapse: separate;
-                    border-spacing: 0 10px;
-    
+                    margin-top: 20px;
                     
                 }
             }

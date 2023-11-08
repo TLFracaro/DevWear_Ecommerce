@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 
 export default function Produtos() {
     const [produtos, setProdutos] = useState([]);
+    const [termoPesquisa, setTermoPesquisa] = useState('');
 
     const navigate = useNavigate();
 
@@ -25,6 +26,7 @@ export default function Produtos() {
 
     async function alterarproduto(sku) {
         let r = await axios.put('http://localhost:5000/produto/alterar/' + sku);
+        navigate("/alterarproduto", r);
     }
 
     async function listarProduto() {
@@ -33,6 +35,13 @@ export default function Produtos() {
 
         setProdutos(produtos);
     }
+
+    const filtrarProdutos = () => {
+        return produtos.filter((produto) =>
+            produto.nome.toLowerCase().includes(termoPesquisa.toLowerCase()) ||
+            produto.categoria.toLowerCase().includes(termoPesquisa.toLowerCase())
+        );
+    };
 
     useEffect(() => {
 
@@ -52,11 +61,16 @@ export default function Produtos() {
                     </div>
                     <div class="buscaEcadastro">
                         <div class="pesquisa">
-                            <input type="text" placeholder="Pesquisar por: categoria ou nome"></input>
+                            <input
+                                type="text"
+                                placeholder="Pesquisar por: categoria ou nome"
+                                value={termoPesquisa}
+                                onChange={(e) => setTermoPesquisa(e.target.value)}
+                            />
                             <img src={lupa} alt=""></img>
                         </div>
 
-                        <Link to="/CadastroDeProdutos"><svg width="34" height="34" viewBox="0 0 34 34" fill="none"
+                        <Link to="/cadastrodeprodutos"><svg width="34" height="34" viewBox="0 0 34 34" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_57_593)">
                                 <path
@@ -72,25 +86,24 @@ export default function Produtos() {
                             Adicionar produto</Link>
                     </div>
                     <div class="tabelaProduto">
-                        <div>
-                            <p class="cabecalho1">Nome do produto</p>
-                            <p class="cabecalho2">Categoria</p>
-                            <p class="cabecalho3">Preço</p>
-                            <p class="cabecalho4">SKU</p>
-                            <p class="cabecalho5"> </p>
-                        </div>
-                        <table>
-
-                            {produtos.map(produto => <LinhaProduto
-                                nome={produto.nome}
-                                categoria={produto.categoria}
-                                preco={produto.preco}
-                                sku={produto.sku}
-                                remover={() => excluirProduto(produto.sku)}
-                            />
-                            )}
-
-                        </table>
+                        { filtrarProdutos().length === 0 ? (
+                            <p>Nenhum produto encontrado com esse nome e categoria =&#40;</p>
+                        ) : (
+                            <table>
+                                {filtrarProdutos().map((produto) => (
+                                    <LinhaProduto
+                                        key={produto.sku}
+                                        nome={produto.nome}
+                                        categoria={produto.categoria}
+                                        preco={produto.preco}
+                                        sku={produto.sku}
+                                        remover={() => excluirProduto(produto.sku)}
+                                        vizualizar={() => vizualizarproduto(produto.sku)}
+                                        alterar={() => alterarproduto(produto.sku)}
+                                    />
+                                ))}
+                            </table>
+                        )}
                     </div>
                 </div>
             </main>

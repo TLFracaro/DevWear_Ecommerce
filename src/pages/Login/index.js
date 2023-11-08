@@ -1,10 +1,10 @@
-import './index.scss';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Cabecalho1 from '../../components/Cabecalho1';
 import Rodape from '../../components/Rodape';
 import '../../css/global.css';
-import { useState } from 'react';
-import axios from 'axios';
+import './index.scss';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -47,6 +47,20 @@ export default function Login() {
         login();
     };
 
+    const ApertaEnter = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            login();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('keypress', ApertaEnter);
+        return () => {
+            document.removeEventListener('keypress', ApertaEnter);
+        };
+    }, [email, senha]);
+
     return (
         <section className="LoginEstilo">
             <Cabecalho1 />
@@ -72,15 +86,13 @@ export default function Login() {
                             <h2>BEM VINDO DE VOLTA</h2>
                             <img src="/assets/image/linhaLogin.svg" alt="Linha separando caixas de texto do título" />
                         </div>
-                        <form action="">
-                            <label htmlFor="">e-mail:</label>
-                            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <label htmlFor="">senha:</label>
-                            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
-                            <Link>Esqueceu sua senha?</Link>
-                            <button type="button" onClick={enviar}>
-                                Login
-                            </button>
+                        <form onSubmit={enviar}>
+                            <label htmlFor="email">e-mail:</label>
+                            <input id="email"type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                            <label htmlFor="senha">senha:</label>
+                            <input id="senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)}/>
+                            <Link to="/">Esqueceu sua senha?</Link>
+                            <button type="submit"> Login </button>
                         </form>
                         <div className="criarConta">
                             <p>
