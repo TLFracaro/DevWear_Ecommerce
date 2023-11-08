@@ -90,6 +90,12 @@
                 overflow-x: auto;
                 width: 100%;
     
+                P {
+                    text-align: center;
+                    margin: 50px;
+                    font-family: 'K2D Bold';
+                }
+
                 table {
                     width: 100%;
                     border-radius: 5px;
@@ -101,7 +107,7 @@
                         height: 40px;
                     }
     
-                    .linha {
+                    .Conteudo {
                         width: 100%;
                         flex-direction: row;
                         background-color: #fff;
