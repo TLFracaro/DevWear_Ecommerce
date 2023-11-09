@@ -1,55 +1,73 @@
-.estiloLinhaProduto {
-    width: 100%;
-
-    width: 100%;
+.tabelaProduto {
     display: flex;
-    margin: 10px;
-    flex-direction: row;
-    background-color: transparent;
-    color: black;
-    font-size: 18px;
-    font-family: 'K2D Bold';
-    text-align: center;
-    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    font-family: 'K2D Medium';
+    overflow-y: auto;
+    overflow-x: auto;
+    width: 100%;
 
-    .primeiro {
-        background-color: #fff;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-
-        img {
-            margin-right: 10px;
-        }
+    P {
+        text-align: center;
+        margin: 50px;
+        font-family: 'K2D Bold';
     }
 
-    .final {
-        background-color: #fff;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-    }
-    
-    td {
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #fff;
-        flex-direction: row;
+    table {
         width: 100%;
-        padding: 30px;
-        height: 80px;
+        border-radius: 5px;
+        border-collapse: separate;
+        border-spacing: 0 10px;
 
-        button,
-        a {
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
+        th {
+            font-size: 20px;
+            height: 40px;
+        }
 
-            svg {
-                height: 30px;
+        .Conteudo {
+            width: 100%;
+            flex-direction: row;
+            background-color: #fff;
+            color: black;
+            font-size: 16px;
+            font-family: 'K2D Medium';
+            text-align: center;
+            padding: 30px;
+            height: 50px;
+
+            .primeiro {
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+
+                img {
+                    margin-right: 10px;
+                }
             }
 
-            text-decoration: none;
+            .final {
+                border-top-right-radius: 20px;
+                border-bottom-right-radius: 20px;
+            }
+
+            td {
+
+                padding: 20px;
+                height: 50px;
+                font-size: 16px;
+
+                button,
+                a {
+                    border: none;
+                    background-color: transparent;
+                    cursor: pointer;
+
+                    svg {
+                        height: 30px;
+                    }
+
+                    text-decoration: none;
+                }
+            }
         }
     }
 }
