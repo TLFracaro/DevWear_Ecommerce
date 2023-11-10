@@ -6,18 +6,67 @@ import Cabecalho2 from "../../components/Cabecalho2";
 import '../../css/global.css';
 import Rodape from "../../components/Rodape";
 import axios from "axios";
-import LinhaProduto from "../../components/LinhaProduto";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import api from "../../api";
 
 export default function Produtos() {
     const [produtos, setProdutos] = useState([]);
     const [termoPesquisa, setTermoPesquisa] = useState('');
-
+    const [texto, setTexto] = useState('');
+    const [modalAberto, setModalAberto] = useState(false);
     const navigate = useNavigate();
 
-    async function excluirProduto(sku) {
-        let r = await axios.delete('http://localhost:5000/produto/excluir/' + sku);
-        listarProduto();
+    const caixaDeDialogo = useRef(null);
+
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [produtoToDelete, setProdutoToDelete] = useState(null);
+
+    useEffect(() => {
+        caixaDeDialogo.current = document.getElementById("CaixaDeDialogo");
+    }, []);
+
+    const openConfirmation = (produto) => {
+        setProdutoToDelete(produto);
+        if (caixaDeDialogo.current) {
+            caixaDeDialogo.current.showModal();
+        }
+        setShowConfirmation(true);
+    };
+
+    const closeConfirmation = () => {
+        setShowConfirmation(false);
+    };
+
+    const closeAndResetConfirmation = () => {
+        closeConfirmation();
+        setProdutoToDelete(null);
+    };
+
+
+    const fecharModal = () => {
+        if (caixaDeDialogo.current) {
+            caixaDeDialogo.current.close();
+        }
+    };
+
+    const mostrarModal = () => {
+        if (caixaDeDialogo.current) {
+            caixaDeDialogo.current.showModal();
+        }
+    };
+
+    async function excluirProduto() {
+        if (produtoToDelete) {
+            try {
+                await api.delete(`/produto/excluir/${produtoToDelete.sku}`);
+                listarProduto();
+                closeConfirmation();
+            } catch (error) {
+                console.error('Erro ao excluir produto:', error);
+                setTexto('Ocorreu um erro ao excluir o produto!');
+                mostrarModal();
+            }
+        }
     }
 
     async function vizualizarproduto(sku) {
@@ -25,12 +74,12 @@ export default function Produtos() {
     }
 
     async function alterarproduto(sku) {
-        let r = await axios.put('http://localhost:5000/produto/alterar/' + sku);
+        let r = await api.post('/produto/alterar/' + sku);
         navigate("/alterarproduto", r);
     }
 
     async function listarProduto() {
-        let r = await axios.get('http://localhost:5000/produto/listar/');
+        let r = await api.get('/produto/listar/');
         let produtos = r.data;
 
         setProdutos(produtos);
@@ -56,6 +105,16 @@ export default function Produtos() {
 
             <main>
                 <div class="mainConteudo">
+                    <dialog open={modalAberto} className="modalDialog">
+                        <p>{texto}</p>
+                        <button id="botaoSim" onClick={fecharModal}>
+                            Sim
+                        </button>
+                        <button id="botaoNao" onClick={fecharModal}>
+                            Não
+                        </button>
+                        <div className="backDrop"></div>
+                    </dialog>
                     <div class="titulo">
                         <h1>Produtos</h1>
                     </div>
@@ -86,6 +145,7 @@ export default function Produtos() {
                             Adicionar produto</Link>
                     </div>
                     <div class="tabelaProduto">
+                        
                         {filtrarProdutos().length === 0 ? (
                             <p>Nenhum produto encontrado com esse nome e categoria =&#40;</p>
                         ) : (
@@ -101,7 +161,7 @@ export default function Produtos() {
                                     <tr class='Conteudo'>
                                         <td class='primeiro'>{produto.nome}</td>
                                         <td>{produto.categoria}</td>
-                                        <td>{produto.preco}</td>
+                                        <td>R$ {produto.preco}</td>
                                         <td>{produto.sku}</td>
                                         <td class="final"><button onClick={vizualizarproduto}><svg width="40" height="40"
                                             viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -122,7 +182,7 @@ export default function Produtos() {
                                                         stroke-linejoin="round" />
                                                 </svg>
                                             </button>
-                                            <button onClick={excluirProduto}>
+                                            <button onClick={() => openConfirmation(produto)}>
                                                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path
@@ -138,6 +198,14 @@ export default function Produtos() {
                     </div>
                 </div>
             </main>
+
+            {showConfirmation && (
+                <dialog open>
+                    <p>Deseja realmente excluir o produto {produtoToDelete.nome}?</p>
+                    <button class='sim' onClick={excluirProduto}>Sim</button>
+                    <button class='nao' onClick={closeConfirmation}>Cancelar</button>
+                </dialog>
+            )}
 
             <Rodape />
 

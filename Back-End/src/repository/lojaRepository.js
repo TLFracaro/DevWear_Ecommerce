@@ -17,7 +17,7 @@ export async function inserirUsuario(usuario) {
     }
 }
 
-export async function alterarUsuario(usuario) {
+export async function alterarUsuario(usuario, cpfPassado) {
     console.log(usuario);
     try {
         if (!usuario) {
@@ -30,7 +30,7 @@ export async function alterarUsuario(usuario) {
         }
 
         const comando = `UPDATE usuario SET nome = ?, cpf = ?, email = ?, senha = ?, privilegio = ? WHERE cpf = ?`;
-        await con.query(comando, [nome, cpf, email, senha, privilegio, cpf]);
+        await con.query(comando, [nome, cpf, email, senha, privilegio, cpfPassado]);
         return { mensage: "Usuario alterado com sucesso!" };
     } catch (e) {
         throw new Error(`Erro ao alterar usuário: ${e.message}`);
@@ -66,21 +66,28 @@ export async function pesquisarUsuario(cpf) {
         } else{
             return info;
         }
-       
     } catch (error) {
         throw new Error('Erro ao encontrar funcionário.');
     }
 }
 
 export async function logar(email, senha) {
-    const comando = 'SELECT email,senha FROM usuario WHERE email=? AND senha=?';
+    const comando = 'SELECT nome, cpf, email, privilegio FROM usuario WHERE email=? AND senha=?';
     const [info] = await con.query(comando, [email, senha]);
+    
     if (info.length === 1) {
-        return { message: 'Login bem-sucedido' };
+        return {
+            message: 'Login bem-sucedido',
+            nome: info[0].nome,
+            cpf: info[0].cpf,
+            email: info[0].email,
+            privilegio: info[0].privilegio
+        };
     } else {
         throw new Error('E-mail ou senha inválidos');
     }
 }
+
 
 export async function salvarItem(item, variacoes, imagens) {
     try {

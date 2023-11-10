@@ -5,8 +5,9 @@ import Cabecalho1 from '../../components/Cabecalho1';
 import Rodape from '../../components/Rodape';
 import { useNavigate } from 'react-router-dom'
 import '../../css/global.css';
-import { useState, } from 'react';
+import { useEffect, useRef, useState, } from 'react';
 import axios from 'axios';
+import api from '../../api';
 
 
 export default function Cadastro() {
@@ -21,15 +22,27 @@ export default function Cadastro() {
     const [confSenha, setConfSenha] = useState('');
     const [senhasIguais, setSenhasIguais] = useState('');
     const [texto, setTexto] = useState('');
-    const navigate = useNavigate();
     const [modalAberto, setModalAberto] = useState(false);
+    const navigate = useNavigate();
+
+    const caixaDeDialogo = useRef(null);
+
+    useEffect(() => {
+        caixaDeDialogo.current = document.getElementById("CaixaDeDialogo");
+    }, []);
+
+
 
     const fecharModal = () => {
-        setModalAberto(false);
+        if (caixaDeDialogo.current) {
+            caixaDeDialogo.current.close();
+        }
     };
 
     const mostrarModal = () => {
-        setModalAberto(true);
+        if (caixaDeDialogo.current) {
+            caixaDeDialogo.current.showModal();
+        }
     };
 
     const cadastrarUsuario = async () => {
@@ -56,7 +69,6 @@ export default function Cadastro() {
         }
 
         if (cpfNumeros.length === 11 && emailValido && senhasSaoIguais && emailsSaoIguaisEValidos) {
-            console.log('Tentando cadastrar usuário');
             try {
                 let privilegio = 'normal';
                 let body = {
@@ -69,7 +81,7 @@ export default function Cadastro() {
 
                 console.log('Enviando requisição com body:', body);
 
-                const response = await axios.post('http://localhost:5000/usuario/cadastro/', body);
+                const response = await api.post('/usuario/cadastro/', body);
                 console.log('Resposta da requisição:', response);
                 navigate("/login")
 
@@ -79,19 +91,17 @@ export default function Cadastro() {
                 mostrarModal();
             }
         } else {
-            if (cpfValdio) {
+            if (nome === "" || cpf === "" || email === "" || senha === "") {
+                setTexto('Preencha todos os campos corretamente!');
+                mostrarModal();
+            } else if (cpfValdio) {
                 setTexto('Cpf inválido!');
                 mostrarModal();
-            }
-            else if (!emailValido) {
+            } else if (!emailValido) {
                 setTexto('Email inválido!');
                 mostrarModal();
-            }
-            else if (!senhasSaoIguais) {
+            } else if (!senhasSaoIguais) {
                 setTexto('Senha não coincidem!');
-                mostrarModal();
-            } else {
-                setTexto('Preencha todos os campos corretamente!');
                 mostrarModal();
             }
         }
@@ -161,12 +171,11 @@ export default function Cadastro() {
 
             <main>
                 <section class="conteudoMain">
-                    <dialog open={modalAberto} className="modalDialog">
+                    <dialog open={modalAberto} id="CaixaDeDialogo">
                         <p>{texto}</p>
                         <button id="botao" onClick={fecharModal}>
                             Ok
                         </button>
-                        <div className="backDrop"></div>
                     </dialog>
                     <div class="areaCadastro">
                         <div class="loginTexto">

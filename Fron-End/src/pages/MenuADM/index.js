@@ -1,4 +1,5 @@
 import "./index.scss";
+import { useLocation } from 'react-router-dom';
 import gatoToca from '../../assets/image/gatoToca.jpg';
 import Cabecalho2 from "../../components/Cabecalho2";
 
@@ -6,6 +7,9 @@ import '../../css/global.css';
 import Rodape from "../../components/Rodape";
 
 export default function MenuADM() {
+    const location = useLocation();
+    const { nome, cpf, email } = location.state || {};
+
     return (
         <section className="MenuAdmEstilo">
 
@@ -21,11 +25,10 @@ export default function MenuADM() {
                             <img src={gatoToca} alt="Sua imamgem"></img>
                             <div class="infosUser">
                                 <h3>Dados Usuario:</h3>
-                                <p>Nome</p>
-                                <p>Cpf:</p>
-                                <p>e-mail:</p>
+                                <p>Nome: {nome}</p>
+                                <p>CPF: {cpf}</p>
+                                <p>E-mail: {email}</p>
                             </div>
-
                         </div>
                         <div class="opcos">
                             <h1>Seja bem vindo, 'User'!</h1>

@@ -42,10 +42,11 @@ endpoints.delete('/usuario/excluir/:cpf', async (req, resp) => {
     }
 });
 
-endpoints.put('/usuario/alterar', async (req, resp) => {
+endpoints.put('/usuario/alterar/:cpf', async (req, resp) => {
     try {
+        const cpf = req.params.cpf;
         const usuario = req.body;
-        let r = await alterarUsuario(usuario);
+        let r = await alterarUsuario(usuario, cpf);
         resp.send(r);
     } catch (e) {
         console.error(e);

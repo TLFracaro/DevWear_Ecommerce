@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Cabecalho1 from '../../components/Cabecalho1';
 import Rodape from '../../components/Rodape';
 import '../../css/global.css';
 import './index.scss';
+import api from '../../api';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -13,12 +14,22 @@ export default function Login() {
     const [modalAberto, setModalAberto] = useState(false);
     const navigate = useNavigate();
 
+    const caixaDeDialogo = useRef(null);
+
+    useEffect(() => {
+        caixaDeDialogo.current = document.getElementById("CaixaDeDialogo");
+    }, []);
+
     const fecharModal = () => {
-        setModalAberto(false);
+        if (caixaDeDialogo.current) {
+            caixaDeDialogo.current.close();
+        }
     };
 
     const mostrarModal = () => {
-        setModalAberto(true);
+        if (caixaDeDialogo.current) {
+            caixaDeDialogo.current.showModal();
+        }
     };
 
     const login = async () => {
@@ -27,11 +38,14 @@ export default function Login() {
                 email: email,
                 senha: senha,
             };
+            const r = await api.post(`/login`, body);
 
-            const usuario = await axios.post('http://localhost:5000/login/', body);
+            console.log('Resposta da requisição:', r.data);
 
-            if (usuario) {
-                navigate('/menuadm');
+            if (r && r.data && r.data.nome && r.data.cpf && r.data.email && r.data.privilegio) {
+                const { nome, cpf, email, privilegio } = r.data;
+                console.log({ nome, cpf, email, privilegio });
+                navigate('/menuadm', { state: { nome, cpf, email, privilegio } });
             } else {
                 setTexto('O usuário não existe!');
                 mostrarModal();
@@ -41,6 +55,9 @@ export default function Login() {
             mostrarModal();
         }
     };
+
+
+
 
     const enviar = (e) => {
         e.preventDefault();
@@ -67,12 +84,11 @@ export default function Login() {
 
             <main>
                 <section className="conteudoMain">
-                    <dialog open={modalAberto} className="modalDialog">
+                    <dialog open={modalAberto} id="CaixaDeDialogo">
                         <p>{texto}</p>
                         <button id="botao" onClick={fecharModal}>
-                            OK
+                            Ok
                         </button>
-                        <div className="backDrop"></div>
                     </dialog>
                     <div className="imagem">
                         <img
@@ -88,9 +104,9 @@ export default function Login() {
                         </div>
                         <form onSubmit={enviar}>
                             <label htmlFor="email">e-mail:</label>
-                            <input id="email"type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                            <input id="email" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                             <label htmlFor="senha">senha:</label>
-                            <input id="senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)}/>
+                            <input id="senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
                             <Link to="/">Esqueceu sua senha?</Link>
                             <button type="submit"> Login </button>
                         </form>

@@ -168,4 +168,60 @@
             }
         }
     }
+
+    dialog {
+        overflow-x: hidden;
+        overflow-y: hidden;
+        transition: 0.8s;
+        font-family: 'K2D Bold';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: none;
+        border-radius: 20px;
+        max-width: 80%;
+        max-height: 80%;
+        min-width: 400px;
+        font-size: 18px;
+        text-align: center;
+        z-index: 2;
+
+        button {
+            
+            margin-top: 20px;
+            background-color: black;
+            border-radius: 20px;
+            color: white;
+            border: none;
+            height: 40px;
+            width: 100px;
+            font-size: 14px;
+            font-family: 'K2D Bold';
+            cursor: pointer;
+            
+        }
+
+        .sim{
+            margin-right: 20px;
+            &:hover{
+                transition: 0.2s;
+                background-color: #4ac204;
+            }
+        }
+        .nao{
+            &:hover{
+                transition: 0.2s;
+                background-color: red;
+            }
+        }
+
+        &::backdrop {
+            transition: 0.8s;
+            background-color: rgb(0, 0, 0 / .5);
+            opacity: 0.4;
+        }
+    }
 }
