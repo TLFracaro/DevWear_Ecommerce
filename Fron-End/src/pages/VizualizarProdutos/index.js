@@ -1,11 +1,28 @@
 import Cabecalho2 from "../../components/Cabecalho2";
 import "./index.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import '../../css/global.css';
 import Rodape from "../../components/Rodape";
+import api from "../../api";
+import { useEffect, useState } from "react";
 
-export default function VizualizarProdutos(sku) {
+export default function VizualizarProdutos() {
+    const location = useLocation();
+    const sku = location.state || {};
+    const [produto, setProduto] = useState({});
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                let r = await api.get(`/produto/${sku}`);
+                setProduto(r.data);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchData();
+    }, [sku]);
 
     return (
         <section className="VizualizarProdutoEstilo">
@@ -35,17 +52,33 @@ export default function VizualizarProdutos(sku) {
                             <img src="" alt=""></img>
                         </div>
                         <div class="infos">
-                            <h4>Nome: <p></p></h4>
-                            <h4>Categoria: <p></p></h4>
-                            <h4>Marca: <p></p></h4>
-                            <h4>Variação: <p></p></h4>
-                            <h4>Preço: <p></p></h4>
-                            <h4>Descrição do produto: <p></p></h4>
-                            <h4>Quantidade em estoque: <p></p></h4>
-                            <h4>SKU: <p></p></h4>
-                            <h4>Localização no estoque: <p></p></h4>
-                            <h4>Histórico de vendas: <p></p></h4>
-                            <h4>Data de inclusão: <p></p></h4>
+                            <div>
+                                <h4>Nome:⠀<p>{produto.item?.nome}</p></h4>
+                            </div>
+                            <h4>Categoria:⠀<p>{produto.item?.categoria}</p></h4>
+                            <h4>Marca:⠀<p>{produto.item?.marca}</p></h4>
+                            <h4>Preço:⠀<p>{produto.item?.preco}</p></h4>
+                            <h4>Descrição do produto:⠀<p>{produto.item?.descricao}</p></h4>
+                            <h4>SKU:⠀<p>{produto.item?.sku}</p></h4>
+                            <h4>Localização no estoque:⠀<p>{produto.item?.loc_estoque}</p></h4>
+                            <h4>Data de inclusão:⠀<p></p></h4>
+                            <div class="variacoes">
+                                <h4>Variações:</h4>
+                                <table>
+                                    <tr>
+                                        <th>Tamanho</th>
+                                        <th>Cor</th>
+                                        <th>Quantidade</th>
+                                    </tr>
+                                    {produto.variacao?.map((variacao) => (
+                                        <tr class='Conteudo'>
+                                            <td class="primeiro">Tamanho: {variacao.tamanho}</td>
+                                            <td>Cor: {variacao.cor}</td>
+                                            <td class="final">Quantidade: {variacao.quantidade}</td>
+                                        </tr>
+                                    ))}
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

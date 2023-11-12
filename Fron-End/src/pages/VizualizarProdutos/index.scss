@@ -73,14 +73,71 @@
                     width: 45%;
 
                     h4 {
-                        margin-bottom: 10px;
-                        font-family: 'K2D Bold';
+                        display: flex;
 
-                        p {}
+                        margin-bottom: 10px;
+                        font-family: 'K2D Extra Bold';
+
+                        p {
+                            color: #515151;
+                            font-family: 'K2D Light';
+                        }
+                    }
+
+                    .variacoes {
+                        h4{
+                            margin-bottom: 0px;
+                        }
+                        table {
+                            font-family: 'K2D Medium';
+                            overflow-y: auto;
+                            overflow-x: auto;
+                            width: 100%;
+                            width: 100%;
+                            border-radius: 5px;
+                            border-collapse: separate;
+                            border-spacing: 0 10px;
+
+                            th {
+                                font-size: 18px;
+                                background-color: transparent;
+                                height: 18px;
+                            }
+
+                            .Conteudo {
+                                width: 100%;
+                                flex-direction: row;
+                                background-color: #fff;
+                                color: black;
+                                font-size: 16px;
+                                font-family: 'K2D Medium';
+                                text-align: center;
+                                padding: 30px;
+                                height: 40px;
+
+                                td {
+                                    height: 30px;
+                                }
+
+                                .primeiro {
+                                    border-top-left-radius: 20px;
+                                    border-bottom-left-radius: 20px;
+
+                                    img {
+                                        margin-right: 10px;
+                                    }
+                                }
+
+                                .final {
+                                    border-top-right-radius: 20px;
+                                    border-bottom-right-radius: 20px;
+                                }
+                            }
+
+                        }
                     }
                 }
             }
-
         }
     }
 }

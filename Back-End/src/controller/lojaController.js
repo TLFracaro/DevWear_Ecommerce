@@ -6,6 +6,7 @@ const endpoints = Router();
 endpoints.get('/usuario/listar', async (req, resp) => {
     try {
         const r = await listarUsuarios();
+        console.log(r)
         resp.send(r);
     } catch (e) {
         console.error(e);
@@ -126,9 +127,11 @@ endpoints.get('/produto/:sku', async (req, resp) => {
         const r = await consultarItem(sku);
         resp.send(r);
     } catch (e) {
-
+        console.error('Erro ao buscar detalhes do produto:', e);
+        resp.status(500).send('Erro ao buscar detalhes do produto');
     }
 });
+
 
 endpoints.put('/produto/alterar/:sku', async (req, res) => {
     try {

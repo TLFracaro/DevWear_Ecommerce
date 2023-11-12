@@ -7,7 +7,7 @@ const con = await mysql2.createConnection({
     password: process.env.MYSQL_PWD
 })
 
-await con.changeUser({ database: process.env.DB });
+await con.changeUser({ database: process.env.MYSQL_DB });
 console.log('Conexão com BD realizada.')
 
 export {con};

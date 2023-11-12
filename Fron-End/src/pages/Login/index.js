@@ -56,9 +56,6 @@ export default function Login() {
         }
     };
 
-
-
-
     const enviar = (e) => {
         e.preventDefault();
         login();
