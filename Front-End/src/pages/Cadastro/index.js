@@ -31,8 +31,6 @@ export default function Cadastro() {
         caixaDeDialogo.current = document.getElementById("CaixaDeDialogo");
     }, []);
 
-
-
     const fecharModal = () => {
         if (caixaDeDialogo.current) {
             caixaDeDialogo.current.close();
@@ -81,7 +79,7 @@ export default function Cadastro() {
 
                 console.log('Enviando requisição com body:', body);
 
-                const response = await api.post('/usuario/cadastro/', body);
+                const response = await api.post('/usuario/', body);
                 console.log('Resposta da requisição:', response);
                 navigate("/login")
 

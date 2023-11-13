@@ -16,7 +16,7 @@ endpoints.get('/usuario/listar', async (req, resp) => {
     }
 })
 
-endpoints.post('/usuario/cadastro', async (req, resp) => {
+endpoints.post('/usuario', async (req, resp) => {
     try {
         let usuario = req.body;
         let r = await inserirUsuario(usuario);
@@ -30,7 +30,7 @@ endpoints.post('/usuario/cadastro', async (req, resp) => {
 });
 
 
-endpoints.delete('/usuario/excluir/:cpf', async (req, resp) => {
+endpoints.delete('/usuario/:cpf', async (req, resp) => {
     try {
         const cpf = req.params.cpf;
         let r = await excluirUsuario(cpf);
@@ -43,7 +43,7 @@ endpoints.delete('/usuario/excluir/:cpf', async (req, resp) => {
     }
 });
 
-endpoints.put('/usuario/alterar/:cpf', async (req, resp) => {
+endpoints.put('/usuario/:cpf', async (req, resp) => {
     try {
         const cpf = req.params.cpf;
         const usuario = req.body;
@@ -83,7 +83,7 @@ endpoints.post('/login', async (req, resp) => {
     }
 });
 
-endpoints.post('/produto/cadastro', async (req, resp) => {
+endpoints.post('/produto', async (req, resp) => {
     try {
         const { item, variacoes, imagens } = req.body;
         let r = await salvarItem(item, variacoes, imagens);
@@ -96,7 +96,7 @@ endpoints.post('/produto/cadastro', async (req, resp) => {
     }
 });
 
-endpoints.delete("/produto/excluir/:sku", async (req, resp) => {
+endpoints.delete("/produto/:sku", async (req, resp) => {
     try {
         const sku = req.params.sku;
         const r = await excluirItem(sku);
@@ -133,7 +133,7 @@ endpoints.get('/produto/:sku', async (req, resp) => {
 });
 
 
-endpoints.put('/produto/alterar/:sku', async (req, res) => {
+endpoints.put('/produto/:sku', async (req, res) => {
     try {
         const sku = req.params.sku;
         const novosDados = req.body;

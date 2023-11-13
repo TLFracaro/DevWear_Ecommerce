@@ -45,7 +45,7 @@ export default function GerenciamentoUsuario() {
                 senha: senha,
                 privilegio: privilegio === 'normal' ? 'adm' : 'normal'
             };
-            const response = await api.put(`/usuario/alterar/${cpf}`, body);
+            const response = await api.put(`/usuario/${cpf}`, body);
             setTexto(`A permição do usuário ${nome} foi alterada !`);
             mostrarModal();
             listarUsuarios();

@@ -59,7 +59,7 @@ export default function Produtos() {
     async function excluirProduto() {
         if (produtoToDelete) {
             try {
-                await api.delete(`/produto/excluir/${produtoToDelete.sku}`);
+                await api.delete(`/produto/${produtoToDelete.sku}`);
                 listarProduto();
                 closeConfirmation();
             } catch (error) {
@@ -75,7 +75,7 @@ export default function Produtos() {
     }
     
     async function alterarproduto(sku) {
-        let r = await api.post('/produto/alterar/' + sku);
+        let r = await api.post('/produto/' + sku);
         navigate("/alterarproduto", r);
     }
 

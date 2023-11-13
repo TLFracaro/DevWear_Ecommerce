@@ -16,13 +16,14 @@ export default function CadastroDeProdutos() {
 
     function addImage(event) {
         const selectedFiles = event.target.files;
-        const newImages = [];
-
         for (let i = 0; i < selectedFiles.length; i++) {
             const file = selectedFiles[i];
-            newImages.push(URL.createObjectURL(file));
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setImages((prevImages) => [...prevImages, e.target.result]);
+            };
+            reader.readAsDataURL(file);
         }
-        setImages([...images, ...newImages]);
     }
 
     function deleteImage(index) {
@@ -87,7 +88,7 @@ export default function CadastroDeProdutos() {
                             <input id="marca" type="text" name="marca"></input>
 
                             <label for="preco">Preço:*</label>
-                            <input id="preco" type="number" name="preco"></input>
+                            <input id="preco" type="number" name="preco" min="0"></input>
 
                             <label for="descricao">Descrição:*</label>
                             <input id="descricao" type="text" name="descricao"></input>
@@ -106,7 +107,7 @@ export default function CadastroDeProdutos() {
                                 <input type="file" id="imageInput" accept="image/*" multiple onChange={addImage} />
                                 <div id="imageContainer">
                                     {images.map((image, index) => (
-                                        <div key={index} class="image-item">
+                                        <div key={index} className="image-item">
                                             <img src={image} alt={`Imagem ${index}`} />
                                             <button onClick={() => deleteImage(index)}><svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
