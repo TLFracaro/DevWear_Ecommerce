@@ -26,8 +26,6 @@
             background-color: black;
             padding: 50px;
 
-
-
             dialog {
                 overflow-x: hidden;
                 overflow-y: hidden;
@@ -88,6 +86,7 @@
                 h1 {
                     display: flex;
                     justify-content: center;
+                    text-align: center;
                     font-family: retroFont;
                     color: white;
                     font-size: 42px;
@@ -97,6 +96,7 @@
                 h2 {
                     display: flex;
                     justify-content: center;
+                    text-align: center;
                     font-family: retroFont;
                     font-size: 16px;
                     color: white;
@@ -104,8 +104,7 @@
                 }
 
                 img {
-
-                    margin-bottom: 20px;
+                    width: 100%;
                 }
 
                 .loginTexto {}
@@ -115,29 +114,24 @@
                     flex-direction: column;
                     align-items: center;
 
-                    input[type="text"] {
-                        outline: none;
-                        align-self: flex-start;
-                        width: 457px;
-                        height: 45px;
-                        border-radius: 20px;
-                        font-size: 16px;
-                        padding: 20px;
-                        font-family: 'K2D Medium';
-                        border: none;
+                    .caixas {
+                        width: 100%;
+                        max-width: 400px;
+                        input[type="text"],
+                        input[type="password"] {
+                            outline: none;
+                            align-self: flex-start;
+                            width: 100%;
+                            height: 45px;
+                            border-radius: 20px;
+                            font-size: 16px;
+                            padding: 20px;
+                            font-family: 'K2D Medium';
+                            border: none;
+                        }
                     }
 
-                    input[type="password"] {
-                        outline: none;
-                        align-self: flex-start;
-                        width: 457px;
-                        height: 45px;
-                        border-radius: 20px;
-                        font-size: 16px;
-                        padding: 20px;
-                        font-family: 'K2D Medium';
-                        border: none;
-                    }
+
 
                     button {
                         width: 284px;
@@ -190,110 +184,6 @@
                             color: #5C92FB;
                         }
                     }
-                }
-            }
-        }
-    }
-
-    footer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        background-color: black;
-        width: 100%;
-        height: 479px;
-
-        .conteudoFooter {
-            width: 100%;
-            max-width: 1037px;
-            display: grid;
-            justify-content: center;
-            align-items: flex-start;
-            grid-template-columns: 228px 228px 228px;
-            grid-template-rows: 121px 121px;
-            grid-gap: 30px;
-            height: 300px;
-            color: white;
-            font-family: 'K2D Bold';
-
-            .conteudo1 {
-                flex-wrap: wrap;
-
-                grid-row: 1 / 2;
-
-                h3 {
-
-                    margin-bottom: 10px;
-                }
-            }
-
-            .conteudo2 {
-                grid-row: 1 / 2;
-
-                h3 {
-                    margin-bottom: 10px;
-                }
-            }
-
-            .conteudo3 {
-                display: grid;
-                grid-row: 1 / 3;
-                flex-wrap: wrap;
-                height: 212px;
-
-                h3 {
-                    margin-bottom: 10px;
-                }
-
-                button {
-                    font-size: 13px;
-                    font-family: 'K2D Light';
-                    background-color: transparent;
-                    border: none;
-                    color: white;
-                    text-align: left;
-                }
-            }
-
-            .conteudo4 {
-                grid-row: 2 / 3;
-
-                h3 {
-                    margin-bottom: 10px;
-                }
-            }
-
-            .conteudo5 {
-                grid-row: 2 / 3;
-
-                h3 {
-                    margin-bottom: 10px;
-                }
-            }
-        }
-
-        .rodape {
-            width: 100%;
-            max-width: 1037px;
-            height: 100%;
-            max-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: row;
-            color: white;
-            font-family: 'K2D', sans-serif;
-            border-top: solid 2px white;
-
-            .logo {
-                margin-right: 350px;
-            }
-
-            .informacoesEmpre {
-                p {
-                    text-align: center;
-                    font-size: 12px;
                 }
             }
         }

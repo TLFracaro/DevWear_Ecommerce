@@ -61,11 +61,13 @@ export default function Rodape() {
                         <h3>FORMAS DE PAGAMENTO</h3>
                     </div>
                 </section>
+                <hr/>
                 <div class="rodape">
                     <div class="logo">
                         <img src={logoDevWearSemFundo}
                             alt="Logo do e-commerce da loja de roupa"></img>
                     </div>
+                    
                     <div class="informacoesEmpre">
                         <p>Endereco: Rua Linda, 299, Jd. Bonito, São Paulo, SP , CEP: 25679-485</p><br></br><p>CNPJ: 87.192.227/0001-64</p>
                     </div>

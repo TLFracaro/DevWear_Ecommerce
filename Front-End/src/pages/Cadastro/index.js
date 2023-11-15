@@ -92,7 +92,7 @@ export default function Cadastro() {
             if (nome === "" || cpf === "" || email === "" || senha === "") {
                 setTexto('Preencha todos os campos corretamente!');
                 mostrarModal();
-            } else if (cpfValdio) {
+            } else if (!cpfValdio) {
                 setTexto('Cpf inválido!');
                 mostrarModal();
             } else if (!emailValido) {
@@ -183,23 +183,25 @@ export default function Cadastro() {
                                 alt="Linha  separando caixas de texto do titulo"></img>
                         </div>
                         <form action="">
-                            <label for="">nome completo:</label>
-                            <input type="text" value={nome} onChange={e => setNome(e.target.value)} />
+                            <div class='caixas'>
+                                <label for="">nome completo:</label>
+                                <input type="text" value={nome} onChange={e => setNome(e.target.value)} />
 
-                            <label for="">cpf:</label>
-                            <input type="text" value={cpf} onChange={identificarCpf} style={cpfValdio ? { border: '2px solid red' } : validarCpf(cpf) ? { border: '2px solid green' } : null} />
+                                <label for="">cpf:</label>
+                                <input type="text" value={cpf} onChange={identificarCpf} style={cpfValdio ? { border: '2px solid red' } : validarCpf(cpf) ? { border: '2px solid green' } : null} />
 
-                            <label>E-mail:</label>
-                            <input type="text" value={email} onChange={(e) => { setEmail(e.target.value); setEmailValido(validarEmail(e.target.value)); }} style={!email ? { border: 'none' } : emailValido ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                                <label>E-mail:</label>
+                                <input type="text" value={email} onChange={(e) => { setEmail(e.target.value); setEmailValido(validarEmail(e.target.value)); }} style={!email ? { border: 'none' } : emailValido ? { border: '2px solid green' } : { border: '2px solid red' }} />
 
-                            <label>Confirmar E-mail:</label>
-                            <input type="text" value={confEmail} onChange={(e) => setConfEmail(e.target.value)} onBlur={() => { setEmailValido(email === confEmail && validarEmail(confEmail)); }} style={!confEmail ? { border: 'none' } : email === confEmail && emailValido ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                                <label>Confirmar E-mail:</label>
+                                <input type="text" value={confEmail} onChange={(e) => setConfEmail(e.target.value)} onBlur={() => { setEmailValido(email === confEmail && validarEmail(confEmail)); }} style={!confEmail ? { border: 'none' } : email === confEmail && emailValido ? { border: '2px solid green' } : { border: '2px solid red' }} />
 
-                            <label>Senha:</label>
-                            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!senha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                                <label>Senha:</label>
+                                <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!senha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
 
-                            <label>Confirmar Senha:</label>
-                            <input type="password" value={confSenha} onChange={(e) => setConfSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!confSenha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                                <label>Confirmar Senha:</label>
+                                <input type="password" value={confSenha} onChange={(e) => setConfSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!confSenha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                            </div>
 
                             <button type="button" onClick={enviarCadastro}>Cadastrar-se</button>
                         </form>

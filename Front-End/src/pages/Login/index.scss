@@ -12,7 +12,7 @@
         justify-content: center;
         flex-direction: row;
         margin: 30px;
-        height: 700px;
+        height: calc(100vh - 230px);
 
         .conteudoMain {
             display: flex;
@@ -22,7 +22,6 @@
             width: 100%;
             max-width: 1380px;
             height: 100%;
-            max-height: 710px;
             background-color: black;
             padding: 50px;
 
@@ -82,10 +81,13 @@
                 align-items: center;
                 justify-content: center;
                 flex-direction: column;
+                width: 100%;
+                max-width: 400px;
 
                 h1 {
                     display: flex;
                     justify-content: center;
+                    text-align: center;
                     font-family: retroFont;
                     color: white;
                     font-size: 42px;
@@ -95,6 +97,7 @@
                 h2 {
                     display: flex;
                     justify-content: center;
+                    text-align: center;
                     font-family: retroFont;
                     font-size: 16px;
                     color: white;
@@ -102,32 +105,24 @@
                 }
 
                 img {
-
-                    margin-bottom: 20px;
+                    width: 100%;
                 }
 
                 .loginTexto {}
 
                 form {
                     display: flex;
-                    flex-direction: column;
                     align-items: center;
+                    flex-direction: column;
+                    justify-content: center;
+                    width: 90%;
 
-                    input[type="text"] {
-                        align-self: flex-start;
-                        width: 457px;
-                        height: 45px;
-                        border-radius: 20px;
-                        font-size: 16px;
-                        outline: none;
-                        border: none;
-                        padding: 20px;
-                        font-family: 'K2D Medium';
-                    }
+                    input[type="text"],
                     input[type="password"] {
                         align-self: flex-start;
-                        width: 457px;
-                        height: 45px;
+                        width: 100%;
+                        max-width: 350px;
+                        height: 40px;
                         border-radius: 20px;
                         font-size: 16px;
                         outline: none;
@@ -137,9 +132,11 @@
                     }
 
                     button {
-                        width: 284px;
-                        height: 45px;
+                        width: 100%;
+                        max-width: 350px;
+                        height: 40px;
                         border-radius: 20px;
+                        margin-top: 10px;
                         font-family: retroFont;
                         cursor: pointer;
                         background-color: white;
@@ -155,12 +152,10 @@
                         align-self: flex-start;
                         height: 18px;
                         margin-left: 30px;
-                        margin-top: 30px;
-                        margin-bottom: 30px;
-                        color: white;
-                        font-family: retroFont;
                         margin-top: 20px;
                         margin-bottom: 20px;
+                        color: white;
+                        font-family: retroFont;
                     }
 
                     a {
@@ -189,5 +184,80 @@
                 }
             }
         }
+    }
+
+    @media screen and (max-width: 750px) {
+        main {
+            .conteudoMain {
+                .imagem {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 390px) {
+        main {
+            .conteudoMain {
+                padding: 30px;
+                dialog {
+
+
+                    button {
+
+                    }
+
+                    &::backdrop {
+
+                    }
+                }
+
+                .imagem {
+                    display: none;
+                }
+
+                .areaLogin {
+
+                    h1 {}
+
+                    h2 {
+                        
+                    }
+
+                    img {}
+
+                    .loginTexto {
+                        img{}
+                    }
+
+                    form {
+
+
+                        input[type="text"],
+                        input[type="password"] {}
+
+                        button {
+
+                            &:hover {}
+                        }
+
+                        label {}
+
+                        a {}
+                    }
+
+                    .criarConta {
+
+
+                        p {
+
+
+                            a {}
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

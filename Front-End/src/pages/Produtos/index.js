@@ -74,9 +74,8 @@ export default function Produtos() {
         navigate("/vizualizarprodutos", { state: produto.sku });
     }
     
-    async function alterarproduto(sku) {
-        let r = await api.post('/produto/' + sku);
-        navigate("/alterarproduto", r);
+    async function alterarproduto(produto) {
+        navigate("/alterarproduto", produto.sku);
     }
 
     async function listarProduto() {
@@ -175,7 +174,7 @@ export default function Produtos() {
                                             </svg>
                                         </button>
 
-                                            <button onClick={alterarproduto}>
+                                            <button onClick={() => {alterarproduto(produto)}}>
                                                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path

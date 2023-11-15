@@ -1,5 +1,5 @@
 import { inserirUsuario, salvarItem, logar, listarUsuarios, excluirUsuario, alterarUsuario, excluirItem, listarItens, consultarItem, alterarItem, pesquisarUsuario } from '../repository/lojaRepository.js';
-import { Router, query } from "express";
+import { Router } from "express";
 
 const endpoints = Router();
 
@@ -85,11 +85,13 @@ endpoints.post('/login', async (req, resp) => {
 
 endpoints.post('/produto', async (req, resp) => {
     try {
+        console.log('Requisição POST recebida em /produto');
         const { item, variacoes, imagens } = req.body;
+        console.log('Dados recebidos:', { item, variacoes, imagens });
         let r = await salvarItem(item, variacoes, imagens);
         resp.send(r);
     } catch (e) {
-        console.error(e);
+        console.error('Erro ao processar a requisição:', e);
         resp.status(400).send({
             erro: e.message
         });

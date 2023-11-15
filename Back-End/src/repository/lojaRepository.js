@@ -93,7 +93,7 @@ export async function salvarItem(item, variacoes, imagens) {
     try {
         const comandoItem = `INSERT INTO item (sku, nome, categoria, marca, preco, descricao, loc_estoque, peso) VALUES(?,?,?,?,?,?,?,?)`;
         await con.query(comandoItem, [item.sku, item.nome, item.categoria, item.marca, item.preco, item.descricao, item.loc_estoque, item.peso]);
-
+        console.log('Iniciando salvamento de item no banco de dados...');
         for (const variacao of variacoes) {
             const comandoVariacao = `INSERT INTO variacao (item_sku, tamanho, cor, quantidade) VALUES(?,?,?,?)`;
             await con.query(comandoVariacao, [item.sku, variacao.tamanho, variacao.cor, variacao.quantidade]);
@@ -101,16 +101,18 @@ export async function salvarItem(item, variacoes, imagens) {
 
         for (const imagem of imagens) {
             const comandoImagem = `INSERT INTO imagens (item_sku, imagem_url) VALUES(?, ?)`;
+            console.log('Imagem a ser inserida:', { item_sku: item.sku, imagem_url: imagem.imagem_url });
             await con.query(comandoImagem, [item.sku, imagem.imagem_url]);
         }
-
+              
+        
         await con.commit();
 
         const [variacoesInseridas] = await con.query('SELECT * FROM variacao WHERE item_sku = ?', [item.sku]);
         const [imagensInseridas] = await con.query('SELECT * FROM imagens WHERE item_sku = ?', [item.sku]);
 
         const itemInserido = { ...item, variacoes: variacoesInseridas, imagens: imagensInseridas };
-
+        console.log('Item salvo com sucesso!');
         return { message: 'Item inserido com sucesso', item: itemInserido };
     } catch (e) {
         if (e.code === 'ER_DUP_ENTRY') {
@@ -202,9 +204,7 @@ export async function consultarItem(sku) {
 
 export async function alterarItem(sku, novosDados) {
     try {
-        await con.query("DELETE FROM variacao WHERE item_sku = ?", [sku]);
-        await con.query("DELETE FROM imagens WHERE item_sku = ?", [sku]);
-
+        console.log(`Recebida solicitação para alterar item com SKU: ${sku}`);
         const comandoAtualizarItem = `UPDATE item SET nome = ?, categoria = ?, marca = ?, preco = ?, descricao = ?, loc_estoque = ?, peso = ? WHERE sku = ?`;
         await con.query(comandoAtualizarItem, [novosDados.item.nome, novosDados.item.categoria, novosDados.item.marca, novosDados.item.preco, novosDados.item.descricao, novosDados.item.loc_estoque, novosDados.item.peso, sku]);
 
