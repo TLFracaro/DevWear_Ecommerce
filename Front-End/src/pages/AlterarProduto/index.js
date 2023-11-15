@@ -1,23 +1,73 @@
 import "./index.scss";
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Cabecalho2 from "../../components/Cabecalho2";
 
 import '../../css/global.css';
 import Rodape from "../../components/Rodape";
+import api from "../../api";
 
 export default function AlterarProduto() {
+    const [nomeProduto, setNomeProduto] = useState('');
+    const [categoria, setCategoria] = useState('');
+    const [marca, setMarca] = useState('');
+    const [preco, setPreco] = useState(0);
+    const [descricao, setDescricao] = useState('');
+    const [sku, setSku] = useState('');
+    const [locEstoque, setLocEstoque] = useState('');
+    const [peso, setPeso] = useState(0);
     const [images, setImages] = useState([]);
+    const [variacoes, setVariacoes] = useState([
+        {
+            tamanho: '',
+            cor: '',
+            quantidade: ''
+        }
+    ]);
+
+    async function enviar(e) {
+        try {
+            console.log('Função enviar acionada!');
+            e.preventDefault();
+            const imagensLimitadas = images.slice(0, 10);
+            const body = {
+                item: {
+                    sku: sku,
+                    nome: nomeProduto,
+                    categoria: categoria,
+                    marca: marca,
+                    preco: preco,
+                    descricao: descricao,
+                    loc_estoque: locEstoque,
+                    peso: peso
+                },
+                variacoes: variacoes,
+                imagens: imagensLimitadas
+            };
+            console.log('Enviando dados para o backend...');
+            const resposta = await api.post('/produto/', body);
+            console.log('Resposta do backend:', resposta.data);
+        } catch (erro) {
+            console.error('Erro ao enviar para o banco de dados:', erro);
+        }
+    };
 
     function addImage(event) {
         const selectedFiles = event.target.files;
-        const newImages = [];
-
         for (let i = 0; i < selectedFiles.length; i++) {
             const file = selectedFiles[i];
-            newImages.push(URL.createObjectURL(file));
+
+            if (file.size <= 1024 * 1024 * 2) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    console.log('Binário da imagem:', e.target.result);
+                    setImages((prevImages) => [...prevImages, e.target.result]);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('A imagem deve ter no máximo 2 MB.');
+            }
         }
-        setImages([...images, ...newImages]);
     }
 
     function deleteImage(index) {
@@ -26,25 +76,22 @@ export default function AlterarProduto() {
         setImages(newImages);
     }
 
-    // function adicionarVariacao() {
-    //     const adicionarVariacao = document.querySelector("#adicionar-variacao");
-    //     const variacoesContainer = document.querySelector(".variacoes");
+    function addVariacao() {
+        setVariacoes([...variacoes, { tamanho: '', cor: '', quantidade: '' }]);
+    }
 
-    //     adicionarVariacao.addEventListener("click", () => {
-    //         const novaVariacao = document.createElement("div");
+    function handleVariacaoChange(index, event) {
+        const { name, value } = event.target;
+        const newVariacoes = [...variacoes];
+        newVariacoes[index] = { ...newVariacoes[index], [name]: value };
+        setVariacoes(newVariacoes);
+    }
 
-    //         novaVariacao.innerHTML = `
-    //                                 <label for="tamanho">Tamanho:</label>
-    //                                 <input id="tamanho" type="text" name="tamanho">
-    //                                 <label for="cor">Cor:</label>
-    //                                 <input id="cor" type="text" name="cor">
-    //                                 <label for="quantidade">Quantidade:</label>
-    //                                 <input id="quantidade" type="text" name="quantidade">
-    //                             `;
-
-    //         variacoesContainer.appendChild(novaVariacao);
-    //     });
-    // }
+    function deleteVariacao(index) {
+        const updatedVariacoes = [...variacoes];
+        updatedVariacoes.splice(index, 1);
+        setVariacoes(updatedVariacoes);
+    }
 
     return (
         <section className="AlterarProdutoEstilo">
@@ -52,50 +99,50 @@ export default function AlterarProduto() {
             <Cabecalho2 />
 
             <main>
-                <div class="mainConteudo">
-                    <div class="voltar">
+                <div className="mainConteudo">
+                    <div className="voltar">
                         <Link to="/produtos">
                             <h1><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M23.3794 31.5L15.9375 24L23.3794 16.5M16.9716 24H32.0625" stroke="black"
-                                    stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                                    strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
                                 <path
                                     d="M42 24C42 14.0625 33.9375 6 24 6C14.0625 6 6 14.0625 6 24C6 33.9375 14.0625 42 24 42C33.9375 42 42 33.9375 42 24Z"
-                                    stroke="black" stroke-width="4" stroke-miterlimit="10" />
+                                    stroke="black" strokeWidth="4" strokeMiterlimit="10" />
                             </svg>
                                 Voltar</h1>
                         </Link>
                     </div>
                     <h1 id="titulo">• Alterar produto:</h1>
 
-                    <div class="formulario">
-                        <form method="post" action="">
+                    <div className="formulario">
+                        <form>
                             <input type="hidden" name="flag" value="cad_prod"></input>
 
-                            <label for="nomeProd">Nome do produto:*</label>
-                            <input id="nomeProd" type="text" name="nomeProd"></input>
+                            <label htmlFor="nomeProd">Nome do produto:*</label>
+                            <input id="nomeProd" type="text" name="nomeProd" value={nomeProduto} onChange={(e) => setNomeProduto(e.target.value)}></input>
 
-                            <label for="categoria">Categoria:*</label>
-                            <input id="categoria" type="text" name="categoria"></input>
+                            <label htmlFor="categoria">Categoria:*</label>
+                            <input id="categoria" type="text" name="categoria" value={categoria} onChange={(e) => setCategoria(e.target.value)}></input>
 
-                            <label for="marca">Marca:*</label>
-                            <input id="marca" type="text" name="marca"></input>
+                            <label htmlFor="marca">Marca:*</label>
+                            <input id="marca" type="text" name="marca" value={marca} onChange={(e) => setMarca(e.target.value)}></input>
 
-                            <label for="preco">Preço:*</label>
-                            <input id="preco" type="number" name="preco"></input>
+                            <label htmlFor="preco">Preço:*</label>
+                            <input id="preco" type="number" name="preco" min="0" value={preco} onChange={(e) => setPreco(e.target.value)}></input>
 
-                            <label for="descricao">Descrição:*</label>
-                            <input id="descricao" type="text" name="descricao"></input>
+                            <label htmlFor="descricao">Descrição:*</label>
+                            <input id="descricao" type="text" name="descricao" value={descricao} onChange={(e) => setDescricao(e.target.value)}></input>
 
-                            <label for="sku">SKU:*</label>
-                            <input id="sku" type="text" name="sku"></input>
+                            <label htmlFor="sku">SKU:*</label>
+                            <input id="sku" type="text" name="sku" value={sku} onChange={(e) => setSku(e.target.value)}></input>
 
-                            <label for="locEstoque">Locação de estoque:</label>
-                            <input id="locEstoque" type="text" name="locEstoque"></input>
+                            <label htmlFor="locEstoque">Locação de estoque:</label>
+                            <input id="locEstoque" type="text" name="locEstoque" value={locEstoque} onChange={(e) => setLocEstoque(e.target.value)}></input>
 
-                            <label for="peso">Peso:*</label>
-                            <input id="peso" type="number" name="peso"></input>
+                            <label htmlFor="peso">Peso:*</label>
+                            <input id="peso" type="number" name="peso" value={peso} onChange={(e) => setPeso(e.target.value)}></input>
 
-                            <label for="imagem">• Imagem:*</label>
+                            <label htmlFor="imagem">• Imagem:*</label>
                             <div className="imagemProd">
                                 <input type="file" id="imageInput" accept="image/*" multiple onChange={addImage} />
                                 <div id="imageContainer">
@@ -125,33 +172,40 @@ export default function AlterarProduto() {
                                 </label>
                             </div>
 
-                            <label for="variacao">• Variação:*</label>
+                            <div className="variacoes">
+                                <label htmlFor="variacao">• Variação:*</label>
+                                {variacoes.map((variacao, index) => (
+                                    <div key={index} className="variacao">
+                                        <label className='variacaoLabel' htmlFor={`tamanho-${index}`}>Tamanho:</label>
+                                        <input className='variacaoTexto' id={`tamanho-${index}`} type="text" name="tamanho" value={variacao.tamanho} onChange={(event) => handleVariacaoChange(index, event)} />
 
-                            <div class="variacao">
-                                <label for="tamanho">Tamanho:</label>
-                                <input id="tamanho" type="text" name="tamanho"></input>
-                                <label for="cor">Cor:</label>
-                                <input id="cor" type="text" name="cor"></input>
-                                <label for="quantidade">Quantidade:</label>
-                                <input id="quantidade" type="text" name="quantidade"></input>
-                                <Link><svg width="40" height="40" viewBox="0 0 40 40" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M15 6.66683V5.00016C15 4.55814 15.1756 4.13421 15.4882 3.82165C15.8007 3.50909 16.2246 3.3335 16.6667 3.3335H23.3333C23.7754 3.3335 24.1993 3.50909 24.5118 3.82165C24.8244 4.13421 25 4.55814 25 5.00016V6.66683H31.6667C32.5507 6.66683 33.3986 7.01802 34.0237 7.64314C34.6488 8.26826 35 9.11611 35 10.0002V11.6668C35 12.5509 34.6488 13.3987 34.0237 14.0239C33.3986 14.649 32.5507 15.0002 31.6667 15.0002H31.445L30.3117 32.0002C30.2271 33.2656 29.6648 34.4517 28.7386 35.3181C27.8125 36.1846 26.5916 36.6667 25.3233 36.6668H14.71C13.4428 36.6668 12.2229 36.1856 11.2968 35.3206C10.3708 34.4555 9.80784 33.2711 9.72167 32.0068L8.56167 15.0002H8.33333C7.44928 15.0002 6.60143 14.649 5.97631 14.0239C5.35119 13.3987 5 12.5509 5 11.6668V10.0002C5 9.11611 5.35119 8.26826 5.97631 7.64314C6.60143 7.01802 7.44928 6.66683 8.33333 6.66683H15ZM31.6667 10.0002H8.33333V11.6668H31.6667V10.0002ZM11.9017 15.0002L13.0467 31.7802C13.0754 32.2017 13.2631 32.5966 13.5719 32.8849C13.8807 33.1733 14.2875 33.3336 14.71 33.3335H25.3233C25.7464 33.3336 26.1536 33.1728 26.4625 32.8837C26.7714 32.5946 26.9587 32.1989 26.9867 31.7768L28.1033 15.0002H11.9033H11.9017ZM16.6667 16.6668C17.1087 16.6668 17.5326 16.8424 17.8452 17.155C18.1577 17.4675 18.3333 17.8915 18.3333 18.3335V30.0002C18.3333 30.4422 18.1577 30.8661 17.8452 31.1787C17.5326 31.4912 17.1087 31.6668 16.6667 31.6668C16.2246 31.6668 15.8007 31.4912 15.4882 31.1787C15.1756 30.8661 15 30.4422 15 30.0002V18.3335C15 17.8915 15.1756 17.4675 15.4882 17.155C15.8007 16.8424 16.2246 16.6668 16.6667 16.6668ZM23.3333 16.6668C23.7754 16.6668 24.1993 16.8424 24.5118 17.155C24.8244 17.4675 25 17.8915 25 18.3335V30.0002C25 30.4422 24.8244 30.8661 24.5118 31.1787C24.1993 31.4912 23.7754 31.6668 23.3333 31.6668C22.8913 31.6668 22.4674 31.4912 22.1548 31.1787C21.8423 30.8661 21.6667 30.4422 21.6667 30.0002V18.3335C21.6667 17.8915 21.8423 17.4675 22.1548 17.155C22.4674 16.8424 22.8913 16.6668 23.3333 16.6668Z"
-                                        fill="#898989" />
-                                </svg>
-                                </Link>
+                                        <label className='variacaoLabel' htmlFor={`cor-${index}`}>Cor:</label>
+                                        <input className='variacaoTexto' id={`cor-${index}`} type="text" name="cor" value={variacao.cor} onChange={(event) => handleVariacaoChange(index, event)} />
+
+                                        <label className='variacaoLabel' htmlFor={`quantidade-${index}`}>Quantidade:</label>
+                                        <input className='variacaoTexto' id={`quantidade-${index}`} type="number" name="quantidade" value={variacao.quantidade} onChange={(event) => handleVariacaoChange(index, event)} />
+                                        {variacoes.length > 1 && (
+                                            <button onClick={() => deleteVariacao(index)}><svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M15 6.66683V5.00016C15 4.55814 15.1756 4.13421 15.4882 3.82165C15.8007 3.50909 16.2246 3.3335 16.6667 3.3335H23.3333C23.7754 3.3335 24.1993 3.50909 24.5118 3.82165C24.8244 4.13421 25 4.55814 25 5.00016V6.66683H31.6667C32.5507 6.66683 33.3986 7.01802 34.0237 7.64314C34.6488 8.26826 35 9.11611 35 10.0002V11.6668C35 12.5509 34.6488 13.3987 34.0237 14.0239C33.3986 14.649 32.5507 15.0002 31.6667 15.0002H31.445L30.3117 32.0002C30.2271 33.2656 29.6648 34.4517 28.7386 35.3181C27.8125 36.1846 26.5916 36.6667 25.3233 36.6668H14.71C13.4428 36.6668 12.2229 36.1856 11.2968 35.3206C10.3708 34.4555 9.80784 33.2711 9.72167 32.0068L8.56167 15.0002H8.33333C7.44928 15.0002 6.60143 14.649 5.97631 14.0239C5.35119 13.3987 5 12.5509 5 11.6668V10.0002C5 9.11611 5.35119 8.26826 5.97631 7.64314C6.60143 7.01802 7.44928 6.66683 8.33333 6.66683H15ZM31.6667 10.0002H8.33333V11.6668H31.6667V10.0002ZM11.9017 15.0002L13.0467 31.7802C13.0754 32.2017 13.2631 32.5966 13.5719 32.8849C13.8807 33.1733 14.2875 33.3336 14.71 33.3335H25.3233C25.7464 33.3336 26.1536 33.1728 26.4625 32.8837C26.7714 32.5946 26.9587 32.1989 26.9867 31.7768L28.1033 15.0002H11.9033H11.9017ZM16.6667 16.6668C17.1087 16.6668 17.5326 16.8424 17.8452 17.155C18.1577 17.4675 18.3333 17.8915 18.3333 18.3335V30.0002C18.3333 30.4422 18.1577 30.8661 17.8452 31.1787C17.5326 31.4912 17.1087 31.6668 16.6667 31.6668C16.2246 31.6668 15.8007 31.4912 15.4882 31.1787C15.1756 30.8661 15 30.4422 15 30.0002V18.3335C15 17.8915 15.1756 17.4675 15.4882 17.155C15.8007 16.8424 16.2246 16.6668 16.6667 16.6668ZM23.3333 16.6668C23.7754 16.6668 24.1993 16.8424 24.5118 17.155C24.8244 17.4675 25 17.8915 25 18.3335V30.0002C25 30.4422 24.8244 30.8661 24.5118 31.1787C24.1993 31.4912 23.7754 31.6668 23.3333 31.6668C22.8913 31.6668 22.4674 31.4912 22.1548 31.1787C21.8423 30.8661 21.6667 30.4422 21.6667 30.0002V18.3335C21.6667 17.8915 21.8423 17.4675 22.1548 17.155C22.4674 16.8424 22.8913 16.6668 23.3333 16.6668Z" fill="#898989" />
+                                            </svg></button>
+                                        )}
+                                    </div>
+                                ))}
+
+                                <button id="adicionar-variacao" onClick={addVariacao}>
+                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M15 5C20.5138 5 25 9.48625 25 15C25 20.5138 20.5138 25 15 25C9.48625 25 5 20.5138 5 15C5 9.48625 9.48625 5 15 5ZM15 2.5C8.09625 2.5 2.5 8.09625 2.5 15C2.5 21.9037 8.09625 27.5 15 27.5C21.9037 27.5 27.5 21.9037 27.5 15C27.5 8.09625 21.9037 2.5 15 2.5ZM21.25 13.75H16.25V8.75H13.75V13.75H8.75V16.25H13.75V21.25H16.25V16.25H21.25V13.75Z"
+                                            fill="black" />
+                                    </svg>Adicionar Variação
+                                </button>
                             </div>
 
-                            <button id="adicionar-variacao"><svg width="30" height="30" viewBox="0 0 30 30" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M15 5C20.5138 5 25 9.48625 25 15C25 20.5138 20.5138 25 15 25C9.48625 25 5 20.5138 5 15C5 9.48625 9.48625 5 15 5ZM15 2.5C8.09625 2.5 2.5 8.09625 2.5 15C2.5 21.9037 8.09625 27.5 15 27.5C21.9037 27.5 27.5 21.9037 27.5 15C27.5 8.09625 21.9037 2.5 15 2.5ZM21.25 13.75H16.25V8.75H13.75V13.75H8.75V16.25H13.75V21.25H16.25V16.25H21.25V13.75Z"
-                                    fill="black" />
-                            </svg>
-                                Adicionar Variação</button>
 
-                            <input type="submit" value="ALTERAR"></input>
+                            <button type="button" onClick={enviar}>
+                                ALTERAR
+                            </button>
                         </form>
                     </div>
                 </div>

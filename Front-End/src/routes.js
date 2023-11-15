@@ -14,7 +14,6 @@ export default function Rotas() {
     return(
         <BrowserRouter>
             <Routes>
-
                 <Route path='/' element={<App />} />
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/cadastrodeprodutos" element={<CadastroDeProdutos />} />
@@ -24,9 +23,7 @@ export default function Rotas() {
                 <Route path="/vizualizarprodutos" element={<VizualizarProdutos />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/alterarproduto" element={<Alterar />} />
-
                 {/* <Route path='/*' element={<NaoEncontrado />} /> */}
-
             </Routes>
         </BrowserRouter>
     );

@@ -96,7 +96,7 @@ export default function Login() {
                     <div className="areaLogin">
                         <div className="loginTexto">
                             <h1>LOGIN</h1>
-                            <h2>BEM VINDO DE VOLTA</h2>
+                            <h2>BEM VINDO DE VOLTA!</h2>
                             <img src="/assets/image/linhaLogin.svg" alt="Linha separando caixas de texto do título" />
                         </div>
                         <form onSubmit={enviar}>
