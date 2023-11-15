@@ -91,9 +91,12 @@ export async function logar(email, senha) {
 
 export async function salvarItem(item, variacoes, imagens) {
     try {
-        const comandoItem = `INSERT INTO item (sku, nome, categoria, marca, preco, descricao, loc_estoque, peso) VALUES(?,?,?,?,?,?,?,?)`;
-        await con.query(comandoItem, [item.sku, item.nome, item.categoria, item.marca, item.preco, item.descricao, item.loc_estoque, item.peso]);
+        const dataDeInclusao = new Date();
+
+        const comandoItem = `INSERT INTO item (sku, nome, categoria, marca, preco, descricao, loc_estoque, peso, dataDeInclusao) VALUES(?,?,?,?,?,?,?,?, ?)`;
+        await con.query(comandoItem, [item.sku, item.nome, item.categoria, item.marca, item.preco, item.descricao, item.loc_estoque, item.peso, dataDeInclusao]);
         console.log('Iniciando salvamento de item no banco de dados...');
+
         for (const variacao of variacoes) {
             const comandoVariacao = `INSERT INTO variacao (item_sku, tamanho, cor, quantidade) VALUES(?,?,?,?)`;
             await con.query(comandoVariacao, [item.sku, variacao.tamanho, variacao.cor, variacao.quantidade]);
@@ -105,7 +108,6 @@ export async function salvarItem(item, variacoes, imagens) {
             await con.query(comandoImagem, [item.sku, imagem.imagem_url]);
         }
               
-        
         await con.commit();
 
         const [variacoesInseridas] = await con.query('SELECT * FROM variacao WHERE item_sku = ?', [item.sku]);
