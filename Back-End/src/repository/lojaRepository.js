@@ -59,11 +59,11 @@ export async function excluirUsuario(cpf) {
 
 export async function pesquisarUsuario(cpf) {
     try {
-        const comando  = "SELECT * FROM usuario WHERE cpf = ?";
+        const comando = "SELECT * FROM usuario WHERE cpf = ?";
         const [info] = await con.query(comando, [cpf]);
-        if(info === null){
-            return {mensage: "Usuário não encontrado"}
-        } else{
+        if (info === null) {
+            return { mensage: "Usuário não encontrado" }
+        } else {
             return info;
         }
     } catch (error) {
@@ -72,21 +72,26 @@ export async function pesquisarUsuario(cpf) {
 }
 
 export async function logar(email, senha) {
-    const comando = 'SELECT nome, cpf, email, privilegio FROM usuario WHERE email=? AND senha=?';
-    const [info] = await con.query(comando, [email, senha]);
-    
-    if (info.length === 1) {
-        return {
-            message: 'Login bem-sucedido',
-            nome: info[0].nome,
-            cpf: info[0].cpf,
-            email: info[0].email,
-            privilegio: info[0].privilegio
-        };
-    } else {
-        throw new Error('E-mail ou senha inválidos');
+    try {
+        const comando = 'SELECT email, senha FROM usuario WHERE email=? AND senha=?';
+        const [info] = await con.query(comando, [email, senha]);
+
+        if (info.length === 1) {
+            return {
+                message: 'Login bem-sucedido',
+                nome: info[0].nome,
+                cpf: info[0].cpf,
+                email: info[0].email,
+                privilegio: info[0].privilegio
+            };
+        } else {
+            throw new Error('E-mail ou senha inválidos');
+        }
+    } catch (error) {
+    throw new Error('Erro ao encontrar funcionário.');
     }
 }
+
 
 
 export async function salvarItem(item, variacoes, imagens) {
@@ -107,7 +112,7 @@ export async function salvarItem(item, variacoes, imagens) {
             console.log('Imagem a ser inserida:', { item_sku: item.sku, imagem_url: imagem.imagem_url });
             await con.query(comandoImagem, [item.sku, imagem.imagem_url]);
         }
-              
+
         await con.commit();
 
         const [variacoesInseridas] = await con.query('SELECT * FROM variacao WHERE item_sku = ?', [item.sku]);
