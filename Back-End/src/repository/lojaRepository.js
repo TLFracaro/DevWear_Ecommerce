@@ -73,9 +73,6 @@ export async function pesquisarUsuario(cpf) {
 
 export async function logar(email, senha) {
     try {
-        console.log('Email:', email);
-        console.log('Senha:', senha);
-
         const comando = 'SELECT nome, cpf, email, privilegio FROM usuario WHERE email=? AND senha=?';
         const [info] = await con.query(comando, [email, senha]);
 
@@ -91,10 +88,11 @@ export async function logar(email, senha) {
             throw new Error('E-mail ou senha inválidos');
         }
     } catch (error) {
-        console.error('Erro ao logar:', error.message);
-        throw new Error('Erro ao encontrar funcionário. Verifique o console para detalhes.');
+        console.error('Erro na função logar:', error);
+        throw error;
     }
 }
+
 
 export async function salvarItem(item, variacoes, imagens) {
     try {
