@@ -41,7 +41,7 @@ export default function Cabecalho1(){
                         <div class="contaUsuario">
                             <Link to="/login">
                                 <img src={pessoaPixel}
-                                    alt="Pessoa representando o usuário em arte pixelada"/>Minha Conta
+                                    alt="Pessoa representando o usuário em arte pixelada"/><h1>Minha Conta</h1>
                             </Link>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
