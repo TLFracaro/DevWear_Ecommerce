@@ -1,5 +1,5 @@
 import "./App.scss"
-
+//Melhor Projeto
 import balaoMensagem from '../../assets/image/balaoMensagem.svg';
 import cartaz1 from '../../assets/image/cartaz1.svg';
 import Cabecalho1 from "../../components/Cabecalho1";
