@@ -77,6 +77,7 @@ endpoints.get('/usuario/:cpf', async (req, resp) => {
 
 endpoints.post('/login', async (req, resp) => {
     try {
+        console.log('Não aguento mais');
         const { email, senha } = req.body;
         let r = await logar(email, senha)
         resp.send(r);
