@@ -3,10 +3,6 @@ import { Router } from "express";
 
 const endpoints = Router();
 
-endpoints.get('/ping', (req, resp) => {
-    resp.send('pong');
-})
-
 
 endpoints.get('/usuario/listar', async (req, resp) => {
     try {

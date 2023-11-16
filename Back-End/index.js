@@ -7,6 +7,12 @@ const servidor = express();
 servidor.use(cors());
 servidor.use(express.json());
 
+
+servidor.get('/ping', (req, resp) => {
+    resp.send('pong');
+})
+
+
 //servidor.use(lojaController);
 
 const port = process.env.PORT;
