@@ -73,8 +73,6 @@ export async function pesquisarUsuario(cpf) {
 
 export async function logar(email, senha) {
     try {
-        console.log('Email:', email);
-        console.log('Senha:', senha);
 
         const comando = 'SELECT nome, cpf, email, privilegio FROM usuario WHERE email=? AND senha=?';
         const [info] = await con.query(comando, [email, senha]);
