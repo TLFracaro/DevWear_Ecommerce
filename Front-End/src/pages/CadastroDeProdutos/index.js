@@ -1,6 +1,6 @@
 import "./index.scss";
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import Cabecalho2 from "../../components/Cabecalho2";
 import axios from 'axios';
 import '../../css/global.css';
@@ -24,17 +24,38 @@ export default function CadastroDeProdutos() {
             quantidade: ''
         }
     ]);
+    const [texto, setTexto] = useState('');
+    const [modalAberto, setModalAberto] = useState(false);
+    const navigate = useNavigate();
+
+    const caixaDeDialogo = useRef(null);
+
+    useEffect(() => {
+        caixaDeDialogo.current = document.getElementById("CaixaDeDialogo");
+    }, []);
+
+    const fecharModal = () => {
+        if (caixaDeDialogo.current) {
+            caixaDeDialogo.current.close();
+        }
+    };
+
+    const mostrarModal = () => {
+        if (caixaDeDialogo.current) {
+            caixaDeDialogo.current.showModal();
+        }
+    };
 
     async function enviar(e) {
         try {
-            console.log('Função enviar acionada!');
             e.preventDefault();
-    
+
             if (!nomeProduto || !categoria || !marca || !preco || !descricao || !locEstoque || !peso || !sku || variacoes.length === 0) {
-                console.error('Preencha todos os campos obrigatórios antes de enviar.');
+                setTexto('Preencha todos os campos obrigatórios antes de enviar.');
+                mostrarModal();
                 return;
             }
-    
+
             const formData = new FormData();
             formData.append('nome', nomeProduto);
             formData.append('categoria', categoria);
@@ -44,38 +65,51 @@ export default function CadastroDeProdutos() {
             formData.append('loc_estoque', locEstoque);
             formData.append('peso', peso);
             formData.append('sku', sku);
-    
+
             variacoes.forEach((variacao, index) => {
                 formData.append(`variacoes[${index}][tamanho]`, variacao.tamanho);
                 formData.append(`variacoes[${index}][cor]`, variacao.cor);
                 formData.append(`variacoes[${index}][quantidade]`, variacao.quantidade);
             });
-    
-            // Alteração aqui para garantir que as imagens sejam corretamente formatadas no FormData
+
             images.forEach((image, index) => {
                 if (image) {
                     formData.append(`imagens[${index}]`, image);
                 }
             });
-    
-            console.log('Enviando dados para o backend...');
-            console.log(`${sku}`);
+
             const resposta = await api.post('/produto', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-    
+
             console.log('Resposta do backend:', resposta.data);
         } catch (erro) {
-            console.error('Erro ao enviar para o banco de dados:', erro);
+            setTexto('Erro ao enviar para o banco de dados');
+            mostrarModal();
         }
     }
 
     function addImage(event) {
         const selectedFiles = event.target.files;
+        const maxSize = 50 * 1024;
+
         for (let i = 0; i < selectedFiles.length; i++) {
             const file = selectedFiles[i];
+
+            if (!file.name.toLowerCase().endsWith(".png")) {
+                setTexto('Por favor, selecione apenas imagens no formato PNG.');
+                mostrarModal();
+                continue;
+            }
+
+            if (file.size > maxSize) {
+                setTexto('A imagem excede o tamanho máximo permitido de 50kb.');
+                mostrarModal();
+                continue;
+            }
+
             const reader = new FileReader();
             reader.onload = (e) => {
                 console.log('URL da imagem adicionada:', e.target.result);
@@ -84,6 +118,8 @@ export default function CadastroDeProdutos() {
             reader.readAsDataURL(file);
         }
     }
+
+
 
     function deleteImage(index) {
         const newImages = [...images];
@@ -109,18 +145,18 @@ export default function CadastroDeProdutos() {
     }
 
     function addVariacao(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         setVariacoes([...variacoes, { tamanho: '', cor: '', quantidade: '' }]);
     }
 
     function deleteVariacao(index) {
         setVariacoes((prevVariacoes) => {
-            const updatedVariacoes = [...prevVariacoes]; 
+            const updatedVariacoes = [...prevVariacoes];
             updatedVariacoes.splice(index, 1);
             return updatedVariacoes;
         });
     }
-    
+
 
     return (
         <section className="CadastroProdutoEstilo">
@@ -129,6 +165,12 @@ export default function CadastroDeProdutos() {
 
             <main>
                 <div className="mainConteudo">
+                    <dialog open={modalAberto} id="CaixaDeDialogo">
+                        <p>{texto}</p>
+                        <button id="botao" onClick={fecharModal}>
+                            Ok
+                        </button>
+                    </dialog>
                     <div className="voltar">
                         <Link to="/produtos">
                             <h1><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -188,14 +230,11 @@ export default function CadastroDeProdutos() {
                                     ))}
 
                                 </div>
-                                <label htmlFor="imageInput">
+                                <label htmlFor="imageInput" style={{ cursor: 'pointer' }}>
                                     <span>
                                         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <rect width="60" height="60" rx="20" fill="white" />
-                                            <path
-                                                d="M15 5C20.5138 5 25 9.48625 25 15C25 20.5138 20.5138 25 15 25C9.48625 25 5 20.5138 5 15C5 9.48625 9.48625 5 15 5ZM15 2.5C8.09625 2.5 2.5 8.09625 2.5 15C2.5 21.9037 8.09625 27.5 15 27.5C21.9037 27.5 27.5 21.9037 27.5 15C27.5 8.09625 21.9037 2.5 15 2.5ZM21.25 13.75H16.25V8.75H13.75V13.75H8.75V16.25H13.75V21.25H16.25V16.25H21.25V13.75Z"
-                                                fill="black"
-                                            />
+                                            <path d="M27.3418 41.9824V31.7754H17.2109V27.5098H27.3418V17.3789H31.6582V27.5098H41.7891V31.7754H31.6582V41.9824H27.3418Z" fill="black" />
                                         </svg>
                                     </span>
                                 </label>

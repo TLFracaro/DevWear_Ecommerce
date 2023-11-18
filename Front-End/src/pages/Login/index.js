@@ -10,9 +10,9 @@ import api from '../../api';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const navigate = useNavigate();
     const [texto, setTexto] = useState('');
     const [modalAberto, setModalAberto] = useState(false);
-    const navigate = useNavigate();
 
     const caixaDeDialogo = useRef(null);
 

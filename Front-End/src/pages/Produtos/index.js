@@ -79,7 +79,7 @@ export default function Produtos() {
     }
 
     async function listarProduto() {
-        let r = await api.get('/produto/listar');
+        let r = await api.get('/produto/listar/');
         let produtos = r.data;
 
         setProdutos(produtos);

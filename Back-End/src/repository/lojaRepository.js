@@ -1,3 +1,4 @@
+import { format } from 'mysql2';
 import { con } from './conection.js';
 
 export async function inserirUsuario(usuario) {
@@ -100,11 +101,12 @@ export async function salvarItem(item, imagens) {
         console.log('Dados recebidos para salvar:', { item });
 
         const dataDeInclusao = new Date();
+        const dataFormatada = format(dataDeInclusao, 'yyyy-MM-dd HH:mm:ss');
 
         await con.beginTransaction();
 
         const comandoItem = `INSERT INTO item (sku, nome, categoria, marca, preco, descricao, loc_estoque, peso, dataDeInclusao) VALUES(?,?,?,?,?,?,?,?, ?)`;
-        await con.query(comandoItem, [item.sku, item.nome, item.categoria, item.marca, item.preco, item.descricao, item.loc_estoque, item.peso, dataDeInclusao]);
+        await con.query(comandoItem, [item.sku, item.nome, item.categoria, item.marca, item.preco, item.descricao, item.loc_estoque, item.peso, dataFormatada]);
         console.log('Iniciando salvamento de item no banco de dados...');
 
         for (const variacao of item.variacoes) {
@@ -113,7 +115,7 @@ export async function salvarItem(item, imagens) {
         }
 
         console.log('Antes do console.log("Passei aqui")');
-        
+
         console.log('Número de imagens:', item.imagens.length);
         for (const imagem of item.imagens) {
             console.log('passei aqui')
@@ -137,7 +139,7 @@ export async function salvarItem(item, imagens) {
         await con.rollback();
         console.error('Erro durante a transação:', e.message);
         return { error: `Erro durante a transação: ${e.message}` };
-    } 
+    }
 }
 
 
