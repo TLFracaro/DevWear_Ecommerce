@@ -1,3 +1,4 @@
+//alterei aqui
 import { inserirUsuario, salvarItem, logar, listarUsuarios, excluirUsuario, alterarUsuario, excluirItem, listarItens, consultarItem, alterarItem, pesquisarUsuario } from '../repository/lojaRepository.js';
 import multer from 'multer';
 import { Router } from 'express';
@@ -160,12 +161,13 @@ endpoints.get('/produto/:sku', async (req, resp) => {
 });
 
 
-endpoints.put('/produto/:sku', async (req, res) => {
+endpoints.put('/produto/:sku', upload.array('novasImagens'), async (req, res) => {
     try {
         const sku = req.params.sku;
         const novosDados = req.body;
+        const novasImagens = req.files;
 
-        const resultadoAlteracao = await alterarItem(sku, novosDados);
+        const resultadoAlteracao = await alterarItem(sku, novosDados, novasImagens);
 
         res.send(resultadoAlteracao);
     } catch (e) {
@@ -173,6 +175,7 @@ endpoints.put('/produto/:sku', async (req, res) => {
         res.status(400).send({ erro: e.message });
     }
 });
+
 
 
 

@@ -1,3 +1,4 @@
+//alterei aqui
 import { format } from 'mysql2';
 import { con } from './conection.js';
 
@@ -208,20 +209,33 @@ export async function consultarItem(sku) {
     }
 }
 
-export async function alterarItem(sku, novosDados) {
+export async function alterarItem(sku, novosDados, novasImagens) {
     try {
-        console.log(`Recebida solicitação para alterar item com SKU: ${sku}`);
-        const comandoAtualizarItem = `UPDATE item SET nome = ?, categoria = ?, marca = ?, preco = ?, descricao = ?, loc_estoque = ?, peso = ? WHERE sku = ?`;
-        await con.query(comandoAtualizarItem, [novosDados.item.nome, novosDados.item.categoria, novosDados.item.marca, novosDados.item.preco, novosDados.item.descricao, novosDados.item.loc_estoque, novosDados.item.peso, sku]);
+        console.log('Dados recebidos para alterar:', { sku, novosDados, novasImagens });
+
+        const dataDeAtualizacao = new Date();
+        const dataFormatada = format(dataDeAtualizacao, 'yyyy-MM-dd HH:mm:ss');
+
+        await con.beginTransaction();
+
+        const comandoItem = `UPDATE item SET nome=?, categoria=?, marca=?, preco=?, descricao=?, loc_estoque=?, peso=?, dataDeAtualizacao=? WHERE sku=?`;
+        await con.query(comandoItem, [novosDados.nome, novosDados.categoria, novosDados.marca, novosDados.preco, novosDados.descricao, novosDados.loc_estoque, novosDados.peso, dataFormatada, sku]);
+        console.log('Iniciando atualização de item no banco de dados...');
+
+        const comandoRemoverVariacoes = `DELETE FROM variacao WHERE item_sku=?`;
+        await con.query(comandoRemoverVariacoes, [sku]);
 
         for (const variacao of novosDados.variacoes) {
-            const comandoInserirVariacao = `INSERT INTO variacao (item_sku, tamanho, cor, quantidade) VALUES (?, ?, ?, ?)`;
-            await con.query(comandoInserirVariacao, [sku, variacao.tamanho, variacao.cor, variacao.quantidade]);
+            const comandoVariacao = `INSERT INTO variacao (item_sku, tamanho, cor, quantidade) VALUES(?,?,?,?)`;
+            await con.query(comandoVariacao, [sku, variacao.tamanho, variacao.cor, variacao.quantidade]);
         }
 
-        for (const imagem of novosDados.imagens) {
-            const comandoInserirImagem = `INSERT INTO imagens (item_sku, imagem_url) VALUES (?, ?)`;
-            await con.query(comandoInserirImagem, [sku, imagem.imagem_url]);
+        const comandoRemoverImagens = `DELETE FROM imagens WHERE item_sku=?`;
+        await con.query(comandoRemoverImagens, [sku]);
+        
+        for (const imagemBase64 of novasImagens) {
+            const comandoImagem = `INSERT INTO imagens (item_sku, imagem_base64) VALUES(?, ?)`;
+            await con.query(comandoImagem, [sku, imagemBase64]);
         }
 
         await con.commit();
@@ -230,12 +244,15 @@ export async function alterarItem(sku, novosDados) {
         const [imagensAtualizadas] = await con.query('SELECT * FROM imagens WHERE item_sku = ?', [sku]);
 
         const itemAtualizado = { ...novosDados, variacoes: variacoesAtualizadas, imagens: imagensAtualizadas };
-
-        return { message: 'Item atualizado com sucesso', item: itemAtualizado };
-    } catch (error) {
-        throw new Error(`Erro ao atualizar o item: ${error.message}`);
+        console.log('Item alterado com sucesso!');
+        return { message: 'Item alterado com sucesso', item: itemAtualizado };
+    } catch (e) {
+        await con.rollback();
+        console.error('Erro durante a transação:', e.message);
+        return { error: `Erro durante a transação: ${e.message}` };
     }
 }
+
 
 
 

@@ -1,8 +1,9 @@
+//alterei aqui
 import "./index.scss";
 import { Link, useNavigate } from "react-router-dom";
 import lupa from '../../assets/image/lupa.svg';
 import Cabecalho2 from "../../components/Cabecalho2";
-
+import { useLocation } from 'react-router-dom';
 import '../../css/global.css';
 import Rodape from "../../components/Rodape";
 import axios from "axios";
@@ -75,7 +76,7 @@ export default function Produtos() {
     }
     
     async function alterarproduto(produto) {
-        navigate("/alterarproduto", produto.sku);
+        navigate("/alterarproduto/", { state: produto.sku });
     }
 
     async function listarProduto() {

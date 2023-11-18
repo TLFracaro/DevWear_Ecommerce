@@ -1,3 +1,4 @@
+//alterei aqui
 import "./index.scss";
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
@@ -83,8 +84,15 @@ export default function CadastroDeProdutos() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-
+            
             console.log('Resposta do backend:', resposta.data);
+            setTexto('Produto cadastrado com sucesso.');
+            mostrarModal();
+
+            setTimeout(() => {
+                navigate('/produtos');
+            }, 2000);
+            
         } catch (erro) {
             setTexto('Erro ao enviar para o banco de dados');
             mostrarModal();

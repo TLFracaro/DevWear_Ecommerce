@@ -1,8 +1,9 @@
+//alterei aqui
 import "./index.scss";
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Cabecalho2 from "../../components/Cabecalho2";
-
+import axios from 'axios';
 import '../../css/global.css';
 import Rodape from "../../components/Rodape";
 import api from "../../api";
@@ -12,7 +13,7 @@ export default function AlterarProduto() {
     const [categoria, setCategoria] = useState('');
     const [marca, setMarca] = useState('');
     const [preco, setPreco] = useState(0);
-    const [descricao, setDescricao] = useState(''); 
+    const [descricao, setDescricao] = useState('');
     const [sku, setSku] = useState('');
     const [locEstoque, setLocEstoque] = useState('');
     const [peso, setPeso] = useState(0);
@@ -26,44 +27,52 @@ export default function AlterarProduto() {
         }
     ]);
 
+    const navigate = useNavigate();
     const location = useLocation();
-    const skuRecebido = location.state || ('');
+    const skuRecebido = location.state !== undefined ? location.state : null;
 
     useEffect(() => {
-        const skuFromUrl = location.pathname.split('/').pop();
-        buscarDados(skuFromUrl);
-      }, [location.pathname]);
-
-    async function buscarDados(sku) {
-        try {
-            const resposta = await api.get(`/produto/${skuRecebido}`);
-            setSku(sku);
-            setNomeProduto(resposta.nome);
-            setCategoria(resposta.categoria);
-            setMarca(resposta.marca);
-            setPreco(resposta.preco);
-            setDescricao(resposta.descricao);
-            setLocEstoque(resposta.locEstoque);
-            setPeso(resposta.peso);
+        if (skuRecebido) {
+            buscarProdutoPorSku(skuRecebido);
+        }
+    }, [location.state]);
     
-            setImages(resposta.imagens.map(imagem => ({
+    async function buscarProdutoPorSku(sku) {
+        try {
+            const resposta = await api.get(`/produto/${sku}`);
+            const { nome, categoria, marca, preco, descricao, locEstoque, peso, imagens, variacao } = resposta.data;
+
+            setNomeProduto(nome);
+            setCategoria(categoria);
+            setMarca(marca);
+            setPreco(preco);
+            setDescricao(descricao);
+            setLocEstoque(locEstoque);
+            setPeso(peso);
+
+            setImages(imagens.map(imagem => ({
                 id: imagem.id,
-                item_sku: sku,
+                item_sku: skuRecebido,
                 imagem_url: imagem.url
             })));
-            setVariacoes(resposta.variacao.map(variacao => ({
-                id: variacao.id,
-                item_sku: sku,
-                tamanho: variacao.tamanho,
-                cor: variacao.cor,
-                quantidade: variacao.quantidade
-            })));
-    
-            setProduto(resposta);
+            
+            setVariacoes((prevVariacoes) =>
+                variacoes.map((variacao) => ({
+                    id: variacao.id,
+                    item_sku: skuRecebido,
+                    tamanho: variacao.tamanho,
+                    cor: variacao.cor,
+                    quantidade: variacao.quantidade
+                }))
+            );
+
+
+            setProduto(resposta.data);
         } catch (error) {
             console.error('Erro ao buscar dados', error);
         }
-    }    
+    }
+
 
     async function alterar(e) {
         try {
@@ -72,7 +81,7 @@ export default function AlterarProduto() {
             const imagensLimitadas = images.slice(0, 10);
             const body = {
                 item: {
-                    sku: sku,
+                    sku: skuRecebido,
                     nome: nomeProduto,
                     categoria: categoria,
                     marca: marca,
@@ -85,12 +94,16 @@ export default function AlterarProduto() {
                 imagens: imagensLimitadas
             };
             console.log('Enviando dados para o backend...');
-            const resposta = await api.post('/produto/', body);
+            const resposta = await api.put(`/produto/${skuRecebido}`, body);
             console.log('Resposta do backend:', resposta.data);
+
+            navigate("/produtos");
         } catch (erro) {
             console.error('Erro ao enviar para o banco de dados:', erro);
         }
-    };
+    }
+
+
 
     function addImage(event) {
         const selectedFiles = event.target.files;
@@ -101,8 +114,11 @@ export default function AlterarProduto() {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     console.log('Binário da imagem:', e.target.result);
-                    setImages((prevImages) => [...prevImages, e.target.result]);
-                };
+                    setImages((prevImages) => [
+                        ...prevImages,
+                        { id: prevImages.length + 1, item_sku: skuRecebido, imagem_url: e.target.result }
+                    ]);
+                };                
                 reader.readAsDataURL(file);
             } else {
                 alert('A imagem deve ter no máximo 2 MB.');
@@ -142,14 +158,16 @@ export default function AlterarProduto() {
                 <div className="mainConteudo">
                     <div className="voltar">
                         <Link to="/produtos">
-                            <h1><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M23.3794 31.5L15.9375 24L23.3794 16.5M16.9716 24H32.0625" stroke="black"
-                                    strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                                <path
-                                    d="M42 24C42 14.0625 33.9375 6 24 6C14.0625 6 6 14.0625 6 24C6 33.9375 14.0625 42 24 42C33.9375 42 42 33.9375 42 24Z"
-                                    stroke="black" strokeWidth="4" strokeMiterlimit="10" />
-                            </svg>
-                                Voltar</h1>
+                            <button>
+                                <h1><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23.3794 31.5L15.9375 24L23.3794 16.5M16.9716 24H32.0625" stroke="black"
+                                        strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path
+                                        d="M42 24C42 14.0625 33.9375 6 24 6C14.0625 6 6 14.0625 6 24C6 33.9375 14.0625 42 24 42C33.9375 42 42 33.9375 42 24Z"
+                                        stroke="black" strokeWidth="4" strokeMiterlimit="10" />
+                                </svg>
+                                    Voltar</h1>
+                            </button>
                         </Link>
                     </div>
                     <h1 id="titulo">• Alterar produto:</h1>

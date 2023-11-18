@@ -1,5 +1,7 @@
+//alterei aqui
 import "./index.scss";
 import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import gatoToca from '../../assets/image/gatoToca.jpg';
 import Cabecalho2 from "../../components/Cabecalho2";
 
@@ -10,28 +12,43 @@ export default function MenuADM() {
     const location = useLocation();
     const { nome, cpf, email } = location.state || {};
 
+    useEffect(() => {
+        localStorage.setItem("userData", JSON.stringify({ nome, cpf, email }));
+    }, [nome, cpf, email]);
+
+    const [storedUserData, setStoredUserData] = useState(null);
+
+    useEffect(() => {
+        const storedUserDataString = localStorage.getItem("userData");
+        if (storedUserDataString) {
+          const parsedUserData = JSON.parse(storedUserDataString);
+          console.log("Dados recuperados:", parsedUserData);
+          setStoredUserData(parsedUserData);
+        }
+      }, []);
+
     return (
         <section className="MenuAdmEstilo">
 
             <Cabecalho2 />
 
             <main>
-                <div class="mainConteudo">
-                    <div class="titulo">
+                <div className="mainConteudo">
+                    <div className="titulo">
                         <h1>Página inicial</h1>
                     </div>
-                    <div class="conteudo">
-                        <div class="dados">
+                    <div className="conteudo">
+                        <div className="dados">
                             <img src={gatoToca} alt="Sua imamgem"></img>
-                            <div class="infosUser">
+                            <div className="infosUser">
                                 <h3>Dados Usuario:</h3>
-                                <p>Nome: {nome}</p>
-                                <p>CPF: {cpf}</p>
-                                <p>E-mail: {email}</p>
+                                <p>Nome: {storedUserData?.nome}</p>
+                                <p>CPF: {storedUserData?.cpf}</p>
+                                <p>E-mail: {storedUserData?.email}</p>
                             </div>
                         </div>
-                        <div class="opcos">
-                            <h1>Seja bem vindo, {nome}!</h1>
+                        <div className="opcos">
+                            <h1>Seja bem vindo, {storedUserData?.nome}!</h1>
                             <h2>• Atalho para ferramentas:</h2>
                             <button><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10.5019 1.85H10.5014H10.5C5.72303 1.85 1.85 5.72303 1.85 10.5C1.85 15.277 5.72303 19.15 10.5 19.15C15.277 19.15 19.15 15.277 19.15 10.5L19.15 10.4995C19.1356 5.72862 15.2714 1.86442 10.5019 1.85ZM11.075 6.25V6.1H10.925H9.65H9.5V6.25V11.35V11.4338L9.57139 11.4777L13.9914 14.1978L14.1191 14.2764L14.1978 14.1486L14.8777 13.0436L14.9573 12.9144L14.8272 12.8364L11.075 10.5851V6.25ZM10.5 17.15C6.82726 17.15 3.85 14.1727 3.85 10.5C3.85 6.82726 6.82726 3.85 10.5 3.85C14.1727 3.85 17.1499 6.82718 17.15 10.4999C17.1387 14.1685 14.1684 17.1387 10.5013 17.15C10.5012 17.15 10.5011 17.15 10.501 17.15L10.5 17.15Z" fill="black" stroke="black" stroke-width="0.3" />
