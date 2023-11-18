@@ -29,31 +29,48 @@ export default function CadastroDeProdutos() {
         try {
             console.log('Função enviar acionada!');
             e.preventDefault();
-            const body = {
-                item: {
-                    sku: sku,
-                    nome: nomeProduto,
-                    categoria: categoria,
-                    marca: marca,
-                    preco: preco,
-                    descricao: descricao,
-                    loc_estoque: locEstoque,
-                    peso: peso
-                },
-                variacoes: variacoes,
-                imagens: images.map(image => ({ imagem_url: image }))
-            };
-            if (images.length > 0) {
-                console.log('Enviando dados para o backend...');
-                const resposta = await api.post('/produto/', body);
-                console.log('Resposta do backend:', resposta.data);
-            } else {
-                console.error('Array de imagens vazio. Não é possível enviar para o banco de dados.');
+    
+            if (!nomeProduto || !categoria || !marca || !preco || !descricao || !locEstoque || !peso || !sku || variacoes.length === 0) {
+                console.error('Preencha todos os campos obrigatórios antes de enviar.');
+                return;
             }
+    
+            const formData = new FormData();
+            formData.append('nome', nomeProduto);
+            formData.append('categoria', categoria);
+            formData.append('marca', marca);
+            formData.append('preco', preco);
+            formData.append('descricao', descricao);
+            formData.append('loc_estoque', locEstoque);
+            formData.append('peso', peso);
+            formData.append('sku', sku);
+    
+            variacoes.forEach((variacao, index) => {
+                formData.append(`variacoes[${index}][tamanho]`, variacao.tamanho);
+                formData.append(`variacoes[${index}][cor]`, variacao.cor);
+                formData.append(`variacoes[${index}][quantidade]`, variacao.quantidade);
+            });
+    
+            // Alteração aqui para garantir que as imagens sejam corretamente formatadas no FormData
+            images.forEach((image, index) => {
+                if (image) {
+                    formData.append(`imagens[${index}]`, image);
+                }
+            });
+    
+            console.log('Enviando dados para o backend...');
+            console.log(`${sku}`);
+            const resposta = await api.post('/produto', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+    
+            console.log('Resposta do backend:', resposta.data);
         } catch (erro) {
             console.error('Erro ao enviar para o banco de dados:', erro);
         }
-    };
+    }
 
     function addImage(event) {
         const selectedFiles = event.target.files;
@@ -98,7 +115,7 @@ export default function CadastroDeProdutos() {
 
     function deleteVariacao(index) {
         setVariacoes((prevVariacoes) => {
-            const updatedVariacoes = [...prevVariacoes];
+            const updatedVariacoes = [...prevVariacoes]; 
             updatedVariacoes.splice(index, 1);
             return updatedVariacoes;
         });

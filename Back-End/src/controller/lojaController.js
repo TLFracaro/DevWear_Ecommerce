@@ -1,8 +1,18 @@
 import { inserirUsuario, salvarItem, logar, listarUsuarios, excluirUsuario, alterarUsuario, excluirItem, listarItens, consultarItem, alterarItem, pesquisarUsuario } from '../repository/lojaRepository.js';
-import { Router } from "express";
+import multer from 'multer';
+import { Router } from 'express';
+import express from 'express';
 
 const endpoints = Router();
+endpoints.use(express.json());
 
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 10 * 1024 * 1024, 
+  },
+});
 
 endpoints.get('/usuario/listar', async (req, resp) => {
     try {
@@ -85,20 +95,33 @@ endpoints.post('/login', async (req, resp) => {
     }
 });
 
-endpoints.post('/produto', async (req, resp) => {
+endpoints.post('/produto', upload.array('imagens'), async (req, resp) => {
     try {
         console.log('Requisição POST recebida em /produto');
-        const { item, variacoes, imagens } = req.body;
+        console.log('Conteúdo de req.body:', req.body);
+        const { item, variacoes } = req.body;
+
+        const imagens = req.files;
+
+        if (!Array.isArray(imagens) || imagens.some(img => !img.buffer)) {
+            throw new Error('Formato inválido para imagens.');
+        }
+
         console.log('Dados recebidos:', { item, variacoes, imagens });
-        let r = await salvarItem(item, variacoes, imagens);
-        resp.send(r);
+
+        console.log('passei para repository');
+        let r = await salvarItem(req.body, imagens); 
+
+        resp.send('Requisição processada com sucesso.');
     } catch (e) {
         console.error('Erro ao processar a requisição:', e);
         resp.status(400).send({
-            erro: e.message
+            erro: e.message,
         });
     }
 });
+
+
 
 endpoints.delete("/produto/:sku", async (req, resp) => {
     try {

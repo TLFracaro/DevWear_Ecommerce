@@ -1,5 +1,5 @@
 import "./index.scss";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import Cabecalho2 from "../../components/Cabecalho2";
 
@@ -12,11 +12,12 @@ export default function AlterarProduto() {
     const [categoria, setCategoria] = useState('');
     const [marca, setMarca] = useState('');
     const [preco, setPreco] = useState(0);
-    const [descricao, setDescricao] = useState('');
+    const [descricao, setDescricao] = useState(''); 
     const [sku, setSku] = useState('');
     const [locEstoque, setLocEstoque] = useState('');
     const [peso, setPeso] = useState(0);
     const [images, setImages] = useState([]);
+    const [produto, setProduto] = useState([]);
     const [variacoes, setVariacoes] = useState([
         {
             tamanho: '',
@@ -25,7 +26,46 @@ export default function AlterarProduto() {
         }
     ]);
 
-    async function enviar(e) {
+    const location = useLocation();
+    const skuRecebido = location.state || ('');
+
+    useEffect(() => {
+        const skuFromUrl = location.pathname.split('/').pop();
+        buscarDados(skuFromUrl);
+      }, [location.pathname]);
+
+    async function buscarDados(sku) {
+        try {
+            const resposta = await api.get(`/produto/${skuRecebido}`);
+            setSku(sku);
+            setNomeProduto(resposta.nome);
+            setCategoria(resposta.categoria);
+            setMarca(resposta.marca);
+            setPreco(resposta.preco);
+            setDescricao(resposta.descricao);
+            setLocEstoque(resposta.locEstoque);
+            setPeso(resposta.peso);
+    
+            setImages(resposta.imagens.map(imagem => ({
+                id: imagem.id,
+                item_sku: sku,
+                imagem_url: imagem.url
+            })));
+            setVariacoes(resposta.variacao.map(variacao => ({
+                id: variacao.id,
+                item_sku: sku,
+                tamanho: variacao.tamanho,
+                cor: variacao.cor,
+                quantidade: variacao.quantidade
+            })));
+    
+            setProduto(resposta);
+        } catch (error) {
+            console.error('Erro ao buscar dados', error);
+        }
+    }    
+
+    async function alterar(e) {
         try {
             console.log('Função enviar acionada!');
             e.preventDefault();
@@ -203,7 +243,7 @@ export default function AlterarProduto() {
                             </div>
 
 
-                            <button type="button" onClick={enviar}>
+                            <button type="button" onClick={alterar}>
                                 ALTERAR
                             </button>
                         </form>

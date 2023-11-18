@@ -24,6 +24,18 @@ export default function VizualizarProdutos() {
         fetchData();
     }, [sku]);
 
+    const dataDeInclusao = new Date(produto.item?.dataDeInclusao);
+
+    const addZero = (num) => (num < 10 ? `0${num}` : num);
+
+    const dia = addZero(dataDeInclusao.getDate());
+    const mes = addZero(dataDeInclusao.getMonth() + 1); 
+    const ano = dataDeInclusao.getFullYear();
+    const horas = addZero(dataDeInclusao.getHours());
+    const minutos = addZero(dataDeInclusao.getMinutes());
+
+    const dataFormatada = `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+
     return (
         <section className="VizualizarProdutoEstilo">
             <Cabecalho2 />
@@ -61,7 +73,7 @@ export default function VizualizarProdutos() {
                             <h4>Descrição do produto:⠀<p>{produto.item?.descricao}</p></h4>
                             <h4>SKU:⠀<p>{produto.item?.sku}</p></h4>
                             <h4>Localização no estoque:⠀<p>{produto.item?.loc_estoque}</p></h4>
-                            <h4>Data de inclusão:⠀<p></p></h4>
+                            <h4>Data de inclusão:⠀<p>{dataFormatada}</p></h4>
                             <div class="variacoes">
                                 <h4>Variações:</h4>
                                 <table>

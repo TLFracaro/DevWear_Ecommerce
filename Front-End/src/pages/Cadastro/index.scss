@@ -111,78 +111,80 @@
 
                 form {
                     display: flex;
-                    flex-direction: column;
                     align-items: center;
-
-                    .caixas {
-                        width: 100%;
-                        max-width: 400px;
-                        input[type="text"],
-                        input[type="password"] {
-                            outline: none;
-                            align-self: flex-start;
-                            width: 100%;
-                            height: 45px;
-                            border-radius: 20px;
-                            font-size: 16px;
-                            padding: 20px;
-                            font-family: 'K2D Medium';
-                            border: none;
-                        }
-                    }
+                    flex-direction: column;
+                    justify-content: center;
+                    width: 90%;
 
 
 
-                    button {
-                        width: 284px;
-                        height: 45px;
-                        border-radius: 20px;
-                        font-family: retroFont;
-                        margin-top: 40px;
-                        border: none;
-                        cursor: pointer;
-
-                        &:hover {
-                            transition: 0.2s;
-                            color: #fff;
-                            background-color: #4ac204;
-                        }
-                    }
-
-                    label {
+                    input[type="text"],
+                    input[type="password"] {
+                        outline: none;
                         align-self: flex-start;
-                        height: 18px;
-                        margin-left: 30px;
-                        margin-top: 30px;
-                        margin-bottom: 30px;
-                        color: white;
-                        font-family: retroFont;
-                        margin-top: 20px;
-                        margin-bottom: 20px;
-                    }
-
-                    a {
-                        align-self: flex-end;
-                        margin-top: 5px;
-                        margin-right: 15px;
-                        margin-bottom: 15px;
-                        color: white;
-                        font-family: retroFont;
-                        font-size: 8px;
+                        width: 100%;
+                        max-width: 350px;
+                        height: 40px;
+                        border-radius: 20px;
+                        border-radius: 20px;
+                        font-size: 16px;
+                        padding: 20px;
+                        font-family: 'K2D Medium';
+                        border: none;
                     }
                 }
 
-                .criarConta {
-                    margin-top: 15px;
 
-                    p {
-                        color: white;
-                        font-family: retroFont;
-                        font-size: 8px;
 
-                        a {
-                            color: #5C92FB;
-                        }
+                button {
+                    width: 284px;
+                    height: 45px;
+                    border-radius: 20px;
+                    font-family: retroFont;
+                    margin-top: 40px;
+                    border: none;
+                    cursor: pointer;
+
+                    &:hover {
+                        transition: 0.2s;
+                        color: #fff;
+                        background-color: #4ac204;
+                    }
+                }
+
+                label {
+                    align-self: flex-start;
+                    height: 18px;
+                    margin-left: 30px;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    color: white;
+                    font-family: retroFont;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+
+                a {
+                    align-self: flex-end;
+                    margin-top: 5px;
+                    margin-right: 15px;
+                    margin-bottom: 15px;
+                    color: white;
+                    font-family: retroFont;
+                    font-size: 8px;
+                }
+            }
+
+            .criarConta {
+                margin-top: 15px;
+
+                p {
+                    color: white;
+                    font-family: retroFont;
+                    font-size: 8px;
+
+                    a {
+                        color: #5C92FB;
                     }
                 }
             }
