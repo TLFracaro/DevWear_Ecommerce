@@ -3,7 +3,7 @@ drop database db_LojaDeRoupas;
 use db_LojaDeRoupas;
 
 create table usuario(
-	nome varchar(255) not null,
+    nome varchar(255) not null,
     cpf varchar(11) not null PRIMARY KEY,
     email varchar(255) unique not null,
     senha varchar(255) not null,
@@ -18,13 +18,14 @@ CREATE TABLE item (
     preco DECIMAL(10, 2) NOT NULL,
     descricao TEXT NOT NULL,
     loc_estoque VARCHAR(255),
-    peso DOUBLE NOT NULL
+    peso DOUBLE NOT NULL,
+    dataDeInclusao date
 );
 
 CREATE TABLE variacao (
-	id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     item_sku VARCHAR(13) NOT NULL,
-    tamanho VARCHAR(5) NOT NULL,
+    tamanho VARCHAR(255) NOT NULL,
     cor VARCHAR(255) NOT NULL,
     quantidade INT NOT NULL,
     FOREIGN KEY (item_sku) REFERENCES item(sku)
@@ -33,6 +34,10 @@ CREATE TABLE variacao (
 CREATE TABLE imagens (
     id int auto_increment PRIMARY KEY,
     item_sku VARCHAR(13) NOT NULL,
-    imagem_url VARCHAR(255) NOT NULL,
+    imagem_base64 TEXT NOT NULL,
     FOREIGN KEY (item_sku) REFERENCES item(sku)
 );
+
+select * from variacao;
+select * from item;	
+select * from imagens;	

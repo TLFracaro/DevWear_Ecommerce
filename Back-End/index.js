@@ -7,7 +7,13 @@ const servidor = express();
 servidor.use(cors());
 servidor.use(express.json());
 
+
+servidor.get('/ping', (req, resp) => {
+    resp.send('pong');
+})
+
+
 servidor.use(lojaController);
 
 const port = process.env.PORT;
-servidor.listen(port, () => console.log(`API subiu na porta ${port}!`));
+servidor.listen(port, () => console.log(`API subiu na porta ${port}  !`));

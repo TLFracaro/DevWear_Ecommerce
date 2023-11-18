@@ -66,8 +66,25 @@
                 width: 100%;
 
                 .imagens {
-                    width: 45%;
-                }
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr); /* Defina o número de colunas desejado */
+                    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr)); /* Linhas dinâmicas */
+                    gap: 10px; /* Espaçamento entre as imagens */
+                    align-items: center;
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 20px;
+                    width: 200px;
+                  
+                    img {
+                      width: 100%;
+                      height: auto;
+                      object-fit: cover;
+                      border-radius: 8px; /* Se desejar bordas arredondadas nas imagens */
+                    }
+                  }
+                  
+                  
 
                 .infos {
                     width: 45%;
@@ -85,9 +102,10 @@
                     }
 
                     .variacoes {
-                        h4{
+                        h4 {
                             margin-bottom: 0px;
                         }
+
                         table {
                             font-family: 'K2D Medium';
                             overflow-y: auto;

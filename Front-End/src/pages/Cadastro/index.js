@@ -183,7 +183,6 @@ export default function Cadastro() {
                                 alt="Linha  separando caixas de texto do titulo"></img>
                         </div>
                         <form action="">
-                            <div class='caixas'>
                                 <label for="">nome completo:</label>
                                 <input type="text" value={nome} onChange={e => setNome(e.target.value)} />
 
@@ -201,8 +200,6 @@ export default function Cadastro() {
 
                                 <label>Confirmar Senha:</label>
                                 <input type="password" value={confSenha} onChange={(e) => setConfSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!confSenha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
-                            </div>
-
                             <button type="button" onClick={enviarCadastro}>Cadastrar-se</button>
                         </form>
                     </div>

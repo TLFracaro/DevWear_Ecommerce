@@ -1,3 +1,4 @@
+import { format } from 'mysql2';
 import { con } from './conection.js';
 
 export async function inserirUsuario(usuario) {
@@ -59,11 +60,11 @@ export async function excluirUsuario(cpf) {
 
 export async function pesquisarUsuario(cpf) {
     try {
-        const comando  = "SELECT * FROM usuario WHERE cpf = ?";
+        const comando = "SELECT * FROM usuario WHERE cpf = ?";
         const [info] = await con.query(comando, [cpf]);
-        if(info === null){
-            return {mensage: "Usuário não encontrado"}
-        } else{
+        if (info === null) {
+            return { mensage: "Usuário não encontrado" }
+        } else {
             return info;
         }
     } catch (error) {
@@ -72,40 +73,60 @@ export async function pesquisarUsuario(cpf) {
 }
 
 export async function logar(email, senha) {
-    const comando = 'SELECT nome, cpf, email, privilegio FROM usuario WHERE email=? AND senha=?';
-    const [info] = await con.query(comando, [email, senha]);
-    
-    if (info.length === 1) {
-        return {
-            message: 'Login bem-sucedido',
-            nome: info[0].nome,
-            cpf: info[0].cpf,
-            email: info[0].email,
-            privilegio: info[0].privilegio
-        };
-    } else {
-        throw new Error('E-mail ou senha inválidos');
+    try {
+
+        const comando = 'SELECT nome, cpf, email, privilegio FROM usuario WHERE email=? AND senha=?';
+        const [info] = await con.query(comando, [email, senha]);
+
+        if (info.length === 1) {
+            return {
+                message: 'Login bem-sucedido',
+                nome: info[0].nome,
+                cpf: info[0].cpf,
+                email: info[0].email,
+                privilegio: info[0].privilegio
+            };
+        } else {
+            throw new Error('E-mail ou senha inválidos');
+        }
+    } catch (error) {
+        console.error('Erro ao logar:', error.message);
+        throw new Error('Erro ao encontrar funcionário. Verifique o console para detalhes.');
     }
 }
 
 
-export async function salvarItem(item, variacoes, imagens) {
+export async function salvarItem(item, imagens) {
     try {
-        const comandoItem = `INSERT INTO item (sku, nome, categoria, marca, preco, descricao, loc_estoque, peso) VALUES(?,?,?,?,?,?,?,?)`;
-        await con.query(comandoItem, [item.sku, item.nome, item.categoria, item.marca, item.preco, item.descricao, item.loc_estoque, item.peso]);
+        console.log('Dados recebidos para salvar:', { item });
+
+        const dataDeInclusao = new Date();
+        const dataFormatada = format(dataDeInclusao, 'yyyy-MM-dd HH:mm:ss');
+
+        await con.beginTransaction();
+
+        const comandoItem = `INSERT INTO item (sku, nome, categoria, marca, preco, descricao, loc_estoque, peso, dataDeInclusao) VALUES(?,?,?,?,?,?,?,?, ?)`;
+        await con.query(comandoItem, [item.sku, item.nome, item.categoria, item.marca, item.preco, item.descricao, item.loc_estoque, item.peso, dataFormatada]);
         console.log('Iniciando salvamento de item no banco de dados...');
-        for (const variacao of variacoes) {
+
+        for (const variacao of item.variacoes) {
             const comandoVariacao = `INSERT INTO variacao (item_sku, tamanho, cor, quantidade) VALUES(?,?,?,?)`;
             await con.query(comandoVariacao, [item.sku, variacao.tamanho, variacao.cor, variacao.quantidade]);
         }
 
-        for (const imagem of imagens) {
-            const comandoImagem = `INSERT INTO imagens (item_sku, imagem_url) VALUES(?, ?)`;
-            console.log('Imagem a ser inserida:', { item_sku: item.sku, imagem_url: imagem.imagem_url });
-            await con.query(comandoImagem, [item.sku, imagem.imagem_url]);
+        console.log('Antes do console.log("Passei aqui")');
+
+        console.log('Número de imagens:', item.imagens.length);
+        for (const imagem of item.imagens) {
+            console.log('passei aqui')
+            const imagemBase64 = imagem;
+            console.log('Tamanho da imagem em Base64:', imagemBase64.length);
+            const comandoImagem = `INSERT INTO imagens (item_sku, imagem_base64) VALUES(?, ?)`;
+            console.log('Imagem a ser inserida:', { item_sku: item.sku, imagemBase64 });
+            await con.query(comandoImagem, [item.sku, imagemBase64]);
         }
-              
-        
+        console.log('DEpois do console.log("Passei aqui")');
+
         await con.commit();
 
         const [variacoesInseridas] = await con.query('SELECT * FROM variacao WHERE item_sku = ?', [item.sku]);
@@ -115,18 +136,13 @@ export async function salvarItem(item, variacoes, imagens) {
         console.log('Item salvo com sucesso!');
         return { message: 'Item inserido com sucesso', item: itemInserido };
     } catch (e) {
-        if (e.code === 'ER_DUP_ENTRY') {
-            console.error('Erro: Chave primária duplicada. O registro já existe.');
-            return { message: 'Erro: Chave primária duplicada. O registro já existe.' };
-        } else if (e.message.includes('NOT NULL constraint failed')) {
-            console.error('Erro: Um ou mais campos necessários estão em branco.');
-            return { message: 'Erro: Um ou mais campos necessários estão em branco.' };
-        } else {
-            console.error('Ocorreu um erro:', e.message);
-            return { message: `Ocorreu um erro:, ${e.message}` };
-        }
+        await con.rollback();
+        console.error('Erro durante a transação:', e.message);
+        return { error: `Erro durante a transação: ${e.message}` };
     }
 }
+
+
 
 export async function excluirItem(sku) {
     try {
@@ -150,17 +166,7 @@ export async function excluirItem(sku) {
 
 export async function listarItens() {
     try {
-        const query = `
-        SELECT i.sku, i.nome, i.categoria, i.marca, i.preco, i.descricao, i.loc_estoque, i.peso,
-        GROUP_CONCAT(DISTINCT v.tamanho) as tamanhos,
-        GROUP_CONCAT(DISTINCT v.cor) as cores,
-        GROUP_CONCAT(DISTINCT v.quantidade) as quantidades,
-        GROUP_CONCAT(DISTINCT im.imagem_url) as imagens
-        FROM item i
-        LEFT JOIN variacao v ON i.sku = v.item_sku
-        LEFT JOIN imagens im ON i.sku = im.item_sku
-        GROUP BY i.sku, i.nome, i.categoria, i.marca, i.preco, i.descricao, i.loc_estoque, i.peso;
-        `;
+        const query = `SELECT * FROM item`;
 
         const [produtos] = await con.query(query);
         console.log(produtos);
