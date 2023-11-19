@@ -195,5 +195,156 @@
                 }
             }
         }
+
+        .tabelaMobile {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-family: 'K2D Medium';
+            overflow-y: auto;
+            overflow-x: auto;
+            width: 100%;
+
+            P {
+                text-align: center;
+                margin: 50px;
+                font-family: 'K2D Bold';
+            }
+
+            table {
+                width: 100%;
+                border-radius: 5px;
+                border-collapse: separate;
+                border-spacing: 0 10px;
+
+                th {
+                    font-size: 20px;
+                    height: 40px;
+                }
+
+                .Conteudo {
+                    width: 100%;
+                    flex-direction: row;
+                    background-color: #fff;
+                    color: black;
+                    font-size: 16px;
+                    font-family: 'K2D Medium';
+                    text-align: center;
+                    padding: 30px;
+                    height: 50px;
+
+                    .primeiro {
+                        border-top-left-radius: 20px;
+                        border-bottom-left-radius: 20px;
+
+                        img {
+                            margin-right: 10px;
+                        }
+                    }
+
+                    .final {
+                        border-top-right-radius: 20px;
+                        border-bottom-right-radius: 20px;
+                    }
+
+
+                    td {
+                        padding: 20px;
+                        height: 50px;
+                        font-size: 16px;
+
+                        button {
+                            cursor: pointer;
+                            background-color: transparent;
+                            border: none;
+                        }
+
+                        svg {
+                            height: 40px;
+                            cursor: pointer;
+                        }
+
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 430px) {
+        main {
+            padding: 20px;
+
+            .mainConteudo {
+                padding: 30px;
+
+                dialog {
+
+                    button {}
+
+                    &::backdrop {}
+                }
+
+                .titulo {
+
+                    h1 {}
+                }
+
+                .busca {
+
+                    .pesquisa {
+
+                        input[type=text] {
+
+                            &::placeholder {}
+
+                            &:focus {
+                                input {}
+
+                                select {}
+                            }
+                        }
+
+                        img {}
+
+                    }
+
+                }
+
+                .tabelaUsuario {
+                    display: none;
+
+                    P {}
+
+                    table {
+
+                        th {}
+
+                        .Conteudo {
+
+                            .primeiro {
+
+                                img {}
+                            }
+
+                            .final {}
+
+
+                            td {
+
+                                button {}
+
+                                svg {}
+
+                            }
+                        }
+                    }
+                }
+
+                .tabelaMobile {
+                    display: flex;
+                }
+            }
+        }
     }
 }

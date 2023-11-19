@@ -313,7 +313,7 @@
         }
     }
 
-    button {
+    #enviarBotao {
         background-color: #000;
         font-family: 'K2D Bold';
         font-size: 18px;
@@ -323,5 +323,140 @@
         border-radius: 20px;
         width: 200px;
         cursor: pointer;
+    }
+    @media screen and (max-width: 430px) {
+        main {
+            padding: 20px;
+
+            .mainConteudo {
+                padding: 30px;
+
+                .voltar {
+
+                    a {
+
+                        h1 {}
+
+                        svg {
+                            height: 32px;
+                        }
+                    }
+                }
+
+                #titulo {
+
+                }
+
+                .formulario {
+
+                    form {
+
+                        label {
+                            
+                        }
+
+                        input[type=text],
+                        input[type=number] {
+                            
+                        }
+
+
+                        .imagemProd {
+                            .image-item {
+                                img {
+
+                                }
+
+                                button {
+
+                                    svg {
+
+                                    }
+
+                                }
+
+                                &:hover button {
+
+                                    svg {
+
+                                    }
+
+                                }
+                            }
+
+                            #imageContainer {
+
+                            }
+
+                            input[type="file"] {
+
+                            }
+
+                            .imageInput {
+                                span {
+
+                                    svg {
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .variacoes {
+
+                    .variacao {
+                        .variacaoLabel {
+                            display: none;
+                            justify-self: center;
+                            align-self: center;
+                            margin-right: 10px;
+                            margin-left: 10px;
+                            color: #898989;
+                        }
+
+                        .variacaoTexto {
+
+                            border-radius: 10px;
+                            background-color: #D9D9D9;
+                            padding: 10px;
+                            height: 40px;
+                            width: 75px;
+                            input[type="text"] {
+                                border-radius: 10px;
+                                width: 75px;
+                                background-color: #D9D9D9;
+                                padding: 10px;
+                                height: 30px;
+                            }
+                        }
+
+                        button {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            cursor: pointer;
+                            margin: 0px;
+
+
+                            svg {
+                                margin-right: 10px;
+                                margin-left: 10px;
+                                height: 30px;
+                            }
+                        }
+
+                    }
+
+                    button {
+                        svg {
+                            
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
