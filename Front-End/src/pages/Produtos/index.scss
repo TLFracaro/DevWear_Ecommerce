@@ -224,4 +224,88 @@
             opacity: 0.4;
         }
     }
+    @media screen and (max-width: 390px) {
+        main {
+            
+    
+            .mainConteudo {
+                
+    
+                .titulo {
+                    
+    
+                    h1 {
+                        
+                    }
+                }
+    
+                .buscaEcadastro {
+                    
+    
+                    .pesquisa {
+    
+                        input[type=text] {
+                            
+                        }
+    
+                        img {
+                            
+                        }
+    
+                    }
+    
+                    a {
+                        
+    
+                        svg {
+    
+                        }
+                    }
+    
+                }
+    
+                .tabelaProduto {
+    
+                    P {
+                
+                    }
+    
+                    table {
+                        
+        
+                        th {
+                            
+                        }
+    
+                        .Conteudo {
+                            
+    
+                            .primeiro {
+        
+                                img {
+                                    
+                                }
+                            }
+        
+                            .final {
+                                
+                            }
+    
+                            td {
+    
+                                button,
+                                a {
+    
+                                    svg {
+                                        
+                                    }
+    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

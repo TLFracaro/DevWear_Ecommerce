@@ -88,7 +88,7 @@ export async function logar(email, senha) {
                 privilegio: info[0].privilegio
             };
         } else {
-            throw new Error('E-mail ou senha inválidos');
+            return ('E-mail ou senha inválidos');
         }
     } catch (error) {
         console.error('Erro ao logar:', error.message);
@@ -97,7 +97,7 @@ export async function logar(email, senha) {
 }
 
 
-export async function salvarItem(item, imagens) {
+export async function salvarItem(item) {
     try {
         console.log('Dados recebidos para salvar:', { item });
 
@@ -126,7 +126,7 @@ export async function salvarItem(item, imagens) {
             console.log('Imagem a ser inserida:', { item_sku: item.sku, imagemBase64 });
             await con.query(comandoImagem, [item.sku, imagemBase64]);
         }
-        console.log('DEpois do console.log("Passei aqui")');
+        console.log('Depois do console.log("Passei aqui")');
 
         await con.commit();
 
@@ -177,6 +177,18 @@ export async function listarItens() {
     }
 }
 
+export async function buscarImagem(sku) {
+    try {
+        const comando = `SELECT * FROM imagem WHERE sku = ?`;
+
+        const [imagens] = await con.query("SELECT * FROM imagens WHERE item_sku = ?", [sku]);
+
+        return imagens;
+    } catch (error) {
+        throw new Error(`Erro ao listar produtos com variações e imagens: ${error.message}`);
+    }
+}
+
 export async function consultarItem(sku) {
     try {
         const infoItem = `SELECT * FROM item WHERE sku = ?`;
@@ -209,16 +221,16 @@ export async function consultarItem(sku) {
     }
 }
 
-export async function alterarItem(sku, novosDados, novasImagens) {
+export async function alterarItem(sku, novosDados) {
     try {
-        console.log('Dados recebidos para alterar:', { sku, novosDados, novasImagens });
+        console.log('Dados recebidos para alterar:', { sku, novosDados });
 
         const dataDeAtualizacao = new Date();
         const dataFormatada = format(dataDeAtualizacao, 'yyyy-MM-dd HH:mm:ss');
 
         await con.beginTransaction();
 
-        const comandoItem = `UPDATE item SET nome=?, categoria=?, marca=?, preco=?, descricao=?, loc_estoque=?, peso=?, dataDeAtualizacao=? WHERE sku=?`;
+        const comandoItem = `UPDATE item SET nome=?, categoria=?, marca=?, preco=?, descricao=?, loc_estoque=?, peso=?, dataDeInclusao=? WHERE sku=?`;
         await con.query(comandoItem, [novosDados.nome, novosDados.categoria, novosDados.marca, novosDados.preco, novosDados.descricao, novosDados.loc_estoque, novosDados.peso, dataFormatada, sku]);
         console.log('Iniciando atualização de item no banco de dados...');
 
@@ -233,10 +245,16 @@ export async function alterarItem(sku, novosDados, novasImagens) {
         const comandoRemoverImagens = `DELETE FROM imagens WHERE item_sku=?`;
         await con.query(comandoRemoverImagens, [sku]);
         
-        for (const imagemBase64 of novasImagens) {
+        console.log('Número de imagens:', novosDados.imagens.length);
+        for (const imagem of novosDados.imagens) {
+            console.log('passei aqui')
+            const imagemBase64 = imagem;
+            console.log('Tamanho da imagem em Base64:', imagemBase64.length);
             const comandoImagem = `INSERT INTO imagens (item_sku, imagem_base64) VALUES(?, ?)`;
+            console.log('Imagem a ser inserida:', { sku: sku, imagemBase64 });
             await con.query(comandoImagem, [sku, imagemBase64]);
         }
+        console.log('Depois do console.log("Passei aqui")');
 
         await con.commit();
 

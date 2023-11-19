@@ -199,7 +199,9 @@
     @media screen and (max-width: 390px) {
         main {
             .conteudoMain {
+                min-height: 503px;
                 padding: 30px;
+                position: relative;
                 dialog {
 
 

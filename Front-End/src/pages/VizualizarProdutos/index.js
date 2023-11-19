@@ -20,7 +20,7 @@ export default function VizualizarProdutos() {
                 setProduto(r.data);
 
                 const imagensBase64 = r.data.imagens.map((imagem) => {
-                    return imagem.imagem_base64; // Não é mais necessário converter
+                    return imagem.imagem_base64;
                 });
 
                 console.log('Dados do Produto:', r.data);
@@ -36,8 +36,8 @@ export default function VizualizarProdutos() {
 
     const calcularGrid = () => {
         const numeroDeImagens = imagensBase64.length;
-        const colunas = numeroDeImagens === 4 ? 2 : 1; // Defina a lógica para o número de colunas
-        const linhas = Math.ceil(numeroDeImagens / colunas); // Calcule o número de linhas
+        const colunas = numeroDeImagens === 4 ? 2 : 1; 
+        const linhas = Math.ceil(numeroDeImagens / colunas);
     
         return {
           gridTemplateColumns: `repeat(${colunas}, 1fr)`,

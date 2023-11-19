@@ -1,5 +1,5 @@
 //alterei aqui
-import { inserirUsuario, salvarItem, logar, listarUsuarios, excluirUsuario, alterarUsuario, excluirItem, listarItens, consultarItem, alterarItem, pesquisarUsuario } from '../repository/lojaRepository.js';
+import { inserirUsuario, salvarItem, logar, listarUsuarios, excluirUsuario, alterarUsuario, excluirItem, listarItens, consultarItem, alterarItem, pesquisarUsuario, buscarImagem } from '../repository/lojaRepository.js';
 import multer from 'multer';
 import { Router } from 'express';
 import express from 'express';
@@ -84,7 +84,6 @@ endpoints.get('/usuario/:cpf', async (req, resp) => {
 
 endpoints.post('/login', async (req, resp) => {
     try {
-        console.log('Não aguento mais');
         const { email, senha } = req.body;
         let r = await logar(email, senha)
         resp.send(r);
@@ -167,7 +166,7 @@ endpoints.put('/produto/:sku', upload.array('novasImagens'), async (req, res) =>
         const novosDados = req.body;
         const novasImagens = req.files;
 
-        const resultadoAlteracao = await alterarItem(sku, novosDados, novasImagens);
+        const resultadoAlteracao = await alterarItem(sku, novosDados);
 
         res.send(resultadoAlteracao);
     } catch (e) {
@@ -175,8 +174,5 @@ endpoints.put('/produto/:sku', upload.array('novasImagens'), async (req, res) =>
         res.status(400).send({ erro: e.message });
     }
 });
-
-
-
 
 export default endpoints;

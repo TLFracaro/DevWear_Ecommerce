@@ -1,31 +1,67 @@
 import './index.scss';
 import { Link } from 'react-router-dom';
 
+import balaoMensagem from '../../assets/image/balaoMensagem.svg';
+import carrinhoPixel from '../../assets/image/carrinhoPixel.svg';
+import categoria from '../../assets/image/categoria.svg';
+import devWearLogo from '../../assets/image/devWearLogo.svg';
+import lupaPixel from '../../assets/image/lupaPixel.svg';
+import pessoaPixel from '../../assets/image/pessoaPixel.svg';
+import seta from '../../assets/image/seta.svg';
+
 import '../../css/global.css';
 
 export default function Cabecalho2(){
     return(
         <section className='Comp-Cabecalho2-Estilo'>
             <header>
-                <div class="cabecalhoConteudo">
-                    <div class="logo">
-                        <Link to="/"><img src="/assets/image/devWearLogo.svg"
-                            alt="Logo da marca DevWear"></img></Link>
-                    </div>
+                <div class="faixa1">
                     <div class="toolsUsuario">
-                        <div class="aviso">
-                            <Link><img src="/assets/image/sino.svg" alt="Sino de avisos"></img>avisos</Link>
+                        <div class="logoImg">
+                            <Link to="/"><img src={devWearLogo}
+                                alt="Logo da marca DevWear" /></Link>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg"  width="3" height="36" viewBox="0 0 3 36" fill="none">
+                        <div class='ferramentas'>
+                        <div class="barraDePesquisa">
+                            <input type="text" name="pesquisa" placeholder="Pesquisar"></input>
+                            <button><img src={lupaPixel} alt="Lupa clique para pesquisar" /></button>
+                        </div>
+                        <div class="contato">
+                            <button>
+                                <img src={balaoMensagem} alt="Balão de contato em arte pixelada" />
+                                <h1>Contato</h1>
+                            </button>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
                             <rect x="1" width="1" height="36" fill="white" />
                             <rect x="1" width="1" height="36" fill="white" />
                             <rect y="1" width="3" height="34" fill="white" />
                             <rect y="1" width="3" height="34" fill="white" />
                         </svg>
-                        <div class="minhaConta">
-                            <Link><img src='/assets/image/pessoaPixel.svg'
-                                alt="Pessoa sinalizando minha conta"></img>minha conta</Link>
+                        <div class="contaUsuario">
+                            <Link to="/login">
+                                <img src={pessoaPixel}
+                                    alt="Pessoa representando o usuário em arte pixelada" /><h1>Minha Conta</h1>
+                            </Link>
                         </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
+                            <rect x="1" width="1" height="36" fill="white" />
+                            <rect x="1" width="1" height="36" fill="white" />
+                            <rect y="1" width="3" height="34" fill="white" />
+                            <rect y="1" width="3" height="34" fill="white" />
+                        </svg>
+                        <div class="carrinho">
+                            <button>
+                                <img src={carrinhoPixel}
+                                    alt="Carrinho de compra em arte pixelada" />
+                                <h1>Carrinho</h1>
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="barraDePesquisaCelular">
+                        <input type="text" name="pesquisa" placeholder="Pesquisar"></input>
+                        <button><img src={lupaPixel} alt="Lupa clique para pesquisar" /></button>
                     </div>
                 </div>
             </header>
@@ -42,7 +78,7 @@ export default function Cabecalho2(){
                         </svg>
                             Pagina incial</Link>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="2" height="36" viewBox="0 0 3 36" fill="#898989">
+                    <svg class='barra' xmlns="http://www.w3.org/2000/svg" width="2" height="36" viewBox="0 0 3 36" fill="#898989">
                         <rect x="1" width="1" height="36" fill="898989" />
                         <rect x="1" width="1" height="36" fill="898989" />
                         <rect y="1" width="3" height="34" fill="898989" />
@@ -64,7 +100,7 @@ export default function Cabecalho2(){
                         </svg>
                             Produtos</Link>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="2" height="36" viewBox="0 0 3 36" fill="#898989">
+                    <svg class='barra' xmlns="http://www.w3.org/2000/svg" width="2" height="36" viewBox="0 0 3 36" fill="#898989">
                         <rect x="1" width="1" height="36" fill="898989" />
                         <rect x="1" width="1" height="36" fill="898989" />
                         <rect y="1" width="3" height="34" fill="898989" />

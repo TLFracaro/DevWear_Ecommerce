@@ -1,0 +1,32 @@
+.Estilo_ProdutoExibir {
+    width: 100%;
+    height: 100%;
+
+    .caixa {
+        max-width: 100%;
+        height: 350px;
+        border: none;
+        background-color: #898989;
+        border-radius: 20px;
+        padding: 20px;
+        margin-top: 50px;
+        img {
+            width: 250px;
+            height: auto;
+        }
+
+        .dados {
+            width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            h3 {
+
+            }
+            h4 {
+
+            }
+        }
+    }
+}
