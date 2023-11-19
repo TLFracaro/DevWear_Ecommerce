@@ -15,6 +15,12 @@ const upload = multer({
   },
 });
 
+/**
+ * Rota para listar todos os usuários cadastrados.
+ * @route GET /usuario/listar
+ * @returns {Object} - Objeto contendo a lista de usuários.
+ * @throws {Error} - Lança um erro se houver problema durante a listagem.
+ */
 endpoints.get('/usuario/listar', async (req, resp) => {
     try {
         const r = await listarUsuarios();
@@ -28,6 +34,13 @@ endpoints.get('/usuario/listar', async (req, resp) => {
     }
 })
 
+/**
+ * Rota para cadastrar um novo usuário.
+ * @route POST /usuario
+ * @param {Object} req.body - Objeto contendo informações do novo usuário.
+ * @returns {Object} - Objeto com mensagem de sucesso ou erro.
+ * @throws {Error} - Lança um erro se houver problema durante o cadastro.
+ */
 endpoints.post('/usuario', async (req, resp) => {
     try {
         let usuario = req.body;
@@ -41,7 +54,13 @@ endpoints.post('/usuario', async (req, resp) => {
     }
 });
 
-
+/**
+ * Rota para excluir um usuário com base no CPF.
+ * @route DELETE /usuario/:cpf
+ * @param {string} req.params.cpf - CPF do usuário a ser excluído.
+ * @returns {Object} - Objeto com mensagem de sucesso ou erro.
+ * @throws {Error} - Lança um erro se houver problema durante a exclusão.
+ */
 endpoints.delete('/usuario/:cpf', async (req, resp) => {
     try {
         const cpf = req.params.cpf;
@@ -55,6 +74,14 @@ endpoints.delete('/usuario/:cpf', async (req, resp) => {
     }
 });
 
+/**
+ * Rota para alterar informações de um usuário com base no CPF.
+ * @route PUT /usuario/:cpf
+ * @param {string} req.params.cpf - CPF do usuário a ser alterado.
+ * @param {Object} req.body - Novas informações do usuário.
+ * @returns {Object} - Objeto com mensagem de sucesso ou erro.
+ * @throws {Error} - Lança um erro se houver problema durante a alteração.
+ */
 endpoints.put('/usuario/:cpf', async (req, resp) => {
     try {
         const cpf = req.params.cpf;
@@ -69,6 +96,13 @@ endpoints.put('/usuario/:cpf', async (req, resp) => {
     }
 });
 
+/**
+ * Rota para pesquisar um usuário com base no CPF.
+ * @route GET /usuario/:cpf
+ * @param {string} req.params.cpf - CPF do usuário a ser pesquisado.
+ * @returns {Object} - Objeto com informações do usuário ou mensagem de não encontrado.
+ * @throws {Error} - Lança um erro se houver problema durante a pesquisa.
+ */
 endpoints.get('/usuario/:cpf', async (req, resp) => {
     try {
         const cpf = req.params.cpf;
@@ -82,6 +116,13 @@ endpoints.get('/usuario/:cpf', async (req, resp) => {
     }
 });
 
+/**
+ * Rota para realizar o login de um usuário.
+ * @route POST /login
+ * @param {Object} req.body - Objeto contendo e-mail e senha do usuário.
+ * @returns {Object} - Objeto com mensagem de sucesso (login bem-sucedido) ou mensagem de erro.
+ * @throws {Error} - Lança um erro se houver problema durante o login.
+ */
 endpoints.post('/login', async (req, resp) => {
     try {
         const { email, senha } = req.body;
@@ -95,6 +136,14 @@ endpoints.post('/login', async (req, resp) => {
     }
 });
 
+/**
+ * Rota para cadastrar um novo produto no sistema.
+ * @route POST /produto
+ * @param {Object} req.body - Objeto contendo informações do novo produto, variações e imagens.
+ * @param {Array} req.files - Array de imagens em formato base64.
+ * @returns {Object} - Objeto com mensagem de sucesso ou erro.
+ * @throws {Error} - Lança um erro se houver problema durante o cadastro do produto.
+ */
 endpoints.post('/produto', upload.array('imagens'), async (req, resp) => {
     try {
         console.log('Requisição POST recebida em /produto');
@@ -122,7 +171,13 @@ endpoints.post('/produto', upload.array('imagens'), async (req, resp) => {
 });
 
 
-
+/**
+ * Rota para excluir um produto com base no SKU.
+ * @route DELETE /produto/:sku
+ * @param {string} req.params.sku - SKU do produto a ser excluído.
+ * @returns {Object} - Objeto com mensagem de sucesso ou erro.
+ * @throws {Error} - Lança um erro se houver problema durante a exclusão do produto.
+ */
 endpoints.delete("/produto/:sku", async (req, resp) => {
     try {
         const sku = req.params.sku;
@@ -136,6 +191,12 @@ endpoints.delete("/produto/:sku", async (req, resp) => {
     }
 });
 
+/**
+ * Rota para listar todos os produtos cadastrados.
+ * @route GET /produto/listar
+ * @returns {Array} - Array de objetos contendo informações dos produtos.
+ * @throws {Error} - Lança um erro se houver problema durante a listagem dos produtos.
+ */
 endpoints.get('/produto/listar', async (req, resp) => {
     try {
         const r = await listarItens();
@@ -148,6 +209,13 @@ endpoints.get('/produto/listar', async (req, resp) => {
     }
 });
 
+/**
+ * Rota para buscar detalhes de um produto com base no SKU.
+ * @route GET /produto/:sku
+ * @param {string} req.params.sku - SKU do produto a ser consultado.
+ * @returns {Object} - Objeto com informações do produto, variações e imagens.
+ * @throws {Error} - Lança um erro se houver problema durante a busca dos detalhes do produto.
+ */
 endpoints.get('/produto/:sku', async (req, resp) => {
     try {
         const sku = req.params.sku;
@@ -159,12 +227,19 @@ endpoints.get('/produto/:sku', async (req, resp) => {
     }
 });
 
-
+/**
+ * Rota para alterar informações de um produto com base no SKU.
+ * @route PUT /produto/:sku
+ * @param {string} req.params.sku - SKU do produto a ser alterado.
+ * @param {Object} req.body - Novas informações do produto.
+ * @param {Array} req.files - Array de novas imagens em formato base64.
+ * @returns {Object} - Objeto com mensagem de sucesso ou erro.
+ * @throws {Error} - Lança um erro se houver problema durante a alteração do produto.
+ */
 endpoints.put('/produto/:sku', upload.array('novasImagens'), async (req, res) => {
     try {
         const sku = req.params.sku;
         const novosDados = req.body;
-        const novasImagens = req.files;
 
         const resultadoAlteracao = await alterarItem(sku, novosDados);
 
