@@ -1,19 +1,10 @@
+//alterei aqui
 import { format } from 'mysql2';
 import { con } from './conection.js';
 
-/**
- * Função para inserir um novo usuário no banco de dados.
- * @param {Object} usuario - Informações do usuário a serem inseridas.
- * @param {string} usuario.nome - Nome do usuário.
- * @param {string} usuario.cpf - CPF do usuário.
- * @param {string} usuario.email - E-mail do usuário.
- * @param {string} usuario.senha - Senha do usuário.
- * @param {string} usuario.privilegio - Nível de privilégio do usuário.
- * @returns {Object} - Objeto com mensagem de sucesso ou erro.
- * @throws {Error} - Lança um erro se houver problema durante a inserção.
- */
 export async function inserirUsuario(usuario) {
     try {
+        console.log(usuario);
         const comando = 'INSERT INTO usuario (nome, cpf, email, senha, privilegio) VALUES(?,?,?,?,?)'
         const [info] = await con.query(comando, [usuario.nome, usuario.cpf, usuario.email, usuario.senha, usuario.privilegio])
         const usuarioCadastrado = { ...usuario };
@@ -28,19 +19,8 @@ export async function inserirUsuario(usuario) {
     }
 }
 
-/**
- * Função para alterar informações de um usuário no banco de dados.
- * @param {Object} usuario - Novas informações do usuário.
- * @param {string} usuario.nome - Novo nome do usuário.
- * @param {string} usuario.cpf - Novo CPF do usuário.
- * @param {string} usuario.email - Novo e-mail do usuário.
- * @param {string} usuario.senha - Nova senha do usuário.
- * @param {string} usuario.privilegio - Novo nível de privilégio do usuário.
- * @param {string} cpfPassado - CPF atual do usuário.
- * @returns {Object} - Objeto com mensagem de sucesso ou erro.
- * @throws {Error} - Lança um erro se houver problema durante a alteração.
- */
 export async function alterarUsuario(usuario, cpfPassado) {
+    console.log(usuario);
     try {
         if (!usuario) {
             throw new Error('Objeto de usuário não fornecido para a função de alteração.');
@@ -59,11 +39,6 @@ export async function alterarUsuario(usuario, cpfPassado) {
     }
 }
 
-/**
- * Função para listar todos os usuários cadastrados no banco de dados.
- * @returns {Array} - Array de objetos contendo informações dos usuários.
- * @throws {Error} - Lança um erro se houver problema durante a listagem.
- */
 export async function listarUsuarios() {
     try {
         const comando = 'SELECT * FROM usuario';
@@ -74,12 +49,6 @@ export async function listarUsuarios() {
     }
 }
 
-/**
- * Função para excluir um usuário do banco de dados com base no CPF.
- * @param {string} cpf - CPF do usuário a ser excluído.
- * @returns {Object} - Objeto com mensagem de sucesso ou erro.
- * @throws {Error} - Lança um erro se houver problema durante a exclusão.
- */
 export async function excluirUsuario(cpf) {
     try {
         const comando = 'DELETE FROM usuario WHERE cpf = ?';
@@ -90,12 +59,6 @@ export async function excluirUsuario(cpf) {
     }
 }
 
-/**
- * Função para pesquisar um usuário no banco de dados com base no CPF.
- * @param {string} cpf - CPF do usuário a ser pesquisado.
- * @returns {Object} - Objeto com informações do usuário ou mensagem de usuário não encontrado.
- * @throws {Error} - Lança um erro se houver problema durante a pesquisa.
- */
 export async function pesquisarUsuario(cpf) {
     try {
         const comando = "SELECT * FROM usuario WHERE cpf = ?";
@@ -110,13 +73,6 @@ export async function pesquisarUsuario(cpf) {
     }
 }
 
-/**
- * Função para autenticar um usuário com base no e-mail e senha.
- * @param {string} email - E-mail do usuário.
- * @param {string} senha - Senha do usuário.
- * @returns {Object} - Objeto com informações do usuário autenticado ou mensagem de credenciais inválidas.
- * @throws {Error} - Lança um erro se houver problema durante a autenticação.
- */
 export async function logar(email, senha) {
     try {
 
@@ -140,27 +96,11 @@ export async function logar(email, senha) {
     }
 }
 
-/**
- * Função para salvar um novo item no banco de dados.
- * @param {Object} item - Informações do item a serem inseridas.
- * @param {string} item.sku - SKU (Stock Keeping Unit) do item.
- * @param {string} item.nome - Nome do item.
- * @param {string} item.categoria - Categoria do item.
- * @param {string} item.marca - Marca do item.
- * @param {number} item.preco - Preço do item.
- * @param {string} item.descricao - Descrição do item.
- * @param {string} item.loc_estoque - Localização no estoque.
- * @param {number} item.peso - Peso do item.
- * @param {Array} item.variacoes - Array contendo informações de variações do item.
- * @param {string} item.variacoes[].tamanho - Tamanho da variação.
- * @param {string} item.variacoes[].cor - Cor da variação.
- * @param {number} item.variacoes[].quantidade - Quantidade disponível da variação.
- * @param {Array} item.imagens - Array contendo imagens do item em formato base64.
- * @returns {Object} - Objeto com mensagem de sucesso ou erro.
- * @throws {Error} - Lança um erro se houver problema durante a inserção.
- */
+
 export async function salvarItem(item) {
     try {
+        console.log('Dados recebidos para salvar:', { item });
+
         const dataDeInclusao = new Date();
         const dataFormatada = format(dataDeInclusao, 'yyyy-MM-dd HH:mm:ss');
 
@@ -168,17 +108,25 @@ export async function salvarItem(item) {
 
         const comandoItem = `INSERT INTO item (sku, nome, categoria, marca, preco, descricao, loc_estoque, peso, dataDeInclusao) VALUES(?,?,?,?,?,?,?,?, ?)`;
         await con.query(comandoItem, [item.sku, item.nome, item.categoria, item.marca, item.preco, item.descricao, item.loc_estoque, item.peso, dataFormatada]);
+        console.log('Iniciando salvamento de item no banco de dados...');
 
         for (const variacao of item.variacoes) {
             const comandoVariacao = `INSERT INTO variacao (item_sku, tamanho, cor, quantidade) VALUES(?,?,?,?)`;
             await con.query(comandoVariacao, [item.sku, variacao.tamanho, variacao.cor, variacao.quantidade]);
         }
 
+        console.log('Antes do console.log("Passei aqui")');
+
+        console.log('Número de imagens:', item.imagens.length);
         for (const imagem of item.imagens) {
+            console.log('passei aqui')
             const imagemBase64 = imagem;
+            console.log('Tamanho da imagem em Base64:', imagemBase64.length);
             const comandoImagem = `INSERT INTO imagens (item_sku, imagem_base64) VALUES(?, ?)`;
+            console.log('Imagem a ser inserida:', { item_sku: item.sku, imagemBase64 });
             await con.query(comandoImagem, [item.sku, imagemBase64]);
         }
+        console.log('Depois do console.log("Passei aqui")');
 
         await con.commit();
 
@@ -186,6 +134,7 @@ export async function salvarItem(item) {
         const [imagensInseridas] = await con.query('SELECT * FROM imagens WHERE item_sku = ?', [item.sku]);
 
         const itemInserido = { ...item, variacoes: variacoesInseridas, imagens: imagensInseridas };
+        console.log('Item salvo com sucesso!');
         return { message: 'Item inserido com sucesso', item: itemInserido };
     } catch (e) {
         await con.rollback();
@@ -195,15 +144,11 @@ export async function salvarItem(item) {
 }
 
 
-/**
- * Função para excluir um item do banco de dados com base no SKU.
- * @param {string} sku - SKU do item a ser excluído.
- * @returns {Object} - Objeto com mensagem de sucesso ou erro.
- * @throws {Error} - Lança um erro se houver problema durante a exclusão.
- */
+
 export async function excluirItem(sku) {
     try {
         const itemExiste = await con.query("SELECT sku FROM item WHERE sku = ?", [sku]);
+        console.log(itemExiste)
         if (itemExiste.length === 0) {
             return { success: false, message: `Item com SKU ${sku} não existe na base de dados.` };
         } else {
@@ -220,27 +165,30 @@ export async function excluirItem(sku) {
     }
 }
 
-/**
- * Função para listar todos os itens cadastrados no banco de dados.
- * @returns {Array} - Array de objetos contendo informações dos itens.
- * @throws {Error} - Lança um erro se houver problema durante a listagem.
- */
 export async function listarItens() {
     try {
         const query = `SELECT * FROM item`;
+
         const [produtos] = await con.query(query);
+        console.log(produtos);
         return produtos;
     } catch (error) {
         throw new Error(`Erro ao listar produtos com variações e imagens: ${error.message}`);
     }
 }
 
-/**
- * Função para consultar as informações de um item no banco de dados com base no SKU.
- * @param {string} sku - SKU do item a ser consultado.
- * @returns {Object} - Objeto com informações do item, variações e imagens.
- * @throws {Error} - Lança um erro se houver problema durante a consulta.
- */
+export async function buscarImagem(sku) {
+    try {
+        const comando = `SELECT * FROM imagem WHERE sku = ?`;
+
+        const [imagens] = await con.query("SELECT * FROM imagens WHERE item_sku = ?", [sku]);
+
+        return imagens;
+    } catch (error) {
+        throw new Error(`Erro ao listar produtos com variações e imagens: ${error.message}`);
+    }
+}
+
 export async function consultarItem(sku) {
     try {
         const infoItem = `SELECT * FROM item WHERE sku = ?`;
@@ -273,27 +221,10 @@ export async function consultarItem(sku) {
     }
 }
 
-/**
- * Função para alterar informações de um item no banco de dados com base no SKU.
- * @param {string} sku - SKU do item a ser alterado.
- * @param {Object} novosDados - Novas informações do item.
- * @param {string} novosDados.nome - Novo nome do item.
- * @param {string} novosDados.categoria - Nova categoria do item.
- * @param {string} novosDados.marca - Nova marca do item.
- * @param {number} novosDados.preco - Novo preço do item.
- * @param {string} novosDados.descricao - Nova descrição do item.
- * @param {string} novosDados.loc_estoque - Nova localização no estoque.
- * @param {number} novosDados.peso - Novo peso do item.
- * @param {Array} novosDados.variacoes - Array contendo novas informações de variações do item.
- * @param {string} novosDados.variacoes[].tamanho - Novo tamanho da variação.
- * @param {string} novosDados.variacoes[].cor - Nova cor da variação.
- * @param {number} novosDados.variacoes[].quantidade - Nova quantidade disponível da variação.
- * @param {Array} novosDados.imagens - Array contendo novas imagens do item em formato base64.
- * @returns {Object} - Objeto com mensagem de sucesso ou erro.
- * @throws {Error} - Lança um erro se houver problema durante a alteração.
- */
 export async function alterarItem(sku, novosDados) {
     try {
+        console.log('Dados recebidos para alterar:', { sku, novosDados });
+
         const dataDeAtualizacao = new Date();
         const dataFormatada = format(dataDeAtualizacao, 'yyyy-MM-dd HH:mm:ss');
 
@@ -301,6 +232,7 @@ export async function alterarItem(sku, novosDados) {
 
         const comandoItem = `UPDATE item SET nome=?, categoria=?, marca=?, preco=?, descricao=?, loc_estoque=?, peso=?, dataDeInclusao=? WHERE sku=?`;
         await con.query(comandoItem, [novosDados.nome, novosDados.categoria, novosDados.marca, novosDados.preco, novosDados.descricao, novosDados.loc_estoque, novosDados.peso, dataFormatada, sku]);
+        console.log('Iniciando atualização de item no banco de dados...');
 
         const comandoRemoverVariacoes = `DELETE FROM variacao WHERE item_sku=?`;
         await con.query(comandoRemoverVariacoes, [sku]);
@@ -313,11 +245,16 @@ export async function alterarItem(sku, novosDados) {
         const comandoRemoverImagens = `DELETE FROM imagens WHERE item_sku=?`;
         await con.query(comandoRemoverImagens, [sku]);
         
+        console.log('Número de imagens:', novosDados.imagens.length);
         for (const imagem of novosDados.imagens) {
+            console.log('passei aqui')
             const imagemBase64 = imagem;
-            const comandoImagem = `INSERT INTO imagens (item_sku, imagem_base64) VALUES(?, ?)`;            console.log('Imagem a ser inserida:', { sku: sku, imagemBase64 });
+            console.log('Tamanho da imagem em Base64:', imagemBase64.length);
+            const comandoImagem = `INSERT INTO imagens (item_sku, imagem_base64) VALUES(?, ?)`;
+            console.log('Imagem a ser inserida:', { sku: sku, imagemBase64 });
             await con.query(comandoImagem, [sku, imagemBase64]);
         }
+        console.log('Depois do console.log("Passei aqui")');
 
         await con.commit();
 
@@ -325,6 +262,7 @@ export async function alterarItem(sku, novosDados) {
         const [imagensAtualizadas] = await con.query('SELECT * FROM imagens WHERE item_sku = ?', [sku]);
 
         const itemAtualizado = { ...novosDados, variacoes: variacoesAtualizadas, imagens: imagensAtualizadas };
+        console.log('Item alterado com sucesso!');
         return { message: 'Item alterado com sucesso', item: itemAtualizado };
     } catch (e) {
         await con.rollback();
