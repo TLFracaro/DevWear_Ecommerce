@@ -62,29 +62,29 @@
                 justify-content: space-around;
                 align-items: center;
                 height: 100%;
-                max-height: 572px;
                 width: 100%;
 
                 .imagens {
                     display: grid;
-                    grid-template-columns: repeat(2, 1fr); /* Defina o número de colunas desejado */
-                    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr)); /* Linhas dinâmicas */
-                    gap: 10px; /* Espaçamento entre as imagens */
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+                    gap: 10px;
                     align-items: center;
                     background-color: white;
                     padding: 20px;
                     border-radius: 20px;
-                    width: 200px;
-                  
+                    width: 100%;
+                    max-width: 200px;
+
                     img {
-                      width: 100%;
-                      height: auto;
-                      object-fit: cover;
-                      border-radius: 8px; /* Se desejar bordas arredondadas nas imagens */
+                        width: 100%;
+                        height: auto;
+                        object-fit: cover;
+                        border-radius: 8px;
                     }
-                  }
-                  
-                  
+                }
+
+
 
                 .infos {
                     width: 45%;
@@ -152,6 +152,92 @@
                                 }
                             }
 
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 430px) {
+        main {
+            padding: 20px;
+
+            .mainConteudo {
+                padding: 30px;
+                flex-direction: column;
+                .voltar {
+                    
+
+                    a {
+                        
+
+                        h1 {
+                            
+                        }
+
+                        svg {
+                            
+                        }
+                    }
+                }
+
+                #titulo {
+                    margin-left: 10px;
+                }
+
+                .conteudo {
+                    flex-direction: column;
+                    .imagens {
+                        margin-bottom: 20px;
+                        img {
+                            
+                        }
+                    }
+
+
+
+                    .infos {
+
+                        width: 100%;
+                        h4 {
+
+                            p {
+                                
+                            }
+                        }
+
+                        .variacoes {
+                            h4 {
+                                
+                            }
+
+                            table {
+
+                                th {
+                                    
+                                }
+
+                                .Conteudo {
+
+                                    td {
+                                        
+                                    }
+
+                                    .primeiro {
+                                        
+
+                                        img {
+                                            
+                                        }
+                                    }
+
+                                    .final {
+                                        
+                                    }
+                                }
+
+                            }
                         }
                     }
                 }

@@ -214,37 +214,29 @@ endpoints.get('/usuario/:cpf', async (req, resp) => {
  */
 endpoints.post('/produto', upload.array('imagens'), async (req, resp) => {
     try {
+        console.log('Requisição POST recebida em /produto');
+        console.log('Conteúdo de req.body:', req.body);
+        const { item, variacoes } = req.body;
+
         const imagens = req.files;
 
         if (!Array.isArray(imagens) || imagens.some(img => !img.buffer)) {
             throw new Error('Formato inválido para imagens.');
         }
 
-        let r;
-        try {
-            r = await salvarItem(req.body, imagens);
-        } catch (error) {
-            if (error.message.includes('Chave duplicada')) {
-                resp.status(400).json({
-                    success: false,
-                    error: 'Chave duplicada: SKU já cadastrado.',
-                });
-                return;
-            }
-            throw error;
-        }
+        console.log('Dados recebidos:', { item, variacoes, imagens });
 
-        resp.json({
-            success: true,
-            message: 'Requisição processada com sucesso.',
-            result: r,
-        });
-    } catch (error) {
-        console.error('Erro ao processar a requisição de produto:', error);
-        resp.status(400).json({
-            success: false,
-            error: error.message,
-        });
+        console.log('passei para repository');
+        let r = await salvarItem(req.body, imagens);
+
+        if (r.success) {
+            resp.status(200).json({ success: true, message: 'Requisição processada com sucesso.', result: r });
+        } else {
+            resp.status(400).json({ success: false, error: r.error });
+        }
+    } catch (e) {
+        console.error('Erro ao processar a requisição:', e);
+        resp.status(500).json({ success: false, error: e.message });
     }
 });
 

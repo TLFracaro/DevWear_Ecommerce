@@ -23,41 +23,41 @@ export default function Cabecalho1() {
                                 alt="Logo da marca DevWear" /></Link>
                         </div>
                         <div className='ferramentas'>
-                        <div className="barraDePesquisa">
-                            <input type="text" name="pesquisa" placeholder="Pesquisar"></input>
-                            <button><img src={lupaPixel} alt="Lupa clique para pesquisar" /></button>
-                        </div>
-                        <div className="contato">
-                            <button>
-                                <img src={balaoMensagem} alt="Balão de contato em arte pixelada" />
-                                <h1>Contato</h1>
-                            </button>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                        </svg>
-                        <div className="contaUsuario">
-                            <Link to="/login">
-                                <img src={pessoaPixel}
-                                    alt="Pessoa representando o usuário em arte pixelada" /><h1>Minha Conta</h1>
-                            </Link>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect x="1" width="1" height="36" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                            <rect y="1" width="3" height="34" fill="white" />
-                        </svg>
-                        <div className="carrinho">
-                            <button>
-                                <img src={carrinhoPixel}
-                                    alt="Carrinho de compra em arte pixelada" />
-                                <h1>Carrinho</h1>
-                            </button>
-                        </div>
+                            <div className="barraDePesquisa">
+                                <input type="text" name="pesquisa" placeholder="Pesquisar"></input>
+                                <button><img src={lupaPixel} alt="Lupa clique para pesquisar" /></button>
+                            </div>
+                            <div className="contato">
+                                <button>
+                                    <img src={balaoMensagem} alt="Balão de contato em arte pixelada" />
+                                    <h1>Contato</h1>
+                                </button>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
+                                <rect x="1" width="1" height="36" fill="white" />
+                                <rect x="1" width="1" height="36" fill="white" />
+                                <rect y="1" width="3" height="34" fill="white" />
+                                <rect y="1" width="3" height="34" fill="white" />
+                            </svg>
+                            <div className="contaUsuario">
+                                <Link to="/login">
+                                    <img src={pessoaPixel} alt="Pessoa representando o usuário em arte pixelada" />
+                                    <h1>Minha Conta</h1>
+                                </Link>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
+                                <rect x="1" width="1" height="36" fill="white" />
+                                <rect x="1" width="1" height="36" fill="white" />
+                                <rect y="1" width="3" height="34" fill="white" />
+                                <rect y="1" width="3" height="34" fill="white" />
+                            </svg>
+                            <div className="carrinho">
+                                <button>
+                                    <img src={carrinhoPixel}
+                                        alt="Carrinho de compra em arte pixelada" />
+                                    <h1>Carrinho</h1>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div className="barraDePesquisaCelular">

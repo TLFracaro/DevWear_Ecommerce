@@ -99,7 +99,6 @@
                         a {
                             display: flex;
                             align-items: center;
-                            justify-content: space-between;
                             text-decoration: none;
                             background-color: transparent;
                             border: none;
@@ -110,8 +109,8 @@
                             }
 
                             h1 {
-                                margin-left: 10px;
                                 color: white;
+                                margin-left: 10px;
                                 text-decoration: none;
                                 font-family: retroFont;
                                 font-size: 12px;
@@ -139,6 +138,9 @@
                                 font-family: retroFont;
                                 font-size: 12px;
                             }
+                        }
+                        .caixa{
+                            
                         }
                     }
 
@@ -347,7 +349,7 @@
                     }
     
                     .contato {
-                        button {
+                        a {
     
                             img {}
     
@@ -435,7 +437,7 @@
     }
     
     
-    @media screen and (max-width: 390px) {
+    @media screen and (max-width: 430px) {
         header {
             height: 100%;
             min-height: 130px;
@@ -474,7 +476,7 @@
                     }
     
                     .contato {
-                        button {
+                        a {
     
                             img {}
     

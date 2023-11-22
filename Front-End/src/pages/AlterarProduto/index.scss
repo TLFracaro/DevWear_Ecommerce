@@ -21,7 +21,6 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            max-width: 900px;
             height: 100%;
             background-color: #E5E5E5;
             border-radius: 50px;
@@ -49,7 +48,7 @@
                     }
                 }
             }
-            
+
             dialog {
                 overflow-x: hidden;
                 overflow-y: hidden;
@@ -65,7 +64,6 @@
                 border-radius: 20px;
                 max-width: 80%;
                 max-height: 80%;
-                min-width: 400px;
                 font-size: 18px;
                 text-align: center;
                 z-index: 2;
@@ -110,6 +108,8 @@
                     justify-content: center;
                     flex-direction: column;
                     margin-bottom: 20px;
+                    width: 100%;
+                    max-width: 800px;
 
                     label {
                         align-self: flex-start;
@@ -125,7 +125,6 @@
                         justify-content: center;
                         flex-direction: column;
                         width: 100%;
-
                         outline: none;
                         border-radius: 20px;
                         height: 50px;
@@ -174,10 +173,10 @@
                                 position: absolute;
                                 max-width: 60px;
                                 max-height: 60px;
-
+                                background-color: transparent;
                                 color: #ffffff;
                                 border: none;
-                                background-color: transparent;
+
                                 cursor: pointer;
                             }
 
@@ -283,7 +282,7 @@
                         cursor: pointer;
                         margin: 0px;
 
-                        
+
                         svg {
                             margin-right: 10px;
                             margin-left: 10px;
@@ -313,7 +312,7 @@
         }
     }
 
-    button {
+    #enviarBotao {
         background-color: #000;
         font-family: 'K2D Bold';
         font-size: 18px;
@@ -323,5 +322,141 @@
         border-radius: 20px;
         width: 200px;
         cursor: pointer;
+    }
+
+    @media screen and (max-width: 430px) {
+        main {
+            padding: 20px;
+
+            .mainConteudo {
+                padding: 30px;
+
+                .voltar {
+
+                    a {
+
+                        h1 {}
+
+                        svg {
+                            height: 32px;
+                        }
+                    }
+                }
+
+                #titulo {
+
+                }
+
+                .formulario {
+
+                    form {
+
+                        label {
+                            
+                        }
+
+                        input[type=text],
+                        input[type=number] {
+                            
+                        }
+
+
+                        .imagemProd {
+                            .image-item {
+                                img {
+
+                                }
+
+                                button {
+
+                                    svg {
+
+                                    }
+
+                                }
+
+                                &:hover button {
+
+                                    svg {
+
+                                    }
+
+                                }
+                            }
+
+                            #imageContainer {
+
+                            }
+
+                            input[type="file"] {
+
+                            }
+
+                            .imageInput {
+                                span {
+
+                                    svg {
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .variacoes {
+
+                    .variacao {
+                        .variacaoLabel {
+                            display: none;
+                            justify-self: center;
+                            align-self: center;
+                            margin-right: 10px;
+                            margin-left: 10px;
+                            color: #898989;
+                        }
+
+                        .variacaoTexto {
+
+                            border-radius: 10px;
+                            background-color: #D9D9D9;
+                            padding: 10px;
+                            height: 40px;
+                            width: 75px;
+                            input[type="text"] {
+                                border-radius: 10px;
+                                width: 75px;
+                                background-color: #D9D9D9;
+                                padding: 10px;
+                                height: 30px;
+                            }
+                        }
+
+                        button {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            cursor: pointer;
+                            margin: 0px;
+
+
+                            svg {
+                                margin-right: 10px;
+                                margin-left: 10px;
+                                height: 30px;
+                            }
+                        }
+
+                    }
+
+                    button {
+                        svg {
+                            
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

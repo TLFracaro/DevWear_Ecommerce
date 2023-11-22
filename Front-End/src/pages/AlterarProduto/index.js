@@ -324,7 +324,7 @@ export default function AlterarProduto() {
                             </div>
 
 
-                            <button type="button" onClick={alterar}>
+                            <button id='enviarBotao' type="button" onClick={alterar}>
                                 ALTERAR
                             </button>
                         </form>

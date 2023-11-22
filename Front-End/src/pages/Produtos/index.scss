@@ -113,7 +113,7 @@
                     border-radius: 5px;
                     border-collapse: separate;
                     border-spacing: 0 10px;
-    
+
                     th {
                         font-size: 20px;
                         height: 40px;
@@ -133,12 +133,12 @@
                         .primeiro {
                             border-top-left-radius: 20px;
                             border-bottom-left-radius: 20px;
-    
+
                             img {
                                 margin-right: 10px;
                             }
                         }
-    
+
                         .final {
                             border-top-right-radius: 20px;
                             border-bottom-right-radius: 20px;
@@ -158,6 +158,87 @@
 
                                 svg {
                                     height: 30px;
+                                }
+
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .tabeleMobile {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                font-family: 'K2D Medium';
+                overflow-y: auto;
+                overflow-x: auto;
+                width: 100%;
+                height: 100%;
+
+                P {
+                    text-align: center;
+                    margin: 50px;
+                    font-family: 'K2D Bold';
+                }
+
+                table {
+                    width: 100%;
+                    border-radius: 5px;
+                    border-collapse: separate;
+                    border-spacing: 0 10px;
+
+                    th {
+                        font-size: 16px;
+                        height: 40px;
+                    }
+
+                    .Conteudo {
+                        width: 100%;
+                        flex-direction: row;
+                        background-color: #fff;
+                        color: black;
+                        font-size: 16px;
+                        font-family: 'K2D Medium';
+                        text-align: center;
+
+                        height: 50px;
+
+                        .primeiro {
+                            border-top-left-radius: 20px;
+                            border-bottom-left-radius: 20px;
+
+                            img {
+                                margin-right: 10px;
+                            }
+                        }
+
+                        .final {
+                            width: 130px; 
+                            flex-direction: row;  
+                            border-top-right-radius: 20px;
+                            border-bottom-right-radius: 20px;
+                            padding: 5px;
+                        }
+
+                        td {
+
+
+                            height: 50px;
+                            font-size: 14px;
+
+                            button,
+                            a {
+                                
+                                border: none;
+                                background-color: transparent;
+                                cursor: pointer;
+
+                                svg {
+                                    height: 25px;
+                                    width: 25px;
+                                    
                                 }
 
                                 text-decoration: none;
@@ -190,7 +271,7 @@
         z-index: 2;
 
         button {
-            
+
             margin-top: 20px;
             background-color: black;
             border-radius: 20px;
@@ -201,18 +282,20 @@
             font-size: 14px;
             font-family: 'K2D Bold';
             cursor: pointer;
-            
+
         }
 
-        .sim{
+        .sim {
             margin-right: 20px;
-            &:hover{
+
+            &:hover {
                 transition: 0.2s;
                 background-color: #4ac204;
             }
         }
-        .nao{
-            &:hover{
+
+        .nao {
+            &:hover {
                 transition: 0.2s;
                 background-color: red;
             }
@@ -224,86 +307,51 @@
             opacity: 0.4;
         }
     }
-    @media screen and (max-width: 390px) {
+
+    @media screen and (max-width: 430px) {
         main {
-            
-    
+            padding: 20px;
+
             .mainConteudo {
-                
-    
+                padding: 30px;
+
                 .titulo {
-                    
-    
-                    h1 {
-                        
-                    }
+
+
+                    h1 {}
                 }
-    
+
                 .buscaEcadastro {
-                    
-    
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+
                     .pesquisa {
-    
-                        input[type=text] {
-                            
-                        }
-    
-                        img {
-                            
-                        }
-    
+
+                        input[type=text] {}
+
+                        img {}
+
                     }
-    
+
                     a {
-                        
-    
-                        svg {
-    
-                        }
+                        flex-wrap: wrap;
+                        width: 100%;
+                        margin-top: 20px;
+                        margin-left: 0px;
+
+                        svg {}
                     }
-    
+
                 }
-    
+
                 .tabelaProduto {
-    
-                    P {
-                
-                    }
-    
-                    table {
-                        
-        
-                        th {
-                            
-                        }
-    
-                        .Conteudo {
-                            
-    
-                            .primeiro {
-        
-                                img {
-                                    
-                                }
-                            }
-        
-                            .final {
-                                
-                            }
-    
-                            td {
-    
-                                button,
-                                a {
-    
-                                    svg {
-                                        
-                                    }
-    
-                                }
-                            }
-                        }
-                    }
+                    display: none;
+                }
+
+                .tabeleMobile {
+                    display: flex;
                 }
             }
         }

@@ -160,7 +160,8 @@ export async function pesquisarUsuario(cpf) {
  */
 export async function salvarItem(item) {
     try {
-        const dataFormatada = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
+        const dataDeInclusao = new Date();
+        const dataFormatada = format(dataDeInclusao, 'yyyy-MM-dd HH:mm:ss');
 
         await con.beginTransaction();
 
@@ -184,17 +185,19 @@ export async function salvarItem(item) {
         const [imagensInseridas] = await con.query('SELECT * FROM imagens WHERE item_sku = ?', [item.sku]);
 
         const itemInserido = { ...item, variacoes: variacoesInseridas, imagens: imagensInseridas };
-        return { message: 'Item inserido com sucesso', item: itemInserido };
+        console.log('Item inserido com sucesso:', itemInserido);
+        return { success: true, message: 'Item inserido com sucesso', item: itemInserido };
     } catch (e) {
         await con.rollback();
+        console.error('Erro durante a transação:', e.message);
+    
         if (e.code === 'ER_DUP_ENTRY') {
-            const erro = new Error('Chave duplicada: SKU já cadastrado.');
-            erro.statusCode = 400; 
-            throw erro;
-        } else {
-            console.error('Erro durante a transação:', e.message);
-            throw new Error(`Erro durante a transação: ${e.message}`);
+            const errorMessage = 'Chave duplicada. SKU já cadastrado.';
+            console.log('Mensagem de erro do backend:', errorMessage);
+            return { success: false, error: errorMessage };
         }
+    
+        return { success: false, error: `Erro durante a transação: ${e.message}` };
     }
 }
 

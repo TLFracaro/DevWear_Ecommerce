@@ -127,7 +127,7 @@ export default function Login() {
                             <label htmlFor="senha">senha:</label>
                             <input id="senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
                             <Link to="/">Esqueceu sua senha?</Link>
-                            <button type="submit"> Login </button>
+                            <button type="button" onClick={enviar}> Login </button>
                         </form>
                         <div className="criarConta">
                             <p>

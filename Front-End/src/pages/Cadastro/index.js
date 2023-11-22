@@ -165,7 +165,7 @@ export default function Cadastro() {
 
     return (
         <section className='CadastroEstilo'>
-
+            
             <Cabecalho1 />
 
             <main>
