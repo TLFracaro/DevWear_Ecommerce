@@ -34,27 +34,49 @@ export default function Login() {
 
     const login = async () => {
         try {
+            if (email.trim() === '' || senha.trim() === '') {
+                setTexto('Preencha os campos e-mail e senha!');
+                mostrarModal();
+                return;
+            }
+    
             let body = {
                 email: email,
                 senha: senha,
             };
+    
             const r = await api.post(`/login`, body);
-
+    
             console.log('Resposta da requisição:', r.data);
-
-            if (r && r.data && r.data.nome && r.data.cpf && r.data.email && r.data.privilegio) {
-                const { nome, cpf, email, privilegio } = r.data;
-                console.log({ nome, cpf, email, privilegio });
-                navigate('/menuadm', { state: { nome, cpf, email, privilegio } });
+    
+            if (r && r.data) {
+                console.log('Propriedades na resposta:', Object.keys(r.data));
+            
+                if (r.data.success) {
+                    const { nome, cpf, email, privilegio } = r.data.user;
+                    console.log({ nome, cpf, email, privilegio });
+                    navigate('/menu', { state: { nome, cpf, email, privilegio } });
+                } else {
+                    if (r.status === 401) {
+                        setTexto('Usuário não encontrado. Verifique seu e-mail e senha.');
+                    } else {
+                        setTexto('Erro ao realizar login. Verifique os detalhes e tente novamente.');
+                    }
+                    mostrarModal();
+                }
             } else {
-                setTexto('O usuário não existe!');
+                console.log('Resposta ou r.data está faltando');
+                setTexto('Erro ao realizar login. Verifique os detalhes e tente novamente.');
                 mostrarModal();
             }
+            
         } catch (error) {
-            setTexto('Ocorreu um erro ao realizar login.');
+            setTexto('Usuário não encontrado. Verifique seu e-mail e senha.');
             mostrarModal();
         }
     };
+    
+    
 
     const enviar = (e) => {
         e.preventDefault();

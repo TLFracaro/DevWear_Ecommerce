@@ -47,13 +47,13 @@ export default function Cadastro() {
         const cpfNumeros = cpf.replace(/\D/g, '');
         const senhasSaoIguais = validarSenhas(senha, confSenha);
         const emailsSaoIguaisEValidos = email === confEmail && emailValido;
-
+    
         console.log("CPF:", cpfNumeros.length);
         console.log("Email válido:", emailValido);
         console.log("Senhas são iguais?", senhasSaoIguais);
         console.log("E-mails são iguais e válidos?", emailsSaoIguaisEValidos);
-
-        if (cpfNumeros.length === 11) {
+    
+        if (cpfNumeros.length !== 11) {
             setTexto('Cpf inválido!');
             mostrarModal();
         }
@@ -62,10 +62,10 @@ export default function Cadastro() {
             mostrarModal();
         }
         if (!senhasSaoIguais) {
-            setTexto('Senha não coincidem!');
+            setTexto('Senhas não coincidem!');
             mostrarModal();
         }
-
+    
         if (cpfNumeros.length === 11 && emailValido && senhasSaoIguais && emailsSaoIguaisEValidos) {
             try {
                 let privilegio = 'normal';
@@ -76,34 +76,37 @@ export default function Cadastro() {
                     senha: senha,
                     privilegio: privilegio
                 };
-
+    
                 console.log('Enviando requisição com body:', body);
-
+    
                 const response = await api.post('/usuario/', body);
                 console.log('Resposta da requisição:', response);
-                navigate("/login")
-
+                setTexto('Usuário cadastrado com sucesso!');
+                mostrarModal();
+    
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2000);
             } catch (error) {
                 console.error('Erro ao cadastrar usuário:', error);
-                setTexto('Ocorreu um erro ao cadastrar o usuário!');
+    
+                if (error.response && error.response.status === 400) {
+                    setTexto('O CPF ou E-mail já foi cadastrado no sistema!');
+                } 
+    
                 mostrarModal();
             }
         } else {
             if (nome === "" || cpf === "" || email === "" || senha === "") {
                 setTexto('Preencha todos os campos corretamente!');
                 mostrarModal();
-            } else if (!cpfValdio) {
-                setTexto('Cpf inválido!');
-                mostrarModal();
-            } else if (!emailValido) {
-                setTexto('Email inválido!');
-                mostrarModal();
-            } else if (!senhasSaoIguais) {
-                setTexto('Senha não coincidem!');
+            } else {
+                setTexto('Verifique os campos e tente novamente.');
                 mostrarModal();
             }
         }
     };
+    
 
 
     const formatarCpf = (value) => {
@@ -163,43 +166,41 @@ export default function Cadastro() {
     return (
         <section className='CadastroEstilo'>
 
-
-
             <Cabecalho1 />
 
             <main>
-                <section class="conteudoMain">
+                <section className="conteudoMain">
                     <dialog open={modalAberto} id="CaixaDeDialogo">
                         <p>{texto}</p>
                         <button id="botao" onClick={fecharModal}>
                             Ok
                         </button>
                     </dialog>
-                    <div class="areaCadastro">
-                        <div class="loginTexto">
+                    <div className="areaCadastro">
+                        <div className="loginTexto">
                             <h1>Cadastro</h1>
                             <h2>faca parte do nosso time!</h2>
                             <img src={linhaLogin}
                                 alt="Linha  separando caixas de texto do titulo"></img>
                         </div>
                         <form action="">
-                                <label for="">nome completo:</label>
-                                <input type="text" value={nome} onChange={e => setNome(e.target.value)} />
+                            <label for="">nome completo:</label>
+                            <input type="text" value={nome} onChange={e => setNome(e.target.value)} />
 
-                                <label for="">cpf:</label>
-                                <input type="text" value={cpf} onChange={identificarCpf} style={cpfValdio ? { border: '2px solid red' } : validarCpf(cpf) ? { border: '2px solid green' } : null} />
+                            <label for="">cpf:</label>
+                            <input type="text" value={cpf} onChange={identificarCpf} style={cpfValdio ? { border: '2px solid red' } : validarCpf(cpf) ? { border: '2px solid green' } : null} />
 
-                                <label>E-mail:</label>
-                                <input type="text" value={email} onChange={(e) => { setEmail(e.target.value); setEmailValido(validarEmail(e.target.value)); }} style={!email ? { border: 'none' } : emailValido ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                            <label>E-mail:</label>
+                            <input type="text" value={email} onChange={(e) => { setEmail(e.target.value); setEmailValido(validarEmail(e.target.value)); }} style={!email ? { border: 'none' } : emailValido ? { border: '2px solid green' } : { border: '2px solid red' }} />
 
-                                <label>Confirmar E-mail:</label>
-                                <input type="text" value={confEmail} onChange={(e) => setConfEmail(e.target.value)} onBlur={() => { setEmailValido(email === confEmail && validarEmail(confEmail)); }} style={!confEmail ? { border: 'none' } : email === confEmail && emailValido ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                            <label>Confirmar E-mail:</label>
+                            <input type="text" value={confEmail} onChange={(e) => setConfEmail(e.target.value)} onBlur={() => { setEmailValido(email === confEmail && validarEmail(confEmail)); }} style={!confEmail ? { border: 'none' } : email === confEmail && emailValido ? { border: '2px solid green' } : { border: '2px solid red' }} />
 
-                                <label>Senha:</label>
-                                <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!senha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                            <label>Senha:</label>
+                            <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!senha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
 
-                                <label>Confirmar Senha:</label>
-                                <input type="password" value={confSenha} onChange={(e) => setConfSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!confSenha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
+                            <label>Confirmar Senha:</label>
+                            <input type="password" value={confSenha} onChange={(e) => setConfSenha(e.target.value)} onBlur={() => { validarSenhasInput(senha, confSenha); }} style={!confSenha ? { border: 'none' } : senhasIguais ? { border: '2px solid green' } : { border: '2px solid red' }} />
                             <button type="button" onClick={enviarCadastro}>Cadastrar-se</button>
                         </form>
                     </div>

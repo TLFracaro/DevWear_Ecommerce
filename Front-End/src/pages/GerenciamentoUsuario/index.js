@@ -46,14 +46,18 @@ export default function GerenciamentoUsuario() {
                 privilegio: privilegio === 'normal' ? 'adm' : 'normal'
             };
             const response = await api.put(`/usuario/${cpf}`, body);
-            setTexto(`A permição do usuário ${nome} foi alterada !`);
+            console.log('Resposta da alteração:', response.data);  // Adicionado para imprimir a resposta
+            setTexto(`A permissão do usuário ${nome} foi alterada !`);
             mostrarModal();
-            listarUsuarios();
+            // Aguarde um pouco antes de listar usuários para garantir que o servidor tenha tempo de processar a alteração.
+            setTimeout(() => {
+                listarUsuarios();
+            }, 1000);
         } catch (error) {
-            console.error(error);
-            // Lidar com erros, se necessário
+            console.error('Erro ao alterar usuário:', error.response.data);  // Adicionado para imprimir o erro
         }
     };
+    
 
     useEffect(() => {
         listarUsuarios();
@@ -64,18 +68,18 @@ export default function GerenciamentoUsuario() {
             <Cabecalho2 />
 
             <main>
-                <div class="mainConteudo">
+                <div className="mainConteudo">
                     <dialog open={modalAberto} id="CaixaDeDialogo">
                         <p>{texto}</p>
                         <button id="botao" onClick={fecharModal}>
                             Ok
                         </button>
                     </dialog>
-                    <div class="titulo">
+                    <div className="titulo">
                         <h1>Gerenciamento de usuários</h1>
                     </div>
-                    <div class="busca">
-                        <div class="pesquisa">
+                    <div className="busca">
+                        <div className="pesquisa">
                             <input
                                 type="text"
                                 placeholder="Pesquisar por: categoria ou nome"
@@ -87,7 +91,7 @@ export default function GerenciamentoUsuario() {
                     </div>
 
 
-                    <div class="tabelaUsuario">
+                    <div className="tabelaUsuario">
                         {filtrarUsuarios().length === 0 ? (
                             <p>Nenhum usuario encontrado com esse nome =&#40;</p>
                         ) : (
@@ -98,10 +102,10 @@ export default function GerenciamentoUsuario() {
                                     <th>Permição</th>
                                 </tr>
                                 {filtrarUsuarios().map((usuario) => (
-                                    <tr class='Conteudo'>
-                                        <td class='primeiro'>{usuario.nome}</td>
+                                    <tr className='Conteudo'>
+                                        <td className='primeiro'>{usuario.nome}</td>
                                         <td>{usuario.email}</td>
-                                        <td class='final'><button onClick={() => alterarPermissao(usuario.nome, usuario.cpf, usuario.email, usuario.senha, usuario.privilegio)}>
+                                        <td className='final'><button onClick={() => alterarPermissao(usuario.nome, usuario.cpf, usuario.email, usuario.senha, usuario.privilegio)}>
                                             {usuario.privilegio === 'normal' ? (
                                                 <svg width="22" height="25" viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <g clip-path="url(#clip0_413_130)">

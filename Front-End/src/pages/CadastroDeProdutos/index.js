@@ -88,13 +88,17 @@ export default function CadastroDeProdutos() {
             console.log('Resposta do backend:', resposta.data);
             setTexto('Produto cadastrado com sucesso.');
             mostrarModal();
-
+    
             setTimeout(() => {
                 navigate('/produtos');
             }, 2000);
             
         } catch (erro) {
-            setTexto('Erro ao enviar para o banco de dados');
+            if (erro.response && erro.response.status === 400 && erro.response.data && erro.response.data.erro === 'Chave duplicada: SKU já cadastrado.') {
+                setTexto('O SKU do produto já está cadastrado');
+            } else {
+                setTexto('Erro ao enviar para o banco de dados');
+            }
             mostrarModal();
         }
     }
@@ -213,7 +217,7 @@ export default function CadastroDeProdutos() {
                             <input id="descricao" type="text" name="descricao" value={descricao} onChange={(e) => setDescricao(e.target.value)}></input>
 
                             <label htmlFor="sku">SKU:*</label>
-                            <input id="sku" type="text" name="sku" value={sku} onChange={(e) => setSku(e.target.value)}></input>
+                            <input id="sku" type="text" name="sku" value={sku} maxLength="13" onChange={(e) => setSku(e.target.value)}></input>
 
                             <label htmlFor="locEstoque">Locação de estoque:</label>
                             <input id="locEstoque" type="text" name="locEstoque" value={locEstoque} onChange={(e) => setLocEstoque(e.target.value)}></input>

@@ -105,7 +105,7 @@ export default function Produtos() {
             <Cabecalho2 />
 
             <main>
-                <div class="mainConteudo">
+                <div className="mainConteudo">
                     <dialog open={modalAberto} className="modalDialog">
                         <p>{texto}</p>
                         <button id="botaoSim" onClick={fecharModal}>
@@ -116,11 +116,11 @@ export default function Produtos() {
                         </button>
                         <div className="backDrop"></div>
                     </dialog>
-                    <div class="titulo">
+                    <div className="titulo">
                         <h1>Produtos</h1>
                     </div>
-                    <div class="buscaEcadastro">
-                        <div class="pesquisa">
+                    <div className="buscaEcadastro">
+                        <div className="pesquisa">
                             <input
                                 type="text"
                                 placeholder="Pesquisar por: categoria ou nome"
@@ -145,7 +145,7 @@ export default function Produtos() {
                         </svg>
                             Adicionar produto</Link>
                     </div>
-                    <div class="tabelaProduto">
+                    <div className="tabelaProduto">
 
                         {filtrarProdutos().length === 0 ? (
                             <p>Nenhum produto encontrado com esse nome e categoria =&#40;</p>
@@ -159,12 +159,12 @@ export default function Produtos() {
                                     <th></th>
                                 </tr>
                                 {filtrarProdutos().map((produto) => (
-                                    <tr class='Conteudo'>
-                                        <td class='primeiro'>{produto.nome}</td>
+                                    <tr className='Conteudo'>
+                                        <td className='primeiro'>{produto.nome}</td>
                                         <td>{produto.categoria}</td>
                                         <td>R$ {produto.preco}</td>
                                         <td>{produto.sku}</td>
-                                        <td class="final"><button onClick={() => vizualizarproduto(produto)}>
+                                        <td className="final"><button onClick={() => vizualizarproduto(produto)}>
                                             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M18.3335 15H21.6668V11.6667H18.3335M20.0002 33.3333C12.6502 33.3333 6.66683 27.35 6.66683 20C6.66683 12.65 12.6502 6.66667 20.0002 6.66667C27.3502 6.66667 33.3335 12.65 33.3335 20C33.3335 27.35 27.3502 33.3333 20.0002 33.3333ZM20.0002 3.33333C17.8115 3.33333 15.6442 3.76443 13.6221 4.60201C11.6 5.43958 9.76269 6.66724 8.21505 8.21489C5.08944 11.3405 3.3335 15.5797 3.3335 20C3.3335 24.4203 5.08944 28.6595 8.21505 31.7851C9.76269 33.3328 11.6 34.5604 13.6221 35.398C15.6442 36.2356 17.8115 36.6667 20.0002 36.6667C24.4204 36.6667 28.6597 34.9107 31.7853 31.7851C34.9109 28.6595 36.6668 24.4203 36.6668 20.0002C36.6668 17.8113 36.2357 15.644 35.3982 13.6219C34.5606 11.5998 33.3329 9.76253 31.7853 8.21505C30.2376 6.66741 28.4003 5.43975 26.3782 4.60217C24.3561 3.76459 22.1889 3.33333 20.0002 3.33333ZM18.3335 28.3333H21.6668V18.3333H18.3335V28.3333Z"
@@ -204,8 +204,8 @@ export default function Produtos() {
             {showConfirmation && (
                 <dialog open>
                     <p>Deseja realmente excluir o produto {produtoToDelete.nome}?</p>
-                    <button class='sim' onClick={excluirProduto}>Sim</button>
-                    <button class='nao' onClick={closeConfirmation}>Cancelar</button>
+                    <button className='sim' onClick={excluirProduto}>Sim</button>
+                    <button className='nao' onClick={closeConfirmation}>Cancelar</button>
                 </dialog>
             )}
 

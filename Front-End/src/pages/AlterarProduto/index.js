@@ -30,12 +30,18 @@ export default function AlterarProduto() {
     const location = useLocation();
     const [texto, setTexto] = useState('');
     const [modalAberto, setModalAberto] = useState(false);
-
+    const skuRecebido = location.state !== undefined ? location.state : null;
     const caixaDeDialogo = useRef(null);
 
     useEffect(() => {
         caixaDeDialogo.current = document.getElementById("CaixaDeDialogo");
     }, []);
+
+    useEffect(() => {
+        if (skuRecebido) {
+            buscarProdutoPorSku(skuRecebido);
+        }
+    }, [location.state]);
 
     const fecharModal = () => {
         if (caixaDeDialogo.current) {
@@ -48,15 +54,6 @@ export default function AlterarProduto() {
             caixaDeDialogo.current.showModal();
         }
     };
-
-    const skuRecebido = location.state !== undefined ? location.state : null;
-    console.log(skuRecebido)
-
-    useEffect(() => {
-        if (skuRecebido) {
-            buscarProdutoPorSku(skuRecebido);
-        }
-    }, [location.state]);
 
     function addVariacao() {
         setVariacoes((prevVariacoes) => [

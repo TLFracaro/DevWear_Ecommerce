@@ -4,7 +4,7 @@ import App from "./pages/Home/App.js";
 import Cadastro from "./pages/Cadastro/index.js";
 import CadastroDeProdutos from "./pages/CadastroDeProdutos/index.js";
 import GerenciamentoUsuario from "./pages/GerenciamentoUsuario/index.js";
-import MenuADM from "./pages/MenuADM/index.js";
+import Menu from "./pages/Menu/index.js";
 import Produtos from "./pages/Produtos/index.js";
 import VizualizarProdutos from "./pages/VizualizarProdutos/index.js";
 import Login from './pages/Login/index.js';
@@ -18,7 +18,7 @@ export default function Rotas() {
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/cadastrodeprodutos" element={<CadastroDeProdutos />} />
                 <Route path="/gerenciamentousuario" element={<GerenciamentoUsuario />} />
-                <Route path="/menuadm" element={<MenuADM />} />
+                <Route path="/menu" element={<Menu />} />
                 <Route path="/produtos" element={<Produtos />} />
                 <Route path="/vizualizarprodutos" element={<VizualizarProdutos />} />
                 <Route path="/login" element={<Login />} />

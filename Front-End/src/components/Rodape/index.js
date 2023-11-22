@@ -5,10 +5,10 @@ import logoDevWearSemFundo from '../../assets/image/logoDevWearSemFundo.svg';
 
 export default function Rodape() {
     return (
-        <section className='Comp-Rodape-Estilo'>
+        <section className='rodapeEstilo'>
             <footer>
-                <section class="conteudoFooter">
-                    <div class="conteudo1">
+                <section className="conteudoFooter">
+                    <div className="conteudo1">
                         <h3>IDIOMA</h3>
                         <svg width="198" height="21" viewBox="0 0 198 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1" width="34" height="18" rx="9" stroke="white" stroke-width="2" />
@@ -20,10 +20,10 @@ export default function Rodape() {
                                 fill="white" />
                         </svg>
                     </div>
-                    <div class="conteudo2">
+                    <div className="conteudo2">
                         <h3>CERTIFICACOES</h3>
                     </div>
-                    <div class="conteudo3">
+                    <div className="conteudo3">
                         <h3>INSTITUCIONAL</h3>
                         <button>Atendimento</button>
                         <button>Compra Segura</button>
@@ -34,7 +34,7 @@ export default function Rodape() {
                         <button>Politicas de Privacidade</button>
                         <button>Avaliacoes</button>
                     </div>
-                    <div class="conteudo4">
+                    <div className="conteudo4">
                         <h3>CONTATO</h3>
                         <svg width="214" height="24" viewBox="0 0 214 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -57,18 +57,18 @@ export default function Rodape() {
                                 fill="white" />
                         </svg>
                     </div>
-                    <div class="conteudo5">
+                    <div className="conteudo5">
                         <h3>FORMAS DE PAGAMENTO</h3>
                     </div>
                 </section>
                 <hr/>
-                <div class="rodape">
-                    <div class="logo">
+                <div className="rodape">
+                    <div className="logo">
                         <img src={logoDevWearSemFundo}
                             alt="Logo do e-commerce da loja de roupa"></img>
                     </div>
                     
-                    <div class="informacoesEmpre">
+                    <div className="informacoesEmpre">
                         <p>Endereco: Rua Linda, 299, Jd. Bonito, São Paulo, SP , CEP: 25679-485</p><br></br><p>CNPJ: 87.192.227/0001-64</p>
                     </div>
                 </div>

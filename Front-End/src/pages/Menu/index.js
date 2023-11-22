@@ -8,7 +8,7 @@ import Cabecalho2 from "../../components/Cabecalho2";
 import '../../css/global.css';
 import Rodape from "../../components/Rodape";
 
-export default function MenuADM() {
+export default function Menu() {
     const location = useLocation();
     const { nome, cpf, email } = location.state || {};
 
@@ -28,7 +28,7 @@ export default function MenuADM() {
       }, []);
 
     return (
-        <section className="MenuAdmEstilo">
+        <section className="MenuEstilo">
 
             <Cabecalho2 />
 

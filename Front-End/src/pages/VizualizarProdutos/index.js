@@ -62,8 +62,8 @@ export default function VizualizarProdutos() {
             <Cabecalho2 />
 
             <main>
-                <div class="mainConteudo">
-                    <div class="voltar">
+                <div className="mainConteudo">
+                    <div className="voltar">
                         <Link to="/produtos">
                             <h1><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M23.3794 31.5L15.9375 24L23.3794 16.5M16.9716 24H32.0625" stroke="black"
@@ -76,7 +76,7 @@ export default function VizualizarProdutos() {
                         </Link>
                     </div>
                     <h1 id="titulo">• Informações do produto:</h1>
-                    <div class="conteudo">
+                    <div className="conteudo">
                         <div className="imagens" style={calcularGrid()}>
                             {imagensBase64.map((imagemBase64, index) => (
                                 <div key={index}>
@@ -93,7 +93,7 @@ export default function VizualizarProdutos() {
                             ))}
                         </div>
 
-                        <div class="infos">
+                        <div className="infos">
                             <div>
                                 <h4>Nome:⠀<p>{produto.item?.nome}</p></h4>
                             </div>
@@ -104,7 +104,7 @@ export default function VizualizarProdutos() {
                             <h4>SKU:⠀<p>{produto.item?.sku}</p></h4>
                             <h4>Localização no estoque:⠀<p>{produto.item?.loc_estoque}</p></h4>
                             <h4>Data de inclusão:⠀<p>{dataFormatada}</p></h4>
-                            <div class="variacoes">
+                            <div className="variacoes">
                                 <h4>Variações:</h4>
                                 <table>
                                     <tr>
@@ -113,10 +113,10 @@ export default function VizualizarProdutos() {
                                         <th>Quantidade</th>
                                     </tr>
                                     {produto.variacao?.map((variacao) => (
-                                        <tr class='Conteudo'>
-                                            <td class="primeiro">Tamanho: {variacao.tamanho}</td>
+                                        <tr className='Conteudo'>
+                                            <td className="primeiro">Tamanho: {variacao.tamanho}</td>
                                             <td>Cor: {variacao.cor}</td>
-                                            <td class="final">Quantidade: {variacao.quantidade}</td>
+                                            <td className="final">Quantidade: {variacao.quantidade}</td>
                                         </tr>
                                     ))}
                                 </table>
