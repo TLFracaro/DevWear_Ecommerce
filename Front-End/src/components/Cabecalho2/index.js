@@ -68,7 +68,7 @@ export default function Cabecalho2(){
                 <div className="navConteudo">
                     <div className="paginaInicial">
 
-                        <Link to="/menuadm"><svg width="35" height="35" viewBox="0 0 35 35" fill="none"
+                        <Link to="/menu"><svg width="35" height="35" viewBox="0 0 35 35" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M7.91667 28.3333H12.2917V19.5833H21.0417V28.3333H25.4167V15.2083L16.6667 8.64583L7.91667 15.2083V28.3333ZM5 31.25V13.75L16.6667 5L28.3333 13.75V31.25H18.125V22.5H15.2083V31.25H5Z"
