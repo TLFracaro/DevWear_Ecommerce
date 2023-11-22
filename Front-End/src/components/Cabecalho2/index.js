@@ -25,10 +25,10 @@ export default function Cabecalho2(){
                             <button><img src={lupaPixel} alt="Lupa clique para pesquisar" /></button>
                         </div>
                         <div className="contato">
-                            <button>
+                            <Link to="/">
                                 <img src={balaoMensagem} alt="Balão de contato em arte pixelada" />
                                 <h1>Contato</h1>
-                            </button>
+                            </Link>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="3" height="36" viewBox="0 0 3 36" fill="none">
                             <rect x="1" width="1" height="36" fill="white" />

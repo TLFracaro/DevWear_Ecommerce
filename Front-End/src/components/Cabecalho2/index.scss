@@ -96,9 +96,10 @@
                     justify-content: space-between;
 
                     .contato {
-                        button {
+                        a {
                             display: flex;
                             align-items: center;
+                            justify-content: space-between;
                             text-decoration: none;
                             background-color: transparent;
                             border: none;
@@ -109,8 +110,9 @@
                             }
 
                             h1 {
-                                color: white;
+                                width: 108px;
                                 margin-left: 10px;
+                                color: white;
                                 text-decoration: none;
                                 font-family: retroFont;
                                 font-size: 12px;
