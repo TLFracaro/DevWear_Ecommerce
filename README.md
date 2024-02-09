@@ -1,7 +1,7 @@
 <img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=8c8c8c&height=120&section=header"/>
 
-![image](https://github.com/TLFracaro/Projeto-PI-Springboot/assets/107049691/aa6ea042-8c6d-4cdb-8a14-d14a027607a3)
+![image](https://github.com/TLFracaro/Projeto-PI-Springboot/assets/107049691/56b9f41e-838e-461a-a3ed-e51336607151)
 
-<img style="max-width: 80%; width: 100%;" src="https://github.com/TLFracaro/Projeto-PI-Springboot/assets/107049691/358cdb43-6072-4e2e-8f21-19f865e8fb69" alt="image"/>
+![image](https://github.com/TLFracaro/Projeto-PI-Springboot/assets/107049691/c62e7aaf-a70a-404f-ab7a-4f00489e5de8)
 
 <img width=100% src="https://capsule-render.vercel.app/api?type=waving&color=8c8c8c&height=120&section=footer"/>
